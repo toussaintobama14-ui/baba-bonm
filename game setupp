@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Baba Bonm</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#0f172a;
+  color:white;
+  text-align:center;
+}
+h1{margin:10px;}
+#stats{
+  display:flex;
+  justify-content:space-around;
+  margin:10px;
+  font-size:18px;
+}
+#adBanner{
+  background:#111827;
+  color:#9ca3af;
+  padding:10px;
+  margin:10px;
+}
+#grid{
+  display:grid;
+  gap:10px;
+  padding:20px;
+  max-width:480px;
+  margin:auto;
+}
+.card{
+  background:#1e293b;
+  height:90px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  cursor:pointer;
+  border-radius:8px;
+  transition:transform .2s;
+}
+.card:hover{transform:scale(1.05);}
+.bomb{background:#7f1d1d;}
+.treasure{background:#065f46;}
+
+#winScreen{
+  display:none;
+  padding:20px;
+  animation:pop .5s ease;
+}
+@keyframes pop{
+  from{transform:scale(.7);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+
+button{
+  padding:10px 18px;
+  border:none;
+  border-radius:6px;
+  background:#2563eb;
+  color:white;
+  font-size:15px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h1>💣 Baba Bonm</h1>
+
+<div id="adBanner">📢 Publicité (AdSense ici)</div>
+
+<div id="stats">
+  <div>Niveau : <span id="level">1</span></div>
+  <div>Score : <span id="score">0</span></div>
+  <div>Coins : 🪙 <span id="coins">0</span></div>
+</div>
+
+<div id="grid"></div>
+
+<div id="winScreen">
+  <h2>🎉 BRAVO !</h2>
+  <p>Tu as terminé le niveau</p>
+  <button onclick="nextLevel()">➡️ Niveau suivant</button>
+</div>
+
+<audio id="winSound">
+  <source src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg">
+</audio>
+
+<script>
+let level=1, score=0, coins=0;
+let totalCards=6, bombs=1;
+let bombIndexes=[];
+let revealedSafe=0;
+
+function setupLevel(){
+  totalCards = 6 + (level-1)*3;
+  bombs = 1 + (level-1);
+  revealedSafe=0;
+  bombIndexes=randomBombs(bombs);
+  document.getElementById("level").innerText=level;
+  createGrid();
+}
+
+function randomBombs(n){
+  let arr=[];
+  while(arr.length<n){
+    let r=Math.floor(Math.random()*totalCards);
+    if(!arr.includes(r)) arr.push(r);
+  }
+  return arr;
+}
+
+function createGrid(){
+  const grid=document.getElementById("grid");
+  grid.innerHTML="";
+  document.getElementById("winScreen").style.display="none";
+  grid.style.gridTemplateColumns=`repeat(${Math.ceil(Math.sqrt(totalCards))},1fr)`;
+
+  for(let i=0;i<totalCards;i++){
+    const card=document.createElement("div");
+    card.className="card";
+    card.onclick=()=>reveal(card,i);
+    grid.appendChild(card);
+  }
+}
+
+function reveal(card,index){
+  if(card.innerHTML!=="") return;
+
+  if(bombIndexes.includes(index)){
+    card.classList.add("bomb");
+    card.innerHTML="💣";
+    setTimeout(()=>location.reload(),800);
+  }else{
+    card.classList.add("treasure");
+    card.innerHTML="💎";
+    score++; coins++; revealedSafe++;
+    updateStats();
+    checkWin();
+  }
+}
+
+function checkWin(){
+  if(revealedSafe === totalCards - bombs){
+    document.getElementById("winSound").play();
+    document.getElementById("winScreen").style.display="block";
+  }
+}
+
+function nextLevel(){
+  level++;
+  setupLevel();
+}
+
+function updateStats(){
+  document.getElementById("score").innerText=score;
+  document.getElementById("coins").innerText=coins;
+}
+
+setupLevel();
+</script>
+
+<p style="font-size:12px;color:#9ca3af;">
+  <a href="privacy.html" style="color:#9ca3af;">Politique de confidentialité</a>
+</p>
+
+</body>
+</html>
