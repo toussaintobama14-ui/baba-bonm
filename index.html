@@ -1,9 +1,10 @@
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SalesTrack — Analyse Journalière</title>
+<title>Baba Design — Analyse Journalière</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -338,6 +339,90 @@ button{
   margin-top:18px;
 }
 
+/* SERVICE */
+
+.service-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  padding:14px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.service-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.service-name{
+  font-weight:800;
+}
+
+.service-meta{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:4px;
+}
+
+.service-total{
+  font-weight:900;
+  color:var(--orange);
+}
+
+.service-delete{
+  border:0;
+  background:#fff0ef;
+  color:var(--red);
+  padding:7px 10px;
+  border-radius:8px;
+  font-size:11px;
+  font-weight:700;
+}
+
+/* CUSTOM SERVICE */
+
+.add-service-card{
+  margin-top:20px;
+  background:var(--gray);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:18px;
+}
+
+.add-service-card h4{
+  margin-bottom:15px;
+}
+
+.add-service-form{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:12px;
+}
+
+.add-service-form input{
+  width:100%;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  outline:none;
+  background:#fff;
+}
+
+.add-service-form input:focus{
+  border-color:var(--orange);
+}
+
+.add-service-form button{
+  border:0;
+  background:var(--dark);
+  color:#fff;
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:800;
+}
+
 /* TABLE */
 
 .table-wrap{
@@ -365,32 +450,6 @@ th{
   text-align:center;
   padding:30px;
   color:var(--muted);
-}
-
-/* SERVICE */
-
-.service-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  padding:14px 0;
-  border-bottom:1px solid var(--border);
-}
-
-.service-name{
-  font-weight:800;
-}
-
-.service-meta{
-  color:var(--muted);
-  font-size:12px;
-  margin-top:4px;
-}
-
-.service-total{
-  font-weight:900;
-  color:var(--orange);
 }
 
 /* ANALYSIS */
@@ -468,6 +527,7 @@ th{
 }
 
 @media(max-width:1000px){
+
   .kpis{
     grid-template-columns:repeat(2,1fr);
   }
@@ -479,9 +539,14 @@ th{
   .grid-3{
     grid-template-columns:1fr;
   }
+
+  .add-service-form{
+    grid-template-columns:1fr;
+  }
 }
 
 @media(max-width:750px){
+
   .sidebar{
     transform:translateX(-100%);
     transition:.3s;
@@ -504,6 +569,7 @@ th{
     color:#fff;
     padding:10px 13px;
     border-radius:9px;
+    margin-bottom:10px;
   }
 
   .topbar{
@@ -538,11 +604,20 @@ th{
   .field.full{
     grid-column:auto;
   }
+
+  .service-left{
+    align-items:flex-start;
+  }
 }
 
 @media(max-width:450px){
+
   .kpis{
     grid-template-columns:1fr;
+  }
+
+  .service-row{
+    align-items:flex-start;
   }
 }
 </style>
@@ -553,6 +628,7 @@ th{
 <div class="app">
 
 <!-- SIDEBAR -->
+
 <aside class="sidebar" id="sidebar">
 
   <div class="logo">
@@ -560,29 +636,37 @@ th{
   </div>
 
   <nav class="menu">
-    <button class="active" onclick="showSection('dashboard',this)">
+
+    <button class="active"
+      onclick="showSection('dashboard',this)">
       Tableau de bord
     </button>
 
-    <button onclick="showSection('operation',this)">
+    <button
+      onclick="showSection('operation',this)">
       Nouvelle opération
     </button>
 
-    <button onclick="showSection('services',this)">
+    <button
+      onclick="showSection('services',this)">
       Services
     </button>
 
-    <button onclick="showSection('history',this)">
+    <button
+      onclick="showSection('history',this)">
       Historique
     </button>
 
-    <button onclick="showSection('analysis',this)">
+    <button
+      onclick="showSection('analysis',this)">
       Analyse du jour
     </button>
 
-    <button onclick="showSection('report',this)">
+    <button
+      onclick="showSection('report',this)">
       Rapport
     </button>
+
   </nav>
 
   <div class="sidebar-footer">
@@ -591,50 +675,118 @@ th{
 
 </aside>
 
+
 <!-- MAIN -->
+
 <main class="main">
 
   <div class="topbar">
 
     <div class="title">
-      <button class="mobile-menu" onclick="toggleMenu()">Menu</button>
+
+      <button
+        class="mobile-menu"
+        onclick="toggleMenu()">
+        Menu
+      </button>
+
       <h1>Analyse journalière</h1>
-      <p>Suivez vos revenus et performances du jour.</p>
+
+      <p>
+        Suivez vos revenus et performances du jour.
+      </p>
+
     </div>
 
-    <div class="date-box" id="currentDate"></div>
+    <div
+      class="date-box"
+      id="currentDate">
+    </div>
 
   </div>
 
 
   <!-- DASHBOARD -->
 
-  <section id="dashboard" class="section active">
+  <section
+    id="dashboard"
+    class="section active">
 
     <div class="kpis">
 
       <div class="card">
-        <div class="kpi-label">Revenus aujourd'hui</div>
-        <div class="kpi-value orange" id="todayRevenue">0 HTG</div>
-        <div class="kpi-small">Total encaissé aujourd'hui</div>
+
+        <div class="kpi-label">
+          Revenus aujourd'hui
+        </div>
+
+        <div
+          class="kpi-value orange"
+          id="todayRevenue">
+          0 HTG
+        </div>
+
+        <div class="kpi-small">
+          Total encaissé aujourd'hui
+        </div>
+
       </div>
 
-      <div class="card">
-        <div class="kpi-label">Opérations</div>
-        <div class="kpi-value" id="operationCount">0</div>
-        <div class="kpi-small">Transactions enregistrées</div>
-      </div>
 
       <div class="card">
-        <div class="kpi-label">Panier moyen</div>
-        <div class="kpi-value" id="averageSale">0 HTG</div>
-        <div class="kpi-small">Revenu moyen par opération</div>
+
+        <div class="kpi-label">
+          Opérations
+        </div>
+
+        <div
+          class="kpi-value"
+          id="operationCount">
+          0
+        </div>
+
+        <div class="kpi-small">
+          Transactions enregistrées
+        </div>
+
       </div>
 
+
       <div class="card">
-        <div class="kpi-label">Services vendus</div>
-        <div class="kpi-value" id="itemsSold">0</div>
-        <div class="kpi-small">Quantité totale vendue</div>
+
+        <div class="kpi-label">
+          Panier moyen
+        </div>
+
+        <div
+          class="kpi-value"
+          id="averageSale">
+          0 HTG
+        </div>
+
+        <div class="kpi-small">
+          Revenu moyen par opération
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="kpi-label">
+          Services vendus
+        </div>
+
+        <div
+          class="kpi-value"
+          id="itemsSold">
+          0
+        </div>
+
+        <div class="kpi-small">
+          Quantité totale vendue
+        </div>
+
       </div>
 
     </div>
@@ -643,17 +795,35 @@ th{
     <div class="goal-card">
 
       <div class="goal-top">
-        <h2>Objectif journalier</h2>
-        <div class="goal-percent" id="goalPercent">0%</div>
+
+        <h2>
+          Objectif journalier
+        </h2>
+
+        <div
+          class="goal-percent"
+          id="goalPercent">
+          0%
+        </div>
+
       </div>
 
       <div class="progress">
+
         <div id="goalProgress"></div>
+
       </div>
 
       <div class="goal-info">
-        <span id="goalCurrent">0 HTG réalisés</span>
-        <span id="goalRemaining">2 500 HTG restant</span>
+
+        <span id="goalCurrent">
+          0 HTG réalisés
+        </span>
+
+        <span id="goalRemaining">
+          2 500 HTG restant
+        </span>
+
       </div>
 
     </div>
@@ -662,17 +832,32 @@ th{
     <div class="grid-2">
 
       <div class="card">
-        <h3>Revenus par heure</h3>
+
+        <h3>
+          Revenus par heure
+        </h3>
+
         <div class="chart-box">
+
           <canvas id="hourChart"></canvas>
+
         </div>
+
       </div>
 
+
       <div class="card">
-        <h3>Services les plus rentables</h3>
+
+        <h3>
+          Services les plus rentables
+        </h3>
+
         <div class="chart-box">
+
           <canvas id="serviceChart"></canvas>
+
         </div>
+
       </div>
 
     </div>
@@ -681,21 +866,63 @@ th{
     <div class="grid-3">
 
       <div class="card">
-        <div class="kpi-label">Meilleur service</div>
-        <div class="kpi-value" id="bestService">—</div>
-        <div class="kpi-small" id="bestServiceRevenue">0 HTG</div>
+
+        <div class="kpi-label">
+          Meilleur service
+        </div>
+
+        <div
+          class="kpi-value"
+          id="bestService">
+          —
+        </div>
+
+        <div
+          class="kpi-small"
+          id="bestServiceRevenue">
+          0 HTG
+        </div>
+
       </div>
 
-      <div class="card">
-        <div class="kpi-label">Meilleure heure</div>
-        <div class="kpi-value" id="bestHour">—</div>
-        <div class="kpi-small" id="bestHourRevenue">0 HTG</div>
-      </div>
 
       <div class="card">
-        <div class="kpi-label">Progression</div>
-        <div class="kpi-value" id="performanceStatus">En attente</div>
-        <div class="kpi-small">Performance par rapport à l'objectif</div>
+
+        <div class="kpi-label">
+          Meilleure heure
+        </div>
+
+        <div
+          class="kpi-value"
+          id="bestHour">
+          —
+        </div>
+
+        <div
+          class="kpi-small"
+          id="bestHourRevenue">
+          0 HTG
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="kpi-label">
+          Progression
+        </div>
+
+        <div
+          class="kpi-value"
+          id="performanceStatus">
+          En attente
+        </div>
+
+        <div class="kpi-small">
+          Performance par rapport à l'objectif
+        </div>
+
       </div>
 
     </div>
@@ -705,79 +932,118 @@ th{
 
   <!-- OPERATION -->
 
-  <section id="operation" class="section">
+  <section
+    id="operation"
+    class="section">
 
     <div class="card">
 
-      <h3>Ajouter une opération</h3>
+      <h3>
+        Ajouter une opération
+      </h3>
 
       <div class="form-grid">
 
         <div class="field">
-          <label>Service</label>
 
-          <select id="serviceSelect" onchange="updatePrice()">
-            <option value="">Choisir un service</option>
+          <label>
+            Service
+          </label>
+
+          <select
+            id="serviceSelect"
+            onchange="updatePrice()">
+
+            <option value="">
+              Choisir un service
+            </option>
+
           </select>
+
         </div>
 
+
         <div class="field">
-          <label>Quantité</label>
+
+          <label>
+            Quantité
+          </label>
 
           <input
             type="number"
             id="quantity"
             min="1"
             value="1"
-            oninput="updateTotal()"
-          >
+            oninput="updateTotal()">
+
         </div>
 
+
         <div class="field">
-          <label>Prix unitaire</label>
+
+          <label>
+            Prix unitaire
+          </label>
 
           <input
             type="text"
             id="unitPrice"
             readonly
-            placeholder="0 HTG"
-          >
+            placeholder="0 HTG">
+
         </div>
 
+
         <div class="field">
-          <label>Total</label>
+
+          <label>
+            Total
+          </label>
 
           <input
             type="text"
             id="totalPrice"
             readonly
-            placeholder="0 HTG"
-          >
+            placeholder="0 HTG">
+
         </div>
 
+
         <div class="field">
-          <label>Heure</label>
+
+          <label>
+            Heure
+          </label>
 
           <input
             type="time"
-            id="operationTime"
-          >
+            id="operationTime">
+
         </div>
 
+
         <div class="field">
-          <label>Note</label>
+
+          <label>
+            Note
+          </label>
 
           <input
             type="text"
             id="operationNote"
-            placeholder="Ex : Client Facebook"
-          >
+            placeholder="Ex : Client Facebook">
+
         </div>
 
       </div>
 
-      <button class="btn btn-primary btn-full" onclick="addOperation()">
+
+      <button
+        class="btn btn-primary btn-full"
+        onclick="addOperation()">
+
         Ajouter l'opération
+
       </button>
 
     </div>
@@ -787,13 +1053,50 @@ th{
 
   <!-- SERVICES -->
 
-  <section id="services" class="section">
+  <section
+    id="services"
+    class="section">
 
     <div class="card">
 
-      <h3>Services et tarifs</h3>
+      <h3>
+        Services et tarifs
+      </h3>
 
       <div id="servicesList"></div>
+
+
+      <!-- AJOUT SERVICE -->
+
+      <div class="add-service-card">
+
+        <h4>
+          Ajouter mon propre service
+        </h4>
+
+        <div class="add-service-form">
+
+          <input
+            type="text"
+            id="customServiceName"
+            placeholder="Nom du service">
+
+          <input
+            type="number"
+            id="customServicePrice"
+            min="0"
+            placeholder="Prix en HTG">
+
+          <button
+            onclick="addCustomService()">
+
+            Ajouter
+
+          </button>
+
+        </div>
+
+      </div>
 
     </div>
 
@@ -802,17 +1105,22 @@ th{
 
   <!-- HISTORY -->
 
-  <section id="history" class="section">
+  <section
+    id="history"
+    class="section">
 
     <div class="card">
 
-      <h3>Historique de la journée</h3>
+      <h3>
+        Historique de la journée
+      </h3>
 
       <div class="table-wrap">
 
         <table>
 
           <thead>
+
             <tr>
               <th>Heure</th>
               <th>Service</th>
@@ -822,9 +1130,12 @@ th{
               <th>Note</th>
               <th></th>
             </tr>
+
           </thead>
 
-          <tbody id="historyTable"></tbody>
+          <tbody
+            id="historyTable">
+          </tbody>
 
         </table>
 
@@ -837,13 +1148,19 @@ th{
 
   <!-- ANALYSIS -->
 
-  <section id="analysis" class="section">
+  <section
+    id="analysis"
+    class="section">
 
     <div class="card">
 
-      <h3>Analyse automatique du jour</h3>
+      <h3>
+        Analyse automatique du jour
+      </h3>
 
-      <div id="analysisContent"></div>
+      <div
+        id="analysisContent">
+      </div>
 
     </div>
 
@@ -852,19 +1169,27 @@ th{
 
   <!-- REPORT -->
 
-  <section id="report" class="section">
+  <section
+    id="report"
+    class="section">
 
     <div class="card">
 
-      <h3>Rapport du jour</h3>
+      <h3>
+        Rapport du jour
+      </h3>
 
-      <div class="report" id="reportContent"></div>
+      <div
+        class="report"
+        id="reportContent">
+      </div>
 
       <button
         class="btn btn-primary btn-full"
-        onclick="printReport()"
-      >
+        onclick="printReport()">
+
         Imprimer le rapport
+
       </button>
 
     </div>
@@ -875,97 +1200,198 @@ th{
 
 </div>
 
-<div class="toast" id="toast"></div>
+
+<div
+  class="toast"
+  id="toast">
+</div>
 
 
 <script>
 
-/* =========================
+/* =====================================================
    CONFIGURATION
-========================= */
+===================================================== */
 
 const DAILY_GOAL = 2500;
 
-const SERVICES = [
+
+/* =====================================================
+   SERVICES PAR DEFAUT
+===================================================== */
+
+const DEFAULT_SERVICES = [
+
   {
     id:"affiche",
     name:"Affiche",
-    price:3000
+    price:3000,
+    default:true
   },
+
   {
     id:"carte-visite",
     name:"Carte de visite",
-    price:2500
+    price:2500,
+    default:true
   },
+
   {
-    id:"inscription",
+    id:"inscription-formation",
     name:"Inscription formation",
-    price:250
+    price:250,
+    default:true
   },
+
   {
     id:"formation",
     name:"Formation",
-    price:3000
+    price:3000,
+    default:true
   },
+
   {
     id:"meru",
     name:"Carte MERU",
-    price:1250
+    price:1250,
+    default:true
+  },
+
+  {
+    id:"inscription-membre",
+    name:"Inscription membre",
+    price:150,
+    default:true
   }
+
 ];
 
 
-/* =========================
-   DATA
-========================= */
+/* =====================================================
+   VARIABLES
+===================================================== */
+
+let services = [];
 
 let operations = [];
 
 let hourChart = null;
+
 let serviceChart = null;
 
 
-/* =========================
+/* =====================================================
    DATE
-========================= */
+===================================================== */
 
 const todayKey =
-  new Date().toISOString().slice(0,10);
-
-document.getElementById("currentDate").textContent =
-  new Date().toLocaleDateString("fr-FR",{
-    weekday:"long",
-    day:"numeric",
-    month:"long",
-    year:"numeric"
-  });
+  new Date()
+    .toISOString()
+    .slice(0,10);
 
 
-/* =========================
-   STORAGE
-========================= */
+document.getElementById("currentDate")
+  .textContent =
+  new Date().toLocaleDateString(
+    "fr-FR",
+    {
+      weekday:"long",
+      day:"numeric",
+      month:"long",
+      year:"numeric"
+    }
+  );
+
+
+/* =====================================================
+   STORAGE SERVICES
+===================================================== */
+
+function loadServices(){
+
+  try{
+
+    const saved =
+      localStorage.getItem(
+        "salestrack_services"
+      );
+
+    if(saved){
+
+      const customServices =
+        JSON.parse(saved);
+
+      services =
+        [
+          ...DEFAULT_SERVICES,
+          ...customServices
+        ];
+
+    }else{
+
+      services =
+        [...DEFAULT_SERVICES];
+
+    }
+
+  }catch(error){
+
+    services =
+      [...DEFAULT_SERVICES];
+
+  }
+
+}
+
+
+function saveServices(){
+
+  const customServices =
+    services.filter(
+      service=>!service.default
+    );
+
+  localStorage.setItem(
+    "salestrack_services",
+    JSON.stringify(customServices)
+  );
+
+}
+
+
+/* =====================================================
+   STORAGE OPERATIONS
+===================================================== */
 
 function storageKey(){
+
   return "salestrack_" + todayKey;
+
 }
+
 
 function loadData(){
 
   try{
 
     const saved =
-      localStorage.getItem(storageKey());
+      localStorage.getItem(
+        storageKey()
+      );
 
     operations =
-      saved ? JSON.parse(saved) : [];
+      saved
+      ? JSON.parse(saved)
+      : [];
 
-  }catch(e){
+  }catch(error){
 
     operations = [];
 
   }
 
 }
+
 
 function saveData(){
 
@@ -977,9 +1403,9 @@ function saveData(){
 }
 
 
-/* =========================
+/* =====================================================
    FORMAT
-========================= */
+===================================================== */
 
 function money(value){
 
@@ -990,53 +1416,83 @@ function money(value){
 }
 
 
-/* =========================
+/* =====================================================
    NAVIGATION
-========================= */
+===================================================== */
 
 function showSection(id,button){
 
   document
     .querySelectorAll(".section")
     .forEach(section=>{
+
       section.classList.remove("active");
+
     });
+
 
   document
     .getElementById(id)
     .classList.add("active");
 
+
   document
     .querySelectorAll(".menu button")
     .forEach(btn=>{
+
       btn.classList.remove("active");
+
     });
 
+
   if(button){
+
     button.classList.add("active");
+
   }
+
 
   document
     .getElementById("sidebar")
     .classList.remove("open");
 
+
   if(id==="dashboard"){
+
     updateDashboard();
+
   }
+
+
+  if(id==="services"){
+
+    renderServices();
+
+  }
+
 
   if(id==="history"){
+
     renderHistory();
+
   }
+
 
   if(id==="analysis"){
+
     renderAnalysis();
+
   }
 
+
   if(id==="report"){
+
     renderReport();
+
   }
 
 }
+
 
 function toggleMenu(){
 
@@ -1047,61 +1503,120 @@ function toggleMenu(){
 }
 
 
-/* =========================
-   SERVICES
-========================= */
+/* =====================================================
+   RENDRE SERVICES
+===================================================== */
 
 function renderServices(){
 
   const select =
-    document.getElementById("serviceSelect");
+    document.getElementById(
+      "serviceSelect"
+    );
+
+
+  const currentValue =
+    select.value;
+
 
   select.innerHTML =
-    `<option value="">Choisir un service</option>`;
+    `<option value="">
+      Choisir un service
+    </option>`;
 
-  SERVICES.forEach(service=>{
+
+  services.forEach(service=>{
 
     const option =
       document.createElement("option");
 
-    option.value = service.id;
+    option.value =
+      service.id;
 
     option.textContent =
-      service.name + " — " +
-      money(service.price);
+      service.name
+      + " — "
+      + money(service.price);
 
     select.appendChild(option);
 
   });
 
 
+  if(
+    services.some(
+      service=>service.id===currentValue
+    )
+  ){
+
+    select.value =
+      currentValue;
+
+  }
+
+
   const list =
-    document.getElementById("servicesList");
+    document.getElementById(
+      "servicesList"
+    );
+
 
   list.innerHTML = "";
 
-  SERVICES.forEach(service=>{
+
+  services.forEach(service=>{
 
     const div =
       document.createElement("div");
 
-    div.className = "service-row";
+
+    div.className =
+      "service-row";
+
+
+    const deleteButton =
+      service.default
+      ? ""
+      : `
+        <button
+          class="service-delete"
+          onclick="deleteCustomService('${service.id}')">
+          Supprimer
+        </button>
+      `;
+
 
     div.innerHTML = `
-      <div>
-        <div class="service-name">
-          ${escapeHtml(service.name)}
+
+      <div class="service-left">
+
+        <div>
+
+          <div class="service-name">
+            ${escapeHtml(service.name)}
+          </div>
+
+          <div class="service-meta">
+            Tarif unitaire
+          </div>
+
         </div>
 
-        <div class="service-meta">
-          Tarif unitaire
-        </div>
       </div>
 
-      <div class="service-total">
-        ${money(service.price)}
+      <div
+        style="display:flex;align-items:center;gap:10px">
+
+        <div class="service-total">
+          ${money(service.price)}
+        </div>
+
+        ${deleteButton}
+
       </div>
+
     `;
+
 
     list.appendChild(div);
 
@@ -1110,98 +1625,316 @@ function renderServices(){
 }
 
 
-/* =========================
-   PRICE
-========================= */
+/* =====================================================
+   AJOUTER SERVICE PERSONNALISE
+===================================================== */
+
+function addCustomService(){
+
+  const nameInput =
+    document.getElementById(
+      "customServiceName"
+    );
+
+
+  const priceInput =
+    document.getElementById(
+      "customServicePrice"
+    );
+
+
+  const name =
+    nameInput.value.trim();
+
+
+  const price =
+    Number(priceInput.value);
+
+
+  if(!name){
+
+    showToast(
+      "Entrez le nom du service."
+    );
+
+    return;
+
+  }
+
+
+  if(!price || price < 0){
+
+    showToast(
+      "Entrez un prix valide."
+    );
+
+    return;
+
+  }
+
+
+  const exists =
+    services.some(
+      service=>
+        service.name.toLowerCase()
+        === name.toLowerCase()
+    );
+
+
+  if(exists){
+
+    showToast(
+      "Ce service existe déjà."
+    );
+
+    return;
+
+  }
+
+
+  const newService = {
+
+    id:
+      "custom-" +
+      Date.now(),
+
+    name:
+      name,
+
+    price:
+      price,
+
+    default:
+      false
+
+  };
+
+
+  services.push(
+    newService
+  );
+
+
+  saveServices();
+
+  renderServices();
+
+
+  nameInput.value = "";
+
+  priceInput.value = "";
+
+
+  showToast(
+    "Service ajouté avec succès."
+  );
+
+}
+
+
+/* =====================================================
+   SUPPRIMER SERVICE PERSONNALISE
+===================================================== */
+
+function deleteCustomService(id){
+
+  const service =
+    services.find(
+      item=>item.id===id
+    );
+
+
+  if(!service){
+
+    return;
+
+  }
+
+
+  const used =
+    operations.some(
+      item=>item.serviceId===id
+    );
+
+
+  if(used){
+
+    showToast(
+      "Ce service est déjà utilisé dans l'historique."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !confirm(
+      "Supprimer le service " +
+      service.name +
+      " ?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  services =
+    services.filter(
+      item=>item.id!==id
+    );
+
+
+  saveServices();
+
+  renderServices();
+
+
+  showToast(
+    "Service supprimé."
+  );
+
+}
+
+
+/* =====================================================
+   SERVICE SELECTIONNE
+===================================================== */
 
 function getSelectedService(){
 
   const id =
-    document.getElementById("serviceSelect").value;
+    document.getElementById(
+      "serviceSelect"
+    ).value;
 
-  return SERVICES.find(
+
+  return services.find(
     service=>service.id===id
   );
 
 }
+
+
+/* =====================================================
+   PRIX
+===================================================== */
 
 function updatePrice(){
 
   const service =
     getSelectedService();
 
-  const price =
-    service ? service.price : 0;
 
-  document.getElementById("unitPrice").value =
+  const price =
+    service
+    ? service.price
+    : 0;
+
+
+  document.getElementById(
+    "unitPrice"
+  ).value =
     money(price);
+
 
   updateTotal();
 
 }
+
 
 function updateTotal(){
 
   const service =
     getSelectedService();
 
+
   const quantity =
     Number(
-      document.getElementById("quantity").value
+      document.getElementById(
+        "quantity"
+      ).value
     ) || 0;
 
-  const total =
-    service ? service.price * quantity : 0;
 
-  document.getElementById("totalPrice").value =
+  const total =
+    service
+    ? service.price * quantity
+    : 0;
+
+
+  document.getElementById(
+    "totalPrice"
+  ).value =
     money(total);
 
 }
 
 
-/* =========================
-   ADD OPERATION
-========================= */
+/* =====================================================
+   AJOUT OPERATION
+===================================================== */
 
 function addOperation(){
 
   const service =
     getSelectedService();
 
+
   const quantity =
     Number(
-      document.getElementById("quantity").value
+      document.getElementById(
+        "quantity"
+      ).value
     );
 
+
   const time =
-    document.getElementById("operationTime").value;
+    document.getElementById(
+      "operationTime"
+    ).value;
+
 
   const note =
-    document.getElementById("operationNote").value.trim();
+    document.getElementById(
+      "operationNote"
+    ).value.trim();
+
 
   if(!service){
 
-    showToast("Choisissez un service.");
+    showToast(
+      "Choisissez un service."
+    );
 
     return;
 
   }
 
-  if(!quantity || quantity < 1){
 
-    showToast("Entrez une quantité valide.");
+  if(!quantity || quantity<1){
+
+    showToast(
+      "Entrez une quantité valide."
+    );
 
     return;
 
   }
+
 
   if(!time){
 
-    showToast("Entrez l'heure de l'opération.");
+    showToast(
+      "Entrez l'heure de l'opération."
+    );
 
     return;
 
   }
+
 
   const operation = {
 
@@ -1232,40 +1965,77 @@ function addOperation(){
   };
 
 
-  operations.push(operation);
+  operations.push(
+    operation
+  );
+
 
   saveData();
 
-  document.getElementById("serviceSelect").value="";
-  document.getElementById("quantity").value=1;
-  document.getElementById("unitPrice").value="";
-  document.getElementById("totalPrice").value="";
-  document.getElementById("operationTime").value="";
-  document.getElementById("operationNote").value="";
+
+  document.getElementById(
+    "serviceSelect"
+  ).value = "";
+
+
+  document.getElementById(
+    "quantity"
+  ).value = 1;
+
+
+  document.getElementById(
+    "unitPrice"
+  ).value = "";
+
+
+  document.getElementById(
+    "totalPrice"
+  ).value = "";
+
+
+  document.getElementById(
+    "operationTime"
+  ).value = "";
+
+
+  document.getElementById(
+    "operationNote"
+  ).value = "";
+
 
   updateDashboard();
 
-  showToast("Opération ajoutée avec succès.");
+
+  showToast(
+    "Opération ajoutée avec succès."
+  );
 
 }
 
 
-/* =========================
-   DELETE
-========================= */
+/* =====================================================
+   SUPPRIMER OPERATION
+===================================================== */
 
 function deleteOperation(id){
 
-  if(!confirm("Supprimer cette opération ?")){
+  if(
+    !confirm(
+      "Supprimer cette opération ?"
+    )
+  ){
 
     return;
 
   }
 
+
   operations =
     operations.filter(
-      operation=>operation.id!==id
+      operation=>
+        operation.id!==id
     );
+
 
   saveData();
 
@@ -1273,103 +2043,163 @@ function deleteOperation(id){
 
   updateDashboard();
 
-  showToast("Opération supprimée.");
+
+  showToast(
+    "Opération supprimée."
+  );
 
 }
 
 
-/* =========================
+/* =====================================================
    DASHBOARD
-========================= */
+===================================================== */
 
 function updateDashboard(){
 
   const revenue =
     operations.reduce(
-      (sum,item)=>sum+item.total,
+      (sum,item)=>
+        sum + item.total,
       0
     );
+
 
   const count =
     operations.length;
 
+
   const items =
     operations.reduce(
-      (sum,item)=>sum+item.quantity,
+      (sum,item)=>
+        sum + item.quantity,
       0
     );
 
+
   const average =
-    count ? revenue/count : 0;
+    count
+    ? revenue/count
+    : 0;
+
 
   const percentage =
     DAILY_GOAL
-      ? (revenue/DAILY_GOAL)*100
-      : 0;
+    ? revenue/DAILY_GOAL*100
+    : 0;
+
 
   const progress =
-    Math.min(percentage,100);
+    Math.min(
+      percentage,
+      100
+    );
 
-  document.getElementById("todayRevenue")
-    .textContent = money(revenue);
 
-  document.getElementById("operationCount")
-    .textContent = count;
+  document.getElementById(
+    "todayRevenue"
+  ).textContent =
+    money(revenue);
 
-  document.getElementById("itemsSold")
-    .textContent = items;
 
-  document.getElementById("averageSale")
-    .textContent = money(average);
+  document.getElementById(
+    "operationCount"
+  ).textContent =
+    count;
 
-  document.getElementById("goalPercent")
-    .textContent =
-      Math.round(percentage) + "%";
 
-  document.getElementById("goalProgress")
-    .style.width = progress + "%";
+  document.getElementById(
+    "itemsSold"
+  ).textContent =
+    items;
 
-  document.getElementById("goalCurrent")
-    .textContent =
-      money(revenue) + " réalisés";
+
+  document.getElementById(
+    "averageSale"
+  ).textContent =
+    money(average);
+
+
+  document.getElementById(
+    "goalPercent"
+  ).textContent =
+    Math.round(
+      percentage
+    ) + "%";
+
+
+  document.getElementById(
+    "goalProgress"
+  ).style.width =
+    progress + "%";
+
+
+  document.getElementById(
+    "goalCurrent"
+  ).textContent =
+    money(revenue)
+    + " réalisés";
+
 
   const remaining =
-    Math.max(DAILY_GOAL-revenue,0);
-
-  document.getElementById("goalRemaining")
-    .textContent =
-      remaining > 0
-      ? money(remaining) + " restant"
-      : "Objectif atteint";
+    Math.max(
+      DAILY_GOAL-revenue,
+      0
+    );
 
 
-  /* STATUS */
+  document.getElementById(
+    "goalRemaining"
+  ).textContent =
+    remaining>0
+    ? money(remaining)
+      + " restant"
+    : "Objectif atteint";
 
-  let status = "En attente";
 
-  if(revenue >= DAILY_GOAL){
+  let status =
+    "En attente";
 
-    status = "Objectif atteint";
 
-  }else if(revenue >= DAILY_GOAL*0.75){
+  if(
+    revenue>=DAILY_GOAL
+  ){
 
-    status = "Très bien";
+    status =
+      "Objectif atteint";
 
-  }else if(revenue >= DAILY_GOAL*0.5){
+  }else if(
+    revenue>=DAILY_GOAL*.75
+  ){
 
-    status = "En bonne voie";
+    status =
+      "Très bien";
 
-  }else if(revenue > 0){
+  }else if(
+    revenue>=DAILY_GOAL*.5
+  ){
 
-    status = "À accélérer";
+    status =
+      "En bonne voie";
+
+  }else if(
+    revenue>0
+  ){
+
+    status =
+      "À accélérer";
 
   }
 
-  document.getElementById("performanceStatus")
-    .textContent = status;
+
+  document.getElementById(
+    "performanceStatus"
+  ).textContent =
+    status;
 
 
   calculateBestService();
+
   calculateBestHour();
 
   renderCharts();
@@ -1377,13 +2207,14 @@ function updateDashboard(){
 }
 
 
-/* =========================
-   BEST SERVICE
-========================= */
+/* =====================================================
+   MEILLEUR SERVICE
+===================================================== */
 
 function calculateBestService(){
 
   const totals = {};
+
 
   operations.forEach(item=>{
 
@@ -1393,47 +2224,59 @@ function calculateBestService(){
 
   });
 
+
   let best = null;
 
-  Object.keys(totals).forEach(name=>{
 
-    if(
-      !best ||
-      totals[name] > totals[best]
-    ){
+  Object.keys(totals)
+    .forEach(name=>{
 
-      best = name;
+      if(
+        !best ||
+        totals[name]>totals[best]
+      ){
 
-    }
+        best =
+          name;
 
-  });
+      }
+
+    });
 
 
-  document.getElementById("bestService")
-    .textContent =
-      best || "—";
+  document.getElementById(
+    "bestService"
+  ).textContent =
+    best || "—";
 
-  document.getElementById("bestServiceRevenue")
-    .textContent =
-      best ? money(totals[best]) : "0 HTG";
+
+  document.getElementById(
+    "bestServiceRevenue"
+  ).textContent =
+    best
+    ? money(totals[best])
+    : "0 HTG";
 
 }
 
 
-/* =========================
-   BEST HOUR
-========================= */
+/* =====================================================
+   MEILLEURE HEURE
+===================================================== */
 
 function calculateBestHour(){
 
   const totals = {};
 
+
   operations.forEach(item=>{
 
     const hour =
       item.time
-        ? item.time.split(":")[0] + "h"
-        : "—";
+      ? item.time.split(":")[0]
+        + "h"
+      : "—";
+
 
     totals[hour] =
       (totals[hour] || 0)
@@ -1444,43 +2287,58 @@ function calculateBestHour(){
 
   let best = null;
 
-  Object.keys(totals).forEach(hour=>{
 
-    if(
-      !best ||
-      totals[hour] > totals[best]
-    ){
+  Object.keys(totals)
+    .forEach(hour=>{
 
-      best = hour;
+      if(
+        !best ||
+        totals[hour]>totals[best]
+      ){
 
-    }
+        best =
+          hour;
 
-  });
+      }
+
+    });
 
 
-  document.getElementById("bestHour")
-    .textContent =
-      best || "—";
+  document.getElementById(
+    "bestHour"
+  ).textContent =
+    best || "—";
 
-  document.getElementById("bestHourRevenue")
-    .textContent =
-      best ? money(totals[best]) : "0 HTG";
+
+  document.getElementById(
+    "bestHourRevenue"
+  ).textContent =
+    best
+    ? money(totals[best])
+    : "0 HTG";
 
 }
 
 
-/* =========================
-   CHARTS
-========================= */
+/* =====================================================
+   GRAPHIQUES
+===================================================== */
 
 function renderCharts(){
 
   const hours = [];
 
-  for(let i=0;i<24;i++){
+
+  for(
+    let i=0;
+    i<24;
+    i++
+  ){
 
     hours.push(
-      String(i).padStart(2,"0")+"h"
+      String(i)
+        .padStart(2,"0")
+      + "h"
     );
 
   }
@@ -1490,17 +2348,25 @@ function renderCharts(){
     hours.map(hour=>{
 
       const h =
-        hour.replace("h","");
+        hour.replace(
+          "h",
+          ""
+        );
+
 
       return operations
         .filter(item=>{
 
-          return item.time &&
-            item.time.split(":")[0]===h;
+          return item.time
+            &&
+            item.time
+              .split(":")[0]
+            === h;
 
         })
         .reduce(
-          (sum,item)=>sum+item.total,
+          (sum,item)=>
+            sum+item.total,
           0
         );
 
@@ -1516,7 +2382,9 @@ function renderCharts(){
 
   hourChart =
     new Chart(
-      document.getElementById("hourChart"),
+      document.getElementById(
+        "hourChart"
+      ),
       {
 
         type:"line",
@@ -1527,15 +2395,20 @@ function renderCharts(){
 
           datasets:[{
 
-            label:"Revenus HTG",
+            label:
+              "Revenus HTG",
 
-            data:hourTotals,
+            data:
+              hourTotals,
 
-            borderWidth:3,
+            borderWidth:
+              3,
 
-            tension:.35,
+            tension:
+              .35,
 
-            fill:false
+            fill:
+              false
 
           }]
 
@@ -1570,21 +2443,29 @@ function renderCharts(){
 
 
   const serviceNames =
-    SERVICES.map(service=>service.name);
+    services.map(
+      service=>service.name
+    );
+
 
   const serviceTotals =
-    SERVICES.map(service=>{
+    services.map(
+      service=>{
 
-      return operations
-        .filter(
-          item=>item.serviceId===service.id
-        )
-        .reduce(
-          (sum,item)=>sum+item.total,
-          0
-        );
+        return operations
+          .filter(
+            item=>
+              item.serviceId
+              === service.id
+          )
+          .reduce(
+            (sum,item)=>
+              sum+item.total,
+            0
+          );
 
-    });
+      }
+    );
 
 
   if(serviceChart){
@@ -1596,20 +2477,25 @@ function renderCharts(){
 
   serviceChart =
     new Chart(
-      document.getElementById("serviceChart"),
+      document.getElementById(
+        "serviceChart"
+      ),
       {
 
         type:"doughnut",
 
         data:{
 
-          labels:serviceNames,
+          labels:
+            serviceNames,
 
           datasets:[{
 
-            data:serviceTotals,
+            data:
+              serviceTotals,
 
-            borderWidth:2
+            borderWidth:
+              2
 
           }]
 
@@ -1632,29 +2518,39 @@ function renderCharts(){
         }
 
       }
-
     );
 
 }
 
 
-/* =========================
-   HISTORY
-========================= */
+/* =====================================================
+   HISTORIQUE
+===================================================== */
 
 function renderHistory(){
 
   const tbody =
-    document.getElementById("historyTable");
+    document.getElementById(
+      "historyTable"
+    );
+
 
   if(!operations.length){
 
     tbody.innerHTML = `
+
       <tr>
-        <td colspan="7" class="empty">
+
+        <td
+          colspan="7"
+          class="empty">
+
           Aucune opération enregistrée aujourd'hui.
+
         </td>
+
       </tr>
+
     `;
 
     return;
@@ -1664,108 +2560,148 @@ function renderHistory(){
 
   const sorted =
     [...operations].sort(
-      (a,b)=>a.time.localeCompare(b.time)
+      (a,b)=>
+        a.time.localeCompare(
+          b.time
+        )
     );
 
 
-  tbody.innerHTML = sorted.map(item=>{
+  tbody.innerHTML =
+    sorted.map(item=>{
 
-    return `
-      <tr>
+      return `
 
-        <td>${escapeHtml(item.time)}</td>
+        <tr>
 
-        <td>
-          <strong>
-            ${escapeHtml(item.service)}
-          </strong>
-        </td>
+          <td>
+            ${escapeHtml(item.time)}
+          </td>
 
-        <td>${item.quantity}</td>
+          <td>
+            <strong>
+              ${escapeHtml(item.service)}
+            </strong>
+          </td>
 
-        <td>${money(item.unitPrice)}</td>
+          <td>
+            ${item.quantity}
+          </td>
 
-        <td>
-          <strong>
-            ${money(item.total)}
-          </strong>
-        </td>
+          <td>
+            ${money(item.unitPrice)}
+          </td>
 
-        <td>
-          ${escapeHtml(item.note || "—")}
-        </td>
+          <td>
+            <strong>
+              ${money(item.total)}
+            </strong>
+          </td>
 
-        <td>
-          <button
-            class="btn btn-danger"
-            onclick="deleteOperation(${item.id})"
-          >
-            Supprimer
-          </button>
-        </td>
+          <td>
+            ${escapeHtml(
+              item.note || "—"
+            )}
+          </td>
 
-      </tr>
-    `;
+          <td>
 
-  }).join("");
+            <button
+              class="btn btn-danger"
+              onclick="deleteOperation(${item.id})">
+
+              Supprimer
+
+            </button>
+
+          </td>
+
+        </tr>
+
+      `;
+
+    }).join("");
 
 }
 
 
-/* =========================
-   ANALYSIS
-========================= */
+/* =====================================================
+   ANALYSE
+===================================================== */
 
 function renderAnalysis(){
 
   const container =
-    document.getElementById("analysisContent");
+    document.getElementById(
+      "analysisContent"
+    );
+
 
   const revenue =
     operations.reduce(
-      (sum,item)=>sum+item.total,
+      (sum,item)=>
+        sum+item.total,
       0
     );
+
 
   const count =
     operations.length;
 
+
   const items =
     operations.reduce(
-      (sum,item)=>sum+item.quantity,
+      (sum,item)=>
+        sum+item.quantity,
       0
     );
 
+
   const average =
-    count ? revenue/count : 0;
+    count
+    ? revenue/count
+    : 0;
+
 
   const percentage =
     DAILY_GOAL
-      ? (revenue/DAILY_GOAL)*100
-      : 0;
+    ? revenue/DAILY_GOAL*100
+    : 0;
 
 
-  let bestService = "Aucun";
+  let bestService =
+    "Aucun";
 
-  let bestServiceAmount = 0;
 
-  SERVICES.forEach(service=>{
+  let bestServiceAmount =
+    0;
+
+
+  services.forEach(service=>{
 
     const total =
       operations
         .filter(
-          item=>item.serviceId===service.id
+          item=>
+            item.serviceId
+            === service.id
         )
         .reduce(
-          (sum,item)=>sum+item.total,
+          (sum,item)=>
+            sum+item.total,
           0
         );
 
-    if(total > bestServiceAmount){
 
-      bestServiceAmount = total;
+    if(
+      total>bestServiceAmount
+    ){
 
-      bestService = service.name;
+      bestServiceAmount =
+        total;
+
+      bestService =
+        service.name;
 
     }
 
@@ -1774,10 +2710,12 @@ function renderAnalysis(){
 
   const hourTotals = {};
 
+
   operations.forEach(item=>{
 
     const hour =
       item.time.split(":")[0];
+
 
     hourTotals[hour] =
       (hourTotals[hour] || 0)
@@ -1787,30 +2725,40 @@ function renderAnalysis(){
 
 
   let bestHour = null;
+
   let bestHourAmount = 0;
 
-  Object.keys(hourTotals).forEach(hour=>{
 
-    if(hourTotals[hour] > bestHourAmount){
+  Object.keys(hourTotals)
+    .forEach(hour=>{
 
-      bestHourAmount =
-        hourTotals[hour];
+      if(
+        hourTotals[hour]
+        > bestHourAmount
+      ){
 
-      bestHour = hour;
+        bestHourAmount =
+          hourTotals[hour];
 
-    }
+        bestHour =
+          hour;
 
-  });
+      }
+
+    });
 
 
   let conclusion;
+
 
   if(!count){
 
     conclusion =
       "Aucune vente n'a encore été enregistrée aujourd'hui.";
 
-  }else if(revenue >= DAILY_GOAL){
+  }else if(
+    revenue>=DAILY_GOAL
+  ){
 
     conclusion =
       "L'objectif journalier est atteint. La journée est très performante.";
@@ -1826,58 +2774,113 @@ function renderAnalysis(){
   container.innerHTML = `
 
     <div class="analysis-box">
-      <strong>Performance globale</strong>
+
+      <strong>
+        Performance globale
+      </strong>
+
       <span>
+
         Vous avez généré
         <b>${money(revenue)}</b>
         aujourd'hui, soit
         <b>${percentage.toFixed(1)}%</b>
         de l'objectif de
         <b>${money(DAILY_GOAL)}</b>.
+
       </span>
+
     </div>
 
+
     <div class="analysis-box">
-      <strong>Volume de ventes</strong>
+
+      <strong>
+        Volume de ventes
+      </strong>
+
       <span>
-        ${count} opération(s) enregistrée(s)
+
+        ${count}
+        opération(s) enregistrée(s)
         pour un total de
-        ${items} unité(s) vendue(s).
+        ${items}
+        unité(s) vendue(s).
+
       </span>
+
     </div>
 
+
     <div class="analysis-box">
-      <strong>Panier moyen</strong>
+
+      <strong>
+        Panier moyen
+      </strong>
+
       <span>
+
         Chaque opération rapporte en moyenne
         <b>${money(average)}</b>.
+
       </span>
+
     </div>
 
+
     <div class="analysis-box">
-      <strong>Service le plus rentable</strong>
+
+      <strong>
+        Service le plus rentable
+      </strong>
+
       <span>
-        ${bestService}
-        ${bestServiceAmount
-          ? "avec " + money(bestServiceAmount)
-          : ""}
+
+        ${escapeHtml(bestService)}
+
+        ${
+          bestServiceAmount
+          ? "avec "
+            + money(bestServiceAmount)
+          : ""
+        }
+
       </span>
+
     </div>
 
+
     <div class="analysis-box">
-      <strong>Meilleure heure</strong>
+
+      <strong>
+        Meilleure heure
+      </strong>
+
       <span>
-        ${bestHour
-          ? bestHour + "h avec " + money(bestHourAmount)
-          : "Pas encore disponible"}
+
+        ${
+          bestHour
+          ? bestHour
+            + "h avec "
+            + money(bestHourAmount)
+          : "Pas encore disponible"
+        }
+
       </span>
+
     </div>
 
+
     <div class="analysis-box">
-      <strong>Conclusion</strong>
+
+      <strong>
+        Conclusion
+      </strong>
+
       <span>
         ${conclusion}
       </span>
+
     </div>
 
   `;
@@ -1885,29 +2888,37 @@ function renderAnalysis(){
 }
 
 
-/* =========================
-   REPORT
-========================= */
+/* =====================================================
+   RAPPORT
+===================================================== */
 
 function renderReport(){
 
   const revenue =
     operations.reduce(
-      (sum,item)=>sum+item.total,
+      (sum,item)=>
+        sum+item.total,
       0
     );
+
 
   const count =
     operations.length;
 
+
   const items =
     operations.reduce(
-      (sum,item)=>sum+item.quantity,
+      (sum,item)=>
+        sum+item.quantity,
       0
     );
 
+
   const average =
-    count ? revenue/count : 0;
+    count
+    ? revenue/count
+    : 0;
+
 
   const remaining =
     Math.max(
@@ -1915,85 +2926,137 @@ function renderReport(){
       0
     );
 
+
   const percentage =
-    (revenue/DAILY_GOAL)*100;
+    revenue/DAILY_GOAL*100;
 
 
-  document.getElementById("reportContent")
-    .innerHTML = `
+  document.getElementById(
+    "reportContent"
+  ).innerHTML = `
 
-      <h2>Rapport SalesTrack</h2>
+    <h2>
+      Rapport SalesTrack
+    </h2>
 
-      <div class="report-line">
-        <span>Date</span>
-        <strong>
-          ${new Date().toLocaleDateString("fr-FR")}
-        </strong>
-      </div>
 
-      <div class="report-line">
-        <span>Revenus du jour</span>
-        <strong class="report-total">
-          ${money(revenue)}
-        </strong>
-      </div>
+    <div class="report-line">
 
-      <div class="report-line">
-        <span>Objectif</span>
-        <strong>
-          ${money(DAILY_GOAL)}
-        </strong>
-      </div>
+      <span>Date</span>
 
-      <div class="report-line">
-        <span>Progression</span>
-        <strong>
-          ${percentage.toFixed(1)}%
-        </strong>
-      </div>
+      <strong>
+        ${new Date().toLocaleDateString("fr-FR")}
+      </strong>
 
-      <div class="report-line">
-        <span>Reste à atteindre</span>
-        <strong>
-          ${money(remaining)}
-        </strong>
-      </div>
+    </div>
 
-      <div class="report-line">
-        <span>Nombre d'opérations</span>
-        <strong>
-          ${count}
-        </strong>
-      </div>
 
-      <div class="report-line">
-        <span>Quantité vendue</span>
-        <strong>
-          ${items}
-        </strong>
-      </div>
+    <div class="report-line">
 
-      <div class="report-line">
-        <span>Panier moyen</span>
-        <strong>
-          ${money(average)}
-        </strong>
-      </div>
+      <span>
+        Revenus du jour
+      </span>
 
-    `;
+      <strong class="report-total">
+        ${money(revenue)}
+      </strong>
+
+    </div>
+
+
+    <div class="report-line">
+
+      <span>
+        Objectif
+      </span>
+
+      <strong>
+        ${money(DAILY_GOAL)}
+      </strong>
+
+    </div>
+
+
+    <div class="report-line">
+
+      <span>
+        Progression
+      </span>
+
+      <strong>
+        ${percentage.toFixed(1)}%
+      </strong>
+
+    </div>
+
+
+    <div class="report-line">
+
+      <span>
+        Reste à atteindre
+      </span>
+
+      <strong>
+        ${money(remaining)}
+      </strong>
+
+    </div>
+
+
+    <div class="report-line">
+
+      <span>
+        Nombre d'opérations
+      </span>
+
+      <strong>
+        ${count}
+      </strong>
+
+    </div>
+
+
+    <div class="report-line">
+
+      <span>
+        Quantité vendue
+      </span>
+
+      <strong>
+        ${items}
+      </strong>
+
+    </div>
+
+
+    <div class="report-line">
+
+      <span>
+        Panier moyen
+      </span>
+
+      <strong>
+        ${money(average)}
+      </strong>
+
+    </div>
+
+  `;
 
 }
 
 
-/* =========================
-   PRINT
-========================= */
+/* =====================================================
+   IMPRESSION
+===================================================== */
 
 function printReport(){
 
   const content =
-    document.getElementById("reportContent")
-      .innerHTML;
+    document.getElementById(
+      "reportContent"
+    ).innerHTML;
+
 
   const win =
     window.open(
@@ -2002,10 +3065,16 @@ function printReport(){
       "width=800,height=700"
     );
 
+
   win.document.write(`
+
     <html>
+
       <head>
-        <title>Rapport SalesTrack</title>
+
+        <title>
+          Rapport SalesTrack
+        </title>
 
         <style>
 
@@ -2031,6 +3100,7 @@ function printReport(){
           }
 
         </style>
+
       </head>
 
       <body>
@@ -2038,61 +3108,100 @@ function printReport(){
         ${content}
 
         <script>
+
           window.onload=function(){
             window.print();
           }
+
         <\/script>
 
       </body>
+
     </html>
+
   `);
+
 
   win.document.close();
 
 }
 
 
-/* =========================
+/* =====================================================
    TOAST
-========================= */
+===================================================== */
 
 function showToast(message){
 
   const toast =
-    document.getElementById("toast");
+    document.getElementById(
+      "toast"
+    );
 
-  toast.textContent = message;
 
-  toast.classList.add("show");
+  toast.textContent =
+    message;
+
+
+  toast.classList.add(
+    "show"
+  );
+
 
   setTimeout(()=>{
 
-    toast.classList.remove("show");
+    toast.classList.remove(
+      "show"
+    );
 
   },2500);
 
 }
 
 
-/* =========================
-   SECURITY
-========================= */
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
 
 function escapeHtml(value){
 
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  return String(
+    value ?? ""
+  )
+
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+
+  .replace(
+    /</g,
+    "&lt;"
+  )
+
+  .replace(
+    />/g,
+    "&gt;"
+  )
+
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+
+  .replace(
+    /'/g,
+    "&#039;"
+  );
 
 }
 
 
-/* =========================
+/* =====================================================
    INITIALISATION
-========================= */
+===================================================== */
+
+loadServices();
 
 loadData();
 
@@ -2110,3 +3219,4 @@ renderReport();
 
 </body>
 </html>
+```
