@@ -1,12 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>SalesTrack — Analyse Journalière</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
@@ -48,147 +47,7 @@ button{
   min-height:100vh;
 }
 
-/* =========================
-   AUTHENTIFICATION
-========================= */
-
-.auth-screen{
-  min-height:100vh;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:
-    radial-gradient(circle at top right,rgba(254,67,2,.15),transparent 35%),
-    #f7f7f7;
-}
-
-.auth-screen.active{
-  display:flex;
-}
-
-.auth-card{
-  width:100%;
-  max-width:420px;
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:30px;
-  box-shadow:0 20px 60px rgba(0,0,0,.10);
-}
-
-.auth-logo{
-  text-align:center;
-  font-size:30px;
-  font-weight:900;
-  margin-bottom:8px;
-}
-
-.auth-logo span{
-  color:var(--orange);
-}
-
-.auth-title{
-  text-align:center;
-  font-size:22px;
-  font-weight:900;
-  margin-top:20px;
-}
-
-.auth-subtitle{
-  text-align:center;
-  color:var(--muted);
-  font-size:13px;
-  margin-top:7px;
-  margin-bottom:25px;
-}
-
-.auth-form{
-  display:flex;
-  flex-direction:column;
-  gap:15px;
-}
-
-.auth-field{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
-}
-
-.auth-field label{
-  font-size:13px;
-  font-weight:700;
-}
-
-.auth-field input{
-  width:100%;
-  padding:13px 14px;
-  border:1px solid var(--border);
-  border-radius:11px;
-  outline:none;
-}
-
-.auth-field input:focus{
-  border-color:var(--orange);
-}
-
-.auth-button{
-  width:100%;
-  border:0;
-  padding:14px;
-  border-radius:11px;
-  background:linear-gradient(135deg,var(--orange),var(--orange2));
-  color:#fff;
-  font-weight:800;
-  margin-top:5px;
-}
-
-.auth-button:hover{
-  transform:translateY(-1px);
-}
-
-.auth-switch{
-  width:100%;
-  border:0;
-  background:transparent;
-  color:var(--orange);
-  font-weight:700;
-  margin-top:18px;
-}
-
-.auth-message{
-  display:none;
-  margin-top:15px;
-  padding:12px;
-  border-radius:10px;
-  font-size:13px;
-  line-height:1.5;
-}
-
-.auth-message.show{
-  display:block;
-}
-
-.auth-message.error{
-  background:#fff0ef;
-  color:var(--red);
-}
-
-.auth-message.success{
-  background:#edf9f1;
-  color:var(--green);
-}
-
-.auth-loading{
-  text-align:center;
-  color:var(--muted);
-  font-size:13px;
-  margin-top:15px;
-}
-
-/* =========================
-   SIDEBAR
-========================= */
+/* SIDEBAR */
 
 .sidebar{
   width:245px;
@@ -241,35 +100,11 @@ button{
   bottom:20px;
   left:20px;
   right:20px;
-}
-
-.user-email{
-  color:#aaa;
-  font-size:11px;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-  margin-bottom:10px;
-}
-
-.logout-btn{
-  width:100%;
-  border:1px solid #444;
-  background:#2d2d2c;
-  color:#fff;
-  padding:10px;
-  border-radius:9px;
+  color:#777;
   font-size:12px;
-  font-weight:700;
 }
 
-.logout-btn:hover{
-  background:#3a3a39;
-}
-
-/* =========================
-   MAIN
-========================= */
+/* MAIN */
 
 .main{
   margin-left:245px;
@@ -303,9 +138,7 @@ button{
   font-weight:700;
 }
 
-/* =========================
-   SECTIONS
-========================= */
+/* SECTIONS */
 
 .section{
   display:none;
@@ -315,9 +148,7 @@ button{
   display:block;
 }
 
-/* =========================
-   KPI
-========================= */
+/* KPI */
 
 .kpis{
   display:grid;
@@ -363,9 +194,7 @@ button{
   color:var(--red);
 }
 
-/* =========================
-   GOAL
-========================= */
+/* GOAL */
 
 .goal-card{
   margin-bottom:22px;
@@ -415,9 +244,7 @@ button{
   font-size:13px;
 }
 
-/* =========================
-   GRID
-========================= */
+/* GRID */
 
 .grid-2{
   display:grid;
@@ -442,9 +269,7 @@ button{
   position:relative;
 }
 
-/* =========================
-   FORMS
-========================= */
+/* FORMS */
 
 .form-grid{
   display:grid;
@@ -514,9 +339,91 @@ button{
   margin-top:18px;
 }
 
-/* =========================
-   TABLE
-========================= */
+/* SERVICE */
+
+.service-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  padding:14px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.service-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.service-name{
+  font-weight:800;
+}
+
+.service-meta{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:4px;
+}
+
+.service-total{
+  font-weight:900;
+  color:var(--orange);
+}
+
+.service-delete{
+  border:0;
+  background:#fff0ef;
+  color:var(--red);
+  padding:7px 10px;
+  border-radius:8px;
+  font-size:11px;
+  font-weight:700;
+}
+
+/* CUSTOM SERVICE */
+
+.add-service-card{
+  margin-top:20px;
+  background:var(--gray);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:18px;
+}
+
+.add-service-card h4{
+  margin-bottom:15px;
+}
+
+.add-service-form{
+  display:grid;
+  grid-template-columns:1fr 1fr auto;
+  gap:12px;
+}
+
+.add-service-form input{
+  width:100%;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  outline:none;
+  background:#fff;
+}
+
+.add-service-form input:focus{
+  border-color:var(--orange);
+}
+
+.add-service-form button{
+  border:0;
+  background:var(--dark);
+  color:#fff;
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:800;
+}
+
+/* TABLE */
 
 .table-wrap{
   overflow-x:auto;
@@ -545,37 +452,7 @@ th{
   color:var(--muted);
 }
 
-/* =========================
-   SERVICE
-========================= */
-
-.service-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  padding:14px 0;
-  border-bottom:1px solid var(--border);
-}
-
-.service-name{
-  font-weight:800;
-}
-
-.service-meta{
-  color:var(--muted);
-  font-size:12px;
-  margin-top:4px;
-}
-
-.service-total{
-  font-weight:900;
-  color:var(--orange);
-}
-
-/* =========================
-   ANALYSIS
-========================= */
+/* ANALYSIS */
 
 .analysis-box{
   padding:17px;
@@ -595,79 +472,7 @@ th{
   line-height:1.5;
 }
 
-/* =========================
-   WEEK
-========================= */
-
-.week-table{
-  width:100%;
-}
-
-.week-total{
-  font-size:22px;
-  font-weight:900;
-  color:var(--orange);
-}
-
-/* =========================
-   NETFLIX
-========================= */
-
-.netflix-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:18px;
-  margin-bottom:22px;
-}
-
-.netflix-stat{
-  background:#fff;
-  border:1px solid var(--border);
-  border-radius:17px;
-  padding:20px;
-  box-shadow:0 8px 30px rgba(0,0,0,.04);
-}
-
-.netflix-stat strong{
-  display:block;
-  font-size:25px;
-  margin-top:8px;
-}
-
-.netflix-form{
-  margin-bottom:22px;
-}
-
-.status{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:20px;
-  font-size:11px;
-  font-weight:800;
-}
-
-.status.active{
-  background:#edf9f1;
-  color:var(--green);
-}
-
-.status.soon{
-  background:#fff7e6;
-  color:#b7791f;
-}
-
-.status.expired{
-  background:#fff0ef;
-  color:var(--red);
-}
-
-.search-box{
-  margin-bottom:15px;
-}
-
-/* =========================
-   REPORT
-========================= */
+/* REPORT */
 
 .report{
   border:1px solid var(--border);
@@ -693,39 +498,7 @@ th{
   color:var(--orange);
 }
 
-/* =========================
-   LOADING
-========================= */
-
-.loading-overlay{
-  position:fixed;
-  inset:0;
-  background:#fff;
-  z-index:9999;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-}
-
-.loading-logo{
-  font-size:30px;
-  font-weight:900;
-}
-
-.loading-logo span{
-  color:var(--orange);
-}
-
-.loading-text{
-  color:var(--muted);
-  font-size:13px;
-  margin-top:10px;
-}
-
-/* =========================
-   TOAST
-========================= */
+/* TOAST */
 
 .toast{
   position:fixed;
@@ -739,7 +512,7 @@ th{
   pointer-events:none;
   transform:translateY(15px);
   transition:.3s;
-  z-index:10000;
+  z-index:100;
 }
 
 .toast.show{
@@ -747,21 +520,15 @@ th{
   transform:translateY(0);
 }
 
-/* =========================
-   MOBILE
-========================= */
+/* MOBILE */
 
 .mobile-menu{
   display:none;
 }
 
-@media(max-width:1100px){
+@media(max-width:1000px){
 
   .kpis{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .netflix-grid{
     grid-template-columns:repeat(2,1fr);
   }
 
@@ -770,6 +537,10 @@ th{
   }
 
   .grid-3{
+    grid-template-columns:1fr;
+  }
+
+  .add-service-form{
     grid-template-columns:1fr;
   }
 }
@@ -818,11 +589,6 @@ th{
     gap:10px;
   }
 
-  .netflix-grid{
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  }
-
   .card{
     padding:15px;
   }
@@ -839,16 +605,19 @@ th{
     grid-column:auto;
   }
 
-  .auth-card{
-    padding:24px;
+  .service-left{
+    align-items:flex-start;
   }
 }
 
 @media(max-width:450px){
 
-  .kpis,
-  .netflix-grid{
+  .kpis{
     grid-template-columns:1fr;
+  }
+
+  .service-row{
+    align-items:flex-start;
   }
 }
 </style>
@@ -856,131 +625,7 @@ th{
 
 <body>
 
-<!-- =========================
-     LOADING
-========================= -->
-
-<div class="loading-overlay" id="loadingOverlay">
-
-  <div class="loading-logo">
-    Sales<span>Track</span>
-  </div>
-
-  <div class="loading-text" id="loadingText">
-    Chargement sécurisé...
-  </div>
-
-</div>
-
-
-<!-- =========================
-     AUTH
-========================= -->
-
-<div class="auth-screen" id="authScreen">
-
-  <div class="auth-card">
-
-    <div class="auth-logo">
-      Sales<span>Track</span>
-    </div>
-
-    <div class="auth-title" id="authTitle">
-      Connexion
-    </div>
-
-    <div class="auth-subtitle" id="authSubtitle">
-      Connectez-vous à votre espace SalesTrack.
-    </div>
-
-    <form class="auth-form" id="authForm">
-
-      <div class="auth-field">
-
-        <label>Email</label>
-
-        <input
-          type="email"
-          id="authEmail"
-          placeholder="exemple@email.com"
-          autocomplete="email"
-          required
-        >
-
-      </div>
-
-
-      <div class="auth-field">
-
-        <label>Mot de passe</label>
-
-        <input
-          type="password"
-          id="authPassword"
-          placeholder="Votre mot de passe"
-          autocomplete="current-password"
-          minlength="6"
-          required
-        >
-
-      </div>
-
-
-      <div
-        class="auth-field"
-        id="confirmPasswordContainer"
-        style="display:none;"
-      >
-
-        <label>Confirmer le mot de passe</label>
-
-        <input
-          type="password"
-          id="authPasswordConfirm"
-          placeholder="Confirmez votre mot de passe"
-          autocomplete="new-password"
-          minlength="6"
-        >
-
-      </div>
-
-
-      <button
-        type="submit"
-        class="auth-button"
-        id="authSubmit"
-      >
-        Se connecter
-      </button>
-
-    </form>
-
-
-    <button
-      class="auth-switch"
-      id="authSwitch"
-      type="button"
-      onclick="toggleAuthMode()"
-    >
-      Créer un compte
-    </button>
-
-
-    <div
-      class="auth-message"
-      id="authMessage"
-    ></div>
-
-  </div>
-
-</div>
-
-
-<!-- =========================
-     APPLICATION
-========================= -->
-
-<div class="app" id="app" style="display:none;">
+<div class="app">
 
 <!-- SIDEBAR -->
 
@@ -990,77 +635,42 @@ th{
     Sales<span>Track</span>
   </div>
 
-
   <nav class="menu">
 
-    <button
-      class="active"
-      onclick="showSection('dashboard',this)"
-    >
+    <button class="active"
+      onclick="showSection('dashboard',this)">
       Tableau de bord
     </button>
 
     <button
-      onclick="showSection('operation',this)"
-    >
+      onclick="showSection('operation',this)">
       Nouvelle opération
     </button>
 
     <button
-      onclick="showSection('services',this)"
-    >
+      onclick="showSection('services',this)">
       Services
     </button>
 
     <button
-      onclick="showSection('history',this)"
-    >
+      onclick="showSection('history',this)">
       Historique
     </button>
 
     <button
-      onclick="showSection('analysis',this)"
-    >
+      onclick="showSection('analysis',this)">
       Analyse du jour
     </button>
 
     <button
-      onclick="showSection('week',this)"
-    >
-      Semaine
-    </button>
-
-    <button
-      onclick="showSection('netflix',this)"
-    >
-      Netflix
-    </button>
-
-    <button
-      onclick="showSection('report',this)"
-    >
+      onclick="showSection('report',this)">
       Rapport
     </button>
 
   </nav>
 
-
   <div class="sidebar-footer">
-
-    <div
-      class="user-email"
-      id="userEmail"
-    >
-      -
-    </div>
-
-    <button
-      class="logout-btn"
-      onclick="logout()"
-    >
-      Déconnexion
-    </button>
-
+    Analyse locale de la journée
   </div>
 
 </aside>
@@ -1076,14 +686,11 @@ th{
 
       <button
         class="mobile-menu"
-        onclick="toggleMenu()"
-      >
+        onclick="toggleMenu()">
         Menu
       </button>
 
-      <h1>
-        Analyse journalière
-      </h1>
+      <h1>Analyse journalière</h1>
 
       <p>
         Suivez vos revenus et performances du jour.
@@ -1091,23 +698,19 @@ th{
 
     </div>
 
-
     <div
       class="date-box"
-      id="currentDate"
-    ></div>
+      id="currentDate">
+    </div>
 
   </div>
 
 
-  <!-- =========================
-       DASHBOARD
-  ========================= -->
+  <!-- DASHBOARD -->
 
   <section
     id="dashboard"
-    class="section active"
-  >
+    class="section active">
 
     <div class="kpis">
 
@@ -1119,8 +722,7 @@ th{
 
         <div
           class="kpi-value orange"
-          id="todayRevenue"
-        >
+          id="todayRevenue">
           0 HTG
         </div>
 
@@ -1139,8 +741,7 @@ th{
 
         <div
           class="kpi-value"
-          id="operationCount"
-        >
+          id="operationCount">
           0
         </div>
 
@@ -1159,8 +760,7 @@ th{
 
         <div
           class="kpi-value"
-          id="averageSale"
-        >
+          id="averageSale">
           0 HTG
         </div>
 
@@ -1179,8 +779,7 @@ th{
 
         <div
           class="kpi-value"
-          id="itemsSold"
-        >
+          id="itemsSold">
           0
         </div>
 
@@ -1203,22 +802,17 @@ th{
 
         <div
           class="goal-percent"
-          id="goalPercent"
-        >
+          id="goalPercent">
           0%
         </div>
 
       </div>
 
-
       <div class="progress">
 
-        <div
-          id="goalProgress"
-        ></div>
+        <div id="goalProgress"></div>
 
       </div>
-
 
       <div class="goal-info">
 
@@ -1279,15 +873,13 @@ th{
 
         <div
           class="kpi-value"
-          id="bestService"
-        >
+          id="bestService">
           —
         </div>
 
         <div
           class="kpi-small"
-          id="bestServiceRevenue"
-        >
+          id="bestServiceRevenue">
           0 HTG
         </div>
 
@@ -1302,15 +894,13 @@ th{
 
         <div
           class="kpi-value"
-          id="bestHour"
-        >
+          id="bestHour">
           —
         </div>
 
         <div
           class="kpi-small"
-          id="bestHourRevenue"
-        >
+          id="bestHourRevenue">
           0 HTG
         </div>
 
@@ -1325,8 +915,7 @@ th{
 
         <div
           class="kpi-value"
-          id="performanceStatus"
-        >
+          id="performanceStatus">
           En attente
         </div>
 
@@ -1341,14 +930,11 @@ th{
   </section>
 
 
-  <!-- =========================
-       OPERATION
-  ========================= -->
+  <!-- OPERATION -->
 
   <section
     id="operation"
-    class="section"
-  >
+    class="section">
 
     <div class="card">
 
@@ -1366,8 +952,7 @@ th{
 
           <select
             id="serviceSelect"
-            onchange="updatePrice()"
-          >
+            onchange="updatePrice()">
 
             <option value="">
               Choisir un service
@@ -1389,8 +974,7 @@ th{
             id="quantity"
             min="1"
             value="1"
-            oninput="updateTotal()"
-          >
+            oninput="updateTotal()">
 
         </div>
 
@@ -1405,8 +989,7 @@ th{
             type="text"
             id="unitPrice"
             readonly
-            placeholder="0 HTG"
-          >
+            placeholder="0 HTG">
 
         </div>
 
@@ -1421,8 +1004,7 @@ th{
             type="text"
             id="totalPrice"
             readonly
-            placeholder="0 HTG"
-          >
+            placeholder="0 HTG">
 
         </div>
 
@@ -1435,8 +1017,7 @@ th{
 
           <input
             type="time"
-            id="operationTime"
-          >
+            id="operationTime">
 
         </div>
 
@@ -1450,8 +1031,7 @@ th{
           <input
             type="text"
             id="operationNote"
-            placeholder="Ex : Client Facebook"
-          >
+            placeholder="Ex : Client Facebook">
 
         </div>
 
@@ -1460,9 +1040,10 @@ th{
 
       <button
         class="btn btn-primary btn-full"
-        onclick="addOperation()"
-      >
+        onclick="addOperation()">
+
         Ajouter l'opération
+
       </button>
 
     </div>
@@ -1470,14 +1051,11 @@ th{
   </section>
 
 
-  <!-- =========================
-       SERVICES
-  ========================= -->
+  <!-- SERVICES -->
 
   <section
     id="services"
-    class="section"
-  >
+    class="section">
 
     <div class="card">
 
@@ -1487,19 +1065,49 @@ th{
 
       <div id="servicesList"></div>
 
+
+      <!-- AJOUT SERVICE -->
+
+      <div class="add-service-card">
+
+        <h4>
+          Ajouter mon propre service
+        </h4>
+
+        <div class="add-service-form">
+
+          <input
+            type="text"
+            id="customServiceName"
+            placeholder="Nom du service">
+
+          <input
+            type="number"
+            id="customServicePrice"
+            min="0"
+            placeholder="Prix en HTG">
+
+          <button
+            onclick="addCustomService()">
+
+            Ajouter
+
+          </button>
+
+        </div>
+
+      </div>
+
     </div>
 
   </section>
 
 
-  <!-- =========================
-       HISTORY
-  ========================= -->
+  <!-- HISTORY -->
 
   <section
     id="history"
-    class="section"
-  >
+    class="section">
 
     <div class="card">
 
@@ -1526,8 +1134,8 @@ th{
           </thead>
 
           <tbody
-            id="historyTable"
-          ></tbody>
+            id="historyTable">
+          </tbody>
 
         </table>
 
@@ -1538,14 +1146,11 @@ th{
   </section>
 
 
-  <!-- =========================
-       ANALYSIS
-  ========================= -->
+  <!-- ANALYSIS -->
 
   <section
     id="analysis"
-    class="section"
-  >
+    class="section">
 
     <div class="card">
 
@@ -1554,56 +1159,7 @@ th{
       </h3>
 
       <div
-        id="analysisContent"
-      ></div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       WEEK
-  ========================= -->
-
-  <section
-    id="week"
-    class="section"
-  >
-
-    <div class="card">
-
-      <h3>
-        Performance de la semaine
-      </h3>
-
-      <div class="table-wrap">
-
-        <table>
-
-          <thead>
-
-            <tr>
-              <th>Jour</th>
-              <th>Revenus</th>
-              <th>Opérations</th>
-              <th>Articles</th>
-            </tr>
-
-          </thead>
-
-          <tbody id="weekTable"></tbody>
-
-        </table>
-
-      </div>
-
-      <div
-        style="margin-top:20px;"
-        class="week-total"
-        id="weekTotal"
-      >
-        0 HTG
+        id="analysisContent">
       </div>
 
     </div>
@@ -1611,232 +1167,11 @@ th{
   </section>
 
 
-  <!-- =========================
-       NETFLIX
-  ========================= -->
-
-  <section
-    id="netflix"
-    class="section"
-  >
-
-    <div class="netflix-grid">
-
-      <div class="netflix-stat">
-
-        <div class="kpi-label">
-          Total abonnements
-        </div>
-
-        <strong id="netflixTotal">
-          0
-        </strong>
-
-      </div>
-
-
-      <div class="netflix-stat">
-
-        <div class="kpi-label">
-          Actifs
-        </div>
-
-        <strong
-          class="green"
-          id="netflixActive"
-        >
-          0
-        </strong>
-
-      </div>
-
-
-      <div class="netflix-stat">
-
-        <div class="kpi-label">
-          Bientôt expirés
-        </div>
-
-        <strong id="netflixSoon">
-          0
-        </strong>
-
-      </div>
-
-
-      <div class="netflix-stat">
-
-        <div class="kpi-label">
-          Expirés
-        </div>
-
-        <strong
-          class="red"
-          id="netflixExpired"
-        >
-          0
-        </strong>
-
-      </div>
-
-    </div>
-
-
-    <div class="card netflix-form">
-
-      <h3>
-        Ajouter un abonnement Netflix
-      </h3>
-
-      <div class="form-grid">
-
-        <div class="field">
-
-          <label>
-            Nom du client
-          </label>
-
-          <input
-            type="text"
-            id="customerName"
-            placeholder="Nom du client"
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Profil
-          </label>
-
-          <input
-            type="text"
-            id="profileName"
-            placeholder="Ex : Profil 1"
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Date de début
-          </label>
-
-          <input
-            type="date"
-            id="subscriptionStart"
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Durée
-          </label>
-
-          <select id="subscriptionDuration">
-
-            <option value="7">
-              7 jours
-            </option>
-
-            <option value="15">
-              15 jours
-            </option>
-
-            <option value="30" selected>
-              30 jours
-            </option>
-
-            <option value="60">
-              60 jours
-            </option>
-
-            <option value="90">
-              90 jours
-            </option>
-
-          </select>
-
-        </div>
-
-      </div>
-
-
-      <button
-        class="btn btn-primary btn-full"
-        onclick="addSubscription()"
-      >
-        Ajouter l'abonnement
-      </button>
-
-    </div>
-
-
-    <div class="card">
-
-      <h3>
-        Abonnements
-      </h3>
-
-      <div class="search-box">
-
-        <input
-          class="field input"
-          style="width:100%;padding:12px 13px;border:1px solid var(--border);border-radius:10px;outline:none;"
-          type="text"
-          id="netflixSearch"
-          placeholder="Rechercher un client ou un profil..."
-          oninput="renderNetflix()"
-        >
-
-      </div>
-
-
-      <div class="table-wrap">
-
-        <table>
-
-          <thead>
-
-            <tr>
-              <th>Client</th>
-              <th>Profil</th>
-              <th>Début</th>
-              <th>Expiration</th>
-              <th>Statut</th>
-              <th></th>
-            </tr>
-
-          </thead>
-
-          <tbody
-            id="netflixTable"
-          ></tbody>
-
-        </table>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =========================
-       REPORT
-  ========================= -->
+  <!-- REPORT -->
 
   <section
     id="report"
-    class="section"
-  >
+    class="section">
 
     <div class="card">
 
@@ -1846,15 +1181,15 @@ th{
 
       <div
         class="report"
-        id="reportContent"
-      ></div>
-
+        id="reportContent">
+      </div>
 
       <button
         class="btn btn-primary btn-full"
-        onclick="printReport()"
-      >
+        onclick="printReport()">
+
         Imprimer le rapport
+
       </button>
 
     </div>
@@ -1868,28 +1203,11 @@ th{
 
 <div
   class="toast"
-  id="toast"
-></div>
+  id="toast">
+</div>
 
 
 <script>
-
-/* =====================================================
-   SUPABASE
-===================================================== */
-
-const SUPABASE_URL =
-  "https://olayznhimjjjwdrjvryp.supabase.co";
-
-const SUPABASE_ANON_KEY =
-  "sb_publishable_6NiV3HsDHuouUbaLZClcGw_-cpziTuq";
-
-const supabaseClient =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-  );
-
 
 /* =====================================================
    CONFIGURATION
@@ -1897,95 +1215,83 @@ const supabaseClient =
 
 const DAILY_GOAL = 2500;
 
-const SERVICES = [
+
+/* =====================================================
+   SERVICES PAR DEFAUT
+===================================================== */
+
+const DEFAULT_SERVICES = [
 
   {
     id:"affiche",
     name:"Affiche",
-    price:3000
+    price:3000,
+    default:true
   },
 
   {
     id:"carte-visite",
     name:"Carte de visite",
-    price:2500
+    price:2500,
+    default:true
   },
 
   {
-    id:"inscription",
+    id:"inscription-formation",
     name:"Inscription formation",
-    price:250
+    price:250,
+    default:true
   },
 
   {
     id:"formation",
     name:"Formation",
-    price:3000
+    price:3000,
+    default:true
   },
 
   {
     id:"meru",
     name:"Carte MERU",
-    price:1250
+    price:1250,
+    default:true
   },
 
   {
     id:"inscription-membre",
     name:"Inscription membre",
-    price:150
+    price:150,
+    default:true
   }
 
 ];
 
 
 /* =====================================================
-   DATA
+   VARIABLES
 ===================================================== */
 
-let currentUser = null;
+let services = [];
 
 let operations = [];
-
-let servicesData = [];
-
-let subscribers = [];
 
 let hourChart = null;
 
 let serviceChart = null;
-
-let authMode = "login";
 
 
 /* =====================================================
    DATE
 ===================================================== */
 
-function today(){
-
-  const d = new Date();
-
-  const year =
-    d.getFullYear();
-
-  const month =
-    String(d.getMonth()+1)
-      .padStart(2,"0");
-
-  const day =
-    String(d.getDate())
-      .padStart(2,"0");
-
-  return `${year}-${month}-${day}`;
-
-}
-
-const todayKey = today();
+const todayKey =
+  new Date()
+    .toISOString()
+    .slice(0,10);
 
 
-document.getElementById(
-  "currentDate"
-).textContent =
+document.getElementById("currentDate")
+  .textContent =
   new Date().toLocaleDateString(
     "fr-FR",
     {
@@ -1998,891 +1304,101 @@ document.getElementById(
 
 
 /* =====================================================
-   LOADING
+   STORAGE SERVICES
 ===================================================== */
 
-function loading(text){
+function loadServices(){
 
-  document.getElementById(
-    "loadingText"
-  ).textContent = text;
+  try{
 
-  document.getElementById(
-    "loadingOverlay"
-  ).style.display = "flex";
+    const saved =
+      localStorage.getItem(
+        "salestrack_services"
+      );
 
-}
+    if(saved){
 
+      const customServices =
+        JSON.parse(saved);
 
-function stopLoading(){
+      services =
+        [
+          ...DEFAULT_SERVICES,
+          ...customServices
+        ];
 
-  document.getElementById(
-    "loadingOverlay"
-  ).style.display = "none";
+    }else{
 
-}
+      services =
+        [...DEFAULT_SERVICES];
 
+    }
 
-/* =====================================================
-   AUTH UI
-===================================================== */
+  }catch(error){
 
-function showAuth(){
-
-  document.getElementById(
-    "app"
-  ).style.display = "none";
-
-  document.getElementById(
-    "authScreen"
-  ).classList.add("active");
-
-}
-
-
-function showApp(){
-
-  document.getElementById(
-    "authScreen"
-  ).classList.remove("active");
-
-  document.getElementById(
-    "app"
-  ).style.display = "flex";
-
-  document.getElementById(
-    "userEmail"
-  ).textContent =
-    currentUser?.email || "";
-
-}
-
-
-function toggleAuthMode(){
-
-  authMode =
-    authMode === "login"
-      ? "register"
-      : "login";
-
-  const title =
-    document.getElementById(
-      "authTitle"
-    );
-
-  const subtitle =
-    document.getElementById(
-      "authSubtitle"
-    );
-
-  const button =
-    document.getElementById(
-      "authSubmit"
-    );
-
-  const switchButton =
-    document.getElementById(
-      "authSwitch"
-    );
-
-  const confirm =
-    document.getElementById(
-      "confirmPasswordContainer"
-    );
-
-  const password =
-    document.getElementById(
-      "authPassword"
-    );
-
-  clearAuthMessage();
-
-  if(authMode === "register"){
-
-    title.textContent =
-      "Créer un compte";
-
-    subtitle.textContent =
-      "Créez votre compte SalesTrack.";
-
-    button.textContent =
-      "Créer mon compte";
-
-    switchButton.textContent =
-      "J'ai déjà un compte";
-
-    confirm.style.display =
-      "flex";
-
-    password.autocomplete =
-      "new-password";
-
-  }else{
-
-    title.textContent =
-      "Connexion";
-
-    subtitle.textContent =
-      "Connectez-vous à votre espace SalesTrack.";
-
-    button.textContent =
-      "Se connecter";
-
-    switchButton.textContent =
-      "Créer un compte";
-
-    confirm.style.display =
-      "none";
-
-    password.autocomplete =
-      "current-password";
+    services =
+      [...DEFAULT_SERVICES];
 
   }
 
 }
 
 
-function showAuthMessage(
-  message,
-  type = "error"
-){
+function saveServices(){
 
-  const box =
-    document.getElementById(
-      "authMessage"
+  const customServices =
+    services.filter(
+      service=>!service.default
     );
 
-  box.textContent =
-    message;
-
-  box.className =
-    "auth-message show " + type;
-
-}
-
-
-function clearAuthMessage(){
-
-  const box =
-    document.getElementById(
-      "authMessage"
-    );
-
-  box.textContent = "";
-
-  box.className =
-    "auth-message";
-
-}
-
-
-function friendlyAuthError(error){
-
-  const message =
-    String(
-      error?.message || ""
-    ).toLowerCase();
-
-  if(
-    message.includes(
-      "invalid login credentials"
-    )
-  ){
-
-    return "Email ou mot de passe incorrect.";
-
-  }
-
-  if(
-    message.includes(
-      "email not confirmed"
-    )
-  ){
-
-    return "Votre email n'est pas encore confirmé.";
-
-  }
-
-  if(
-    message.includes(
-      "already registered"
-    ) ||
-    message.includes(
-      "user already registered"
-    )
-  ){
-
-    return "Un compte existe déjà avec cet email.";
-
-  }
-
-  if(
-    message.includes(
-      "password should be at least"
-    )
-  ){
-
-    return "Le mot de passe doit contenir au moins 6 caractères.";
-
-  }
-
-  return (
-    error?.message ||
-    "Une erreur est survenue."
+  localStorage.setItem(
+    "salestrack_services",
+    JSON.stringify(customServices)
   );
 
 }
 
 
 /* =====================================================
-   LOGIN / REGISTER
+   STORAGE OPERATIONS
 ===================================================== */
 
-document.getElementById(
-  "authForm"
-).addEventListener(
-  "submit",
-  handleAuth
-);
+function storageKey(){
+
+  return "salestrack_" + todayKey;
+
+}
 
 
-async function handleAuth(event){
-
-  event.preventDefault();
-
-  clearAuthMessage();
-
-  const email =
-    document.getElementById(
-      "authEmail"
-    ).value.trim();
-
-  const password =
-    document.getElementById(
-      "authPassword"
-    ).value;
-
-  const confirmPassword =
-    document.getElementById(
-      "authPasswordConfirm"
-    ).value;
-
-  const button =
-    document.getElementById(
-      "authSubmit"
-    );
-
-  if(!email || !password){
-
-    showAuthMessage(
-      "Entrez votre email et votre mot de passe."
-    );
-
-    return;
-
-  }
-
-  if(password.length < 6){
-
-    showAuthMessage(
-      "Le mot de passe doit contenir au moins 6 caractères."
-    );
-
-    return;
-
-  }
-
-
-  button.disabled = true;
-
-  button.textContent =
-    authMode === "login"
-      ? "Connexion..."
-      : "Création...";
-
+function loadData(){
 
   try{
 
-    if(authMode === "login"){
-
-      const {
-        data,
-        error
-      } =
-        await supabaseClient.auth
-          .signInWithPassword({
-
-            email,
-            password
-
-          });
-
-
-      if(error)
-        throw error;
-
-
-      if(!data.session){
-
-        throw new Error(
-          "Aucune session n'a été créée."
-        );
-
-      }
-
-
-      currentUser =
-        data.user;
-
-
-      await startApplication();
-
-
-    }else{
-
-      if(
-        password !== confirmPassword
-      ){
-
-        throw new Error(
-          "Les mots de passe ne correspondent pas."
-        );
-
-      }
-
-
-      const {
-        data,
-        error
-      } =
-        await supabaseClient.auth
-          .signUp({
-
-            email,
-            password
-
-          });
-
-
-      if(error)
-        throw error;
-
-
-      /*
-        Si Supabase exige la confirmation
-        de l'email, il n'y aura pas toujours
-        de session immédiatement.
-      */
-
-      if(data.session){
-
-        currentUser =
-          data.user;
-
-        await startApplication();
-
-      }else{
-
-        showAuthMessage(
-          "Compte créé. Vérifiez votre email puis connectez-vous.",
-          "success"
-        );
-
-        authMode = "login";
-
-        document.getElementById(
-          "authTitle"
-        ).textContent =
-          "Connexion";
-
-        document.getElementById(
-          "authSubtitle"
-        ).textContent =
-          "Votre compte est créé. Connectez-vous.";
-
-        document.getElementById(
-          "authSubmit"
-        ).textContent =
-          "Se connecter";
-
-        document.getElementById(
-          "authSwitch"
-        ).textContent =
-          "Créer un compte";
-
-        document.getElementById(
-          "confirmPasswordContainer"
-        ).style.display =
-          "none";
-
-        document.getElementById(
-          "authPassword"
-        ).value = "";
-
-        document.getElementById(
-          "authPasswordConfirm"
-        ).value = "";
-
-      }
-
-    }
-
-  }catch(error){
-
-    console.error(error);
-
-    showAuthMessage(
-      friendlyAuthError(error)
-    );
-
-  }finally{
-
-    button.disabled = false;
-
-    if(authMode === "login"){
-
-      button.textContent =
-        "Se connecter";
-
-    }else{
-
-      button.textContent =
-        "Créer mon compte";
-
-    }
-
-  }
-
-}
-
-
-/* =====================================================
-   INITIALISATION AUTH
-===================================================== */
-
-async function initAuth(){
-
-  try{
-
-    loading(
-      "Vérification de votre session..."
-    );
-
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient.auth
-        .getSession();
-
-
-    if(error)
-      throw error;
-
-
-    if(!data.session){
-
-      stopLoading();
-
-      showAuth();
-
-      return;
-
-    }
-
-
-    currentUser =
-      data.session.user;
-
-
-    await startApplication();
-
-
-  }catch(error){
-
-    console.error(error);
-
-    stopLoading();
-
-    showAuth();
-
-    showAuthMessage(
-      friendlyAuthError(error)
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   START APPLICATION
-===================================================== */
-
-async function startApplication(){
-
-  try{
-
-    loading(
-      "Chargement de votre espace..."
-    );
-
-
-    await ensureDefaultData();
-
-    await loadAll();
-
-    showApp();
-
-    stopLoading();
-
-  }catch(error){
-
-    console.error(error);
-
-    stopLoading();
-
-    showAuth();
-
-    showAuthMessage(
-      "Impossible de charger vos données : " +
-      friendlyAuthError(error)
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-async function logout(){
-
-  try{
-
-    loading(
-      "Déconnexion..."
-    );
-
-
-    const {
-      error
-    } =
-      await supabaseClient.auth
-        .signOut();
-
-
-    if(error)
-      throw error;
-
-
-    currentUser = null;
-
-    location.reload();
-
-  }catch(error){
-
-    stopLoading();
-
-    showToast(
-      "Erreur lors de la déconnexion."
-    );
-
-    console.error(error);
-
-  }
-
-}
-
-
-/* =====================================================
-   DEFAULT DATA
-===================================================== */
-
-async function ensureDefaultData(){
-
-  if(!currentUser)
-    return;
-
-
-  const {
-    data: existingServices,
-    error: serviceError
-  } =
-    await supabaseClient
-      .from("services")
-      .select("id")
-      .eq(
-        "user_id",
-        currentUser.id
-      )
-      .limit(1);
-
-
-  if(serviceError)
-    throw serviceError;
-
-
-  if(
-    !existingServices ||
-    existingServices.length === 0
-  ){
-
-    const rows =
-      SERVICES.map(service => ({
-
-        user_id:
-          currentUser.id,
-
-        name:
-          service.name,
-
-        price:
-          service.price
-
-      }));
-
-
-    const {
-      error
-    } =
-      await supabaseClient
-        .from("services")
-        .insert(rows);
-
-
-    if(error)
-      throw error;
-
-  }
-
-
-  const {
-    data: goalData,
-    error: goalError
-  } =
-    await supabaseClient
-      .from("weekly_goals")
-      .select("id")
-      .eq(
-        "user_id",
-        currentUser.id
-      )
-      .limit(1);
-
-
-  if(goalError)
-    throw goalError;
-
-
-  if(
-    !goalData ||
-    goalData.length === 0
-  ){
-
-    const {
-      error
-    } =
-      await supabaseClient
-        .from("weekly_goals")
-        .insert({
-
-          user_id:
-            currentUser.id,
-
-          goal_amount:
-            15000,
-
-          week_start:
-            getWeekStart()
-
-        });
-
-
-    if(error)
-      throw error;
-
-  }
-
-}
-
-
-/* =====================================================
-   LOAD ALL
-===================================================== */
-
-async function loadAll(){
-
-  await Promise.all([
-
-    loadServices(),
-
-    loadOperations(),
-
-    loadSubscribers()
-
-  ]);
-
-
-  renderServices();
-
-  renderHistory();
-
-  renderNetflix();
-
-  renderWeek();
-
-  updateDashboard();
-
-  renderAnalysis();
-
-  renderReport();
-
-}
-
-
-/* =====================================================
-   LOAD SERVICES
-===================================================== */
-
-async function loadServices(){
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from("services")
-      .select("*")
-      .eq(
-        "user_id",
-        currentUser.id
-      )
-      .order(
-        "created_at",
-        {
-          ascending:true
-        }
+    const saved =
+      localStorage.getItem(
+        storageKey()
       );
 
+    operations =
+      saved
+      ? JSON.parse(saved)
+      : [];
 
-  if(error)
-    throw error;
+  }catch(error){
 
+    operations = [];
 
-  servicesData =
-    data || [];
-
-}
-
-
-/* =====================================================
-   LOAD SALES
-===================================================== */
-
-async function loadOperations(){
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from("sales")
-      .select("*")
-      .eq(
-        "user_id",
-        currentUser.id
-      )
-      .eq(
-        "sale_date",
-        todayKey
-      )
-      .order(
-        "id",
-        {
-          ascending:false
-        }
-      );
-
-
-  if(error)
-    throw error;
-
-
-  operations =
-    (data || []).map(item => ({
-
-      id:
-        item.id,
-
-      service:
-        item.service_name,
-
-      service_id:
-        item.service_id,
-
-      quantity:
-        Number(item.quantity || 0),
-
-      unit_price:
-        Number(item.unit_price || 0),
-
-      total:
-        Number(
-          item.total ||
-          (
-            Number(item.quantity || 0) *
-            Number(item.unit_price || 0)
-          )
-        ),
-
-      time:
-        item.sale_time ||
-        item.time ||
-        "",
-
-      note:
-        item.note || ""
-
-    }));
+  }
 
 }
 
 
-/* =====================================================
-   LOAD SUBSCRIBERS
-===================================================== */
+function saveData(){
 
-async function loadSubscribers(){
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from("subscribers")
-      .select("*")
-      .eq(
-        "user_id",
-        currentUser.id
-      )
-      .order(
-        "id",
-        {
-          ascending:false
-        }
-      );
-
-
-  if(error)
-    throw error;
-
-
-  subscribers =
-    data || [];
+  localStorage.setItem(
+    storageKey(),
+    JSON.stringify(operations)
+  );
 
 }
 
@@ -2893,11 +1409,9 @@ async function loadSubscribers(){
 
 function money(value){
 
-  return Number(
-    value || 0
-  ).toLocaleString(
-    "fr-FR"
-  ) + " HTG";
+  return Number(value || 0)
+    .toLocaleString("fr-FR")
+    + " HTG";
 
 }
 
@@ -2906,79 +1420,76 @@ function money(value){
    NAVIGATION
 ===================================================== */
 
-function showSection(
-  id,
-  button
-){
+function showSection(id,button){
 
   document
     .querySelectorAll(".section")
-    .forEach(section => {
+    .forEach(section=>{
 
-      section.classList.remove(
-        "active"
-      );
+      section.classList.remove("active");
 
     });
 
 
-  const section =
-    document.getElementById(id);
-
-
-  if(section){
-
-    section.classList.add(
-      "active"
-    );
-
-  }
+  document
+    .getElementById(id)
+    .classList.add("active");
 
 
   document
     .querySelectorAll(".menu button")
-    .forEach(btn => {
+    .forEach(btn=>{
 
-      btn.classList.remove(
-        "active"
-      );
+      btn.classList.remove("active");
 
     });
 
 
   if(button){
 
-    button.classList.add(
-      "active"
-    );
+    button.classList.add("active");
 
   }
 
 
   document
     .getElementById("sidebar")
-    .classList.remove(
-      "open"
-    );
+    .classList.remove("open");
 
 
-  if(id === "dashboard")
+  if(id==="dashboard"){
+
     updateDashboard();
 
-  if(id === "history")
+  }
+
+
+  if(id==="services"){
+
+    renderServices();
+
+  }
+
+
+  if(id==="history"){
+
     renderHistory();
 
-  if(id === "analysis")
+  }
+
+
+  if(id==="analysis"){
+
     renderAnalysis();
 
-  if(id === "week")
-    renderWeek();
+  }
 
-  if(id === "netflix")
-    renderNetflix();
 
-  if(id === "report")
+  if(id==="report"){
+
     renderReport();
+
+  }
 
 }
 
@@ -2987,15 +1498,13 @@ function toggleMenu(){
 
   document
     .getElementById("sidebar")
-    .classList.toggle(
-      "open"
-    );
+    .classList.toggle("open");
 
 }
 
 
 /* =====================================================
-   SERVICES
+   RENDRE SERVICES
 ===================================================== */
 
 function renderServices(){
@@ -3006,35 +1515,44 @@ function renderServices(){
     );
 
 
+  const currentValue =
+    select.value;
+
+
   select.innerHTML =
     `<option value="">
       Choisir un service
     </option>`;
 
 
-  servicesData.forEach(service => {
+  services.forEach(service=>{
 
     const option =
-      document.createElement(
-        "option"
-      );
-
+      document.createElement("option");
 
     option.value =
       service.id;
 
-
     option.textContent =
-      service.name +
-      " — " +
-      money(service.price);
+      service.name
+      + " — "
+      + money(service.price);
 
-
-    select.appendChild(
-      option
-    );
+    select.appendChild(option);
 
   });
+
+
+  if(
+    services.some(
+      service=>service.id===currentValue
+    )
+  ){
+
+    select.value =
+      currentValue;
+
+  }
 
 
   const list =
@@ -3046,48 +1564,55 @@ function renderServices(){
   list.innerHTML = "";
 
 
-  if(
-    !servicesData.length
-  ){
-
-    list.innerHTML =
-      `<div class="empty">
-        Aucun service.
-      </div>`;
-
-    return;
-
-  }
-
-
-  servicesData.forEach(service => {
+  services.forEach(service=>{
 
     const div =
-      document.createElement(
-        "div"
-      );
+      document.createElement("div");
 
 
     div.className =
       "service-row";
 
 
+    const deleteButton =
+      service.default
+      ? ""
+      : `
+        <button
+          class="service-delete"
+          onclick="deleteCustomService('${service.id}')">
+          Supprimer
+        </button>
+      `;
+
+
     div.innerHTML = `
 
-      <div>
+      <div class="service-left">
 
-        <div class="service-name">
-          ${escapeHtml(service.name)}
-        </div>
+        <div>
 
-        <div class="service-meta">
-          Tarif unitaire
+          <div class="service-name">
+            ${escapeHtml(service.name)}
+          </div>
+
+          <div class="service-meta">
+            Tarif unitaire
+          </div>
+
         </div>
 
       </div>
 
-      <div class="service-total">
-        ${money(service.price)}
+      <div
+        style="display:flex;align-items:center;gap:10px">
+
+        <div class="service-total">
+          ${money(service.price)}
+        </div>
+
+        ${deleteButton}
+
       </div>
 
     `;
@@ -3101,7 +1626,181 @@ function renderServices(){
 
 
 /* =====================================================
-   PRICE
+   AJOUTER SERVICE PERSONNALISE
+===================================================== */
+
+function addCustomService(){
+
+  const nameInput =
+    document.getElementById(
+      "customServiceName"
+    );
+
+
+  const priceInput =
+    document.getElementById(
+      "customServicePrice"
+    );
+
+
+  const name =
+    nameInput.value.trim();
+
+
+  const price =
+    Number(priceInput.value);
+
+
+  if(!name){
+
+    showToast(
+      "Entrez le nom du service."
+    );
+
+    return;
+
+  }
+
+
+  if(!price || price < 0){
+
+    showToast(
+      "Entrez un prix valide."
+    );
+
+    return;
+
+  }
+
+
+  const exists =
+    services.some(
+      service=>
+        service.name.toLowerCase()
+        === name.toLowerCase()
+    );
+
+
+  if(exists){
+
+    showToast(
+      "Ce service existe déjà."
+    );
+
+    return;
+
+  }
+
+
+  const newService = {
+
+    id:
+      "custom-" +
+      Date.now(),
+
+    name:
+      name,
+
+    price:
+      price,
+
+    default:
+      false
+
+  };
+
+
+  services.push(
+    newService
+  );
+
+
+  saveServices();
+
+  renderServices();
+
+
+  nameInput.value = "";
+
+  priceInput.value = "";
+
+
+  showToast(
+    "Service ajouté avec succès."
+  );
+
+}
+
+
+/* =====================================================
+   SUPPRIMER SERVICE PERSONNALISE
+===================================================== */
+
+function deleteCustomService(id){
+
+  const service =
+    services.find(
+      item=>item.id===id
+    );
+
+
+  if(!service){
+
+    return;
+
+  }
+
+
+  const used =
+    operations.some(
+      item=>item.serviceId===id
+    );
+
+
+  if(used){
+
+    showToast(
+      "Ce service est déjà utilisé dans l'historique."
+    );
+
+    return;
+
+  }
+
+
+  if(
+    !confirm(
+      "Supprimer le service " +
+      service.name +
+      " ?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  services =
+    services.filter(
+      item=>item.id!==id
+    );
+
+
+  saveServices();
+
+  renderServices();
+
+
+  showToast(
+    "Service supprimé."
+  );
+
+}
+
+
+/* =====================================================
+   SERVICE SELECTIONNE
 ===================================================== */
 
 function getSelectedService(){
@@ -3112,14 +1811,16 @@ function getSelectedService(){
     ).value;
 
 
-  return servicesData.find(
-    service =>
-      String(service.id) ===
-      String(id)
+  return services.find(
+    service=>service.id===id
   );
 
 }
 
+
+/* =====================================================
+   PRIX
+===================================================== */
 
 function updatePrice(){
 
@@ -3129,8 +1830,8 @@ function updatePrice(){
 
   const price =
     service
-      ? Number(service.price)
-      : 0;
+    ? service.price
+    : 0;
 
 
   document.getElementById(
@@ -3160,9 +1861,8 @@ function updateTotal(){
 
   const total =
     service
-      ? Number(service.price) *
-        quantity
-      : 0;
+    ? service.price * quantity
+    : 0;
 
 
   document.getElementById(
@@ -3174,10 +1874,10 @@ function updateTotal(){
 
 
 /* =====================================================
-   ADD OPERATION
+   AJOUT OPERATION
 ===================================================== */
 
-async function addOperation(){
+function addOperation(){
 
   const service =
     getSelectedService();
@@ -3214,13 +1914,10 @@ async function addOperation(){
   }
 
 
-  if(
-    !quantity ||
-    quantity < 1
-  ){
+  if(!quantity || quantity<1){
 
     showToast(
-      "La quantité doit être supérieure à 0."
+      "Entrez une quantité valide."
     );
 
     return;
@@ -3228,162 +1925,99 @@ async function addOperation(){
   }
 
 
-  const saleTime =
-    time ||
-    new Date().toTimeString()
-      .slice(0,5);
+  if(!time){
+
+    showToast(
+      "Entrez l'heure de l'opération."
+    );
+
+    return;
+
+  }
 
 
-  const payload = {
+  const operation = {
 
-    user_id:
-      currentUser.id,
+    id:
+      Date.now(),
 
-    service_id:
+    serviceId:
       service.id,
 
-    service_name:
+    service:
       service.name,
 
     quantity:
       quantity,
 
-    unit_price:
-      Number(service.price),
+    unitPrice:
+      service.price,
 
-    sale_date:
-      todayKey
+    total:
+      service.price * quantity,
+
+    time:
+      time,
+
+    note:
+      note
 
   };
 
 
-  /*
-    On conserve la logique de ta table.
-    Le champ note/time est ajouté seulement
-    s'il existe dans ta table.
-  */
-
-  if(time)
-    payload.sale_time = saleTime;
-
-  if(note)
-    payload.note = note;
+  operations.push(
+    operation
+  );
 
 
-  try{
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient
-        .from("sales")
-        .insert(payload)
-        .select()
-        .single();
+  saveData();
 
 
-    if(error)
-      throw error;
+  document.getElementById(
+    "serviceSelect"
+  ).value = "";
 
 
-    operations.unshift({
-
-      id:
-        data.id,
-
-      service:
-        data.service_name,
-
-      service_id:
-        data.service_id,
-
-      quantity:
-        Number(data.quantity),
-
-      unit_price:
-        Number(data.unit_price),
-
-      total:
-        Number(
-          data.total ||
-          Number(data.quantity) *
-          Number(data.unit_price)
-        ),
-
-      time:
-        data.sale_time ||
-        saleTime,
-
-      note:
-        data.note ||
-        note
-
-    });
+  document.getElementById(
+    "quantity"
+  ).value = 1;
 
 
-    document.getElementById(
-      "serviceSelect"
-    ).value = "";
+  document.getElementById(
+    "unitPrice"
+  ).value = "";
 
 
-    document.getElementById(
-      "quantity"
-    ).value = 1;
+  document.getElementById(
+    "totalPrice"
+  ).value = "";
 
 
-    document.getElementById(
-      "unitPrice"
-    ).value = "";
+  document.getElementById(
+    "operationTime"
+  ).value = "";
 
 
-    document.getElementById(
-      "totalPrice"
-    ).value = "";
+  document.getElementById(
+    "operationNote"
+  ).value = "";
 
 
-    document.getElementById(
-      "operationTime"
-    ).value = "";
+  updateDashboard();
 
 
-    document.getElementById(
-      "operationNote"
-    ).value = "";
-
-
-    updateDashboard();
-
-    renderHistory();
-
-    renderAnalysis();
-
-    renderReport();
-
-
-    showToast(
-      "Opération enregistrée."
-    );
-
-
-  }catch(error){
-
-    console.error(error);
-
-    showToast(
-      "Impossible d'enregistrer l'opération."
-    );
-
-  }
+  showToast(
+    "Opération ajoutée avec succès."
+  );
 
 }
 
 
 /* =====================================================
-   DELETE OPERATION
+   SUPPRIMER OPERATION
 ===================================================== */
 
-async function deleteOperation(id){
+function deleteOperation(id){
 
   if(
     !confirm(
@@ -3396,59 +2030,23 @@ async function deleteOperation(id){
   }
 
 
-  try{
-
-    const {
-      error
-    } =
-      await supabaseClient
-        .from("sales")
-        .delete()
-        .eq(
-          "id",
-          id
-        )
-        .eq(
-          "user_id",
-          currentUser.id
-        );
-
-
-    if(error)
-      throw error;
-
-
-    operations =
-      operations.filter(
-        item =>
-          String(item.id) !==
-          String(id)
-      );
-
-
-    updateDashboard();
-
-    renderHistory();
-
-    renderAnalysis();
-
-    renderReport();
-
-
-    showToast(
-      "Opération supprimée."
+  operations =
+    operations.filter(
+      operation=>
+        operation.id!==id
     );
 
 
-  }catch(error){
+  saveData();
 
-    console.error(error);
+  renderHistory();
 
-    showToast(
-      "Impossible de supprimer l'opération."
-    );
+  updateDashboard();
 
-  }
+
+  showToast(
+    "Opération supprimée."
+  );
 
 }
 
@@ -3461,9 +2059,8 @@ function updateDashboard(){
 
   const revenue =
     operations.reduce(
-      (sum,item) =>
-        sum +
-        Number(item.total || 0),
+      (sum,item)=>
+        sum + item.total,
       0
     );
 
@@ -3474,17 +2071,29 @@ function updateDashboard(){
 
   const items =
     operations.reduce(
-      (sum,item) =>
-        sum +
-        Number(item.quantity || 0),
+      (sum,item)=>
+        sum + item.quantity,
       0
     );
 
 
   const average =
     count
-      ? revenue / count
-      : 0;
+    ? revenue/count
+    : 0;
+
+
+  const percentage =
+    DAILY_GOAL
+    ? revenue/DAILY_GOAL*100
+    : 0;
+
+
+  const progress =
+    Math.min(
+      percentage,
+      100
+    );
 
 
   document.getElementById(
@@ -3511,19 +2120,6 @@ function updateDashboard(){
     money(average);
 
 
-  const percentage =
-    DAILY_GOAL
-      ? (revenue / DAILY_GOAL) * 100
-      : 0;
-
-
-  const progress =
-    Math.min(
-      percentage,
-      100
-    );
-
-
   document.getElementById(
     "goalPercent"
   ).textContent =
@@ -3541,13 +2137,13 @@ function updateDashboard(){
   document.getElementById(
     "goalCurrent"
   ).textContent =
-    money(revenue) +
-    " réalisés";
+    money(revenue)
+    + " réalisés";
 
 
   const remaining =
     Math.max(
-      DAILY_GOAL - revenue,
+      DAILY_GOAL-revenue,
       0
     );
 
@@ -3555,10 +2151,10 @@ function updateDashboard(){
   document.getElementById(
     "goalRemaining"
   ).textContent =
-    remaining > 0
-      ? money(remaining) +
-        " restant"
-      : "Objectif atteint";
+    remaining>0
+    ? money(remaining)
+      + " restant"
+    : "Objectif atteint";
 
 
   let status =
@@ -3566,28 +2162,28 @@ function updateDashboard(){
 
 
   if(
-    revenue >= DAILY_GOAL
+    revenue>=DAILY_GOAL
   ){
 
     status =
       "Objectif atteint";
 
   }else if(
-    revenue >= DAILY_GOAL * .75
+    revenue>=DAILY_GOAL*.75
   ){
 
     status =
       "Très bien";
 
   }else if(
-    revenue >= DAILY_GOAL * .5
+    revenue>=DAILY_GOAL*.5
   ){
 
     status =
       "En bonne voie";
 
   }else if(
-    revenue > 0
+    revenue>0
   ){
 
     status =
@@ -3612,7 +2208,7 @@ function updateDashboard(){
 
 
 /* =====================================================
-   BEST SERVICE
+   MEILLEUR SERVICE
 ===================================================== */
 
 function calculateBestService(){
@@ -3620,21 +2216,11 @@ function calculateBestService(){
   const totals = {};
 
 
-  operations.forEach(item => {
+  operations.forEach(item=>{
 
-    const name =
-      item.service ||
-      "Inconnu";
-
-
-    totals[name] =
-      (
-        totals[name] ||
-        0
-      ) +
-      Number(
-        item.total || 0
-      );
+    totals[item.service] =
+      (totals[item.service] || 0)
+      + item.total;
 
   });
 
@@ -3642,43 +2228,40 @@ function calculateBestService(){
   let best = null;
 
 
-  Object.keys(
-    totals
-  ).forEach(name => {
+  Object.keys(totals)
+    .forEach(name=>{
 
-    if(
-      !best ||
-      totals[name] >
-      totals[best]
-    ){
+      if(
+        !best ||
+        totals[name]>totals[best]
+      ){
 
-      best =
-        name;
+        best =
+          name;
 
-    }
+      }
 
-  });
+    });
 
 
   document.getElementById(
     "bestService"
   ).textContent =
-    best ||
-    "—";
+    best || "—";
 
 
   document.getElementById(
     "bestServiceRevenue"
   ).textContent =
     best
-      ? money(totals[best])
-      : "0 HTG";
+    ? money(totals[best])
+    : "0 HTG";
 
 }
 
 
 /* =====================================================
-   BEST HOUR
+   MEILLEURE HEURE
 ===================================================== */
 
 function calculateBestHour(){
@@ -3686,23 +2269,18 @@ function calculateBestHour(){
   const totals = {};
 
 
-  operations.forEach(item => {
+  operations.forEach(item=>{
 
     const hour =
       item.time
-        ? item.time
-            .split(":")[0] + "h"
-        : "—";
+      ? item.time.split(":")[0]
+        + "h"
+      : "—";
 
 
     totals[hour] =
-      (
-        totals[hour] ||
-        0
-      ) +
-      Number(
-        item.total || 0
-      );
+      (totals[hour] || 0)
+      + item.total;
 
   });
 
@@ -3710,43 +2288,40 @@ function calculateBestHour(){
   let best = null;
 
 
-  Object.keys(
-    totals
-  ).forEach(hour => {
+  Object.keys(totals)
+    .forEach(hour=>{
 
-    if(
-      !best ||
-      totals[hour] >
-      totals[best]
-    ){
+      if(
+        !best ||
+        totals[hour]>totals[best]
+      ){
 
-      best =
-        hour;
+        best =
+          hour;
 
-    }
+      }
 
-  });
+    });
 
 
   document.getElementById(
     "bestHour"
   ).textContent =
-    best ||
-    "—";
+    best || "—";
 
 
   document.getElementById(
     "bestHourRevenue"
   ).textContent =
     best
-      ? money(totals[best])
-      : "0 HTG";
+    ? money(totals[best])
+    : "0 HTG";
 
 }
 
 
 /* =====================================================
-   CHARTS
+   GRAPHIQUES
 ===================================================== */
 
 function renderCharts(){
@@ -3762,15 +2337,15 @@ function renderCharts(){
 
     hours.push(
       String(i)
-        .padStart(2,"0") +
-      "h"
+        .padStart(2,"0")
+      + "h"
     );
 
   }
 
 
   const hourTotals =
-    hours.map(hour => {
+    hours.map(hour=>{
 
       const h =
         hour.replace(
@@ -3780,22 +2355,18 @@ function renderCharts(){
 
 
       return operations
-        .filter(item => {
+        .filter(item=>{
 
-          return (
-            item.time &&
+          return item.time
+            &&
             item.time
-              .split(":")[0] ===
-            h
-          );
+              .split(":")[0]
+            === h;
 
         })
         .reduce(
-          (sum,item) =>
-            sum +
-            Number(
-              item.total || 0
-            ),
+          (sum,item)=>
+            sum+item.total,
           0
         );
 
@@ -3809,78 +2380,92 @@ function renderCharts(){
   }
 
 
-  const hourCanvas =
-    document.getElementById(
-      "hourChart"
-    );
+  hourChart =
+    new Chart(
+      document.getElementById(
+        "hourChart"
+      ),
+      {
 
+        type:"line",
 
-  if(hourCanvas){
+        data:{
 
-    hourChart =
-      new Chart(
-        hourCanvas,
-        {
+          labels:hours,
 
-          type:"bar",
+          datasets:[{
 
-          data:{
+            label:
+              "Revenus HTG",
 
-            labels:hours,
+            data:
+              hourTotals,
 
-            datasets:[{
+            borderWidth:
+              3,
 
-              label:"Revenus",
+            tension:
+              .35,
 
-              data:
-                hourTotals
+            fill:
+              false
 
-            }]
+          }]
+
+        },
+
+        options:{
+
+          responsive:true,
+
+          maintainAspectRatio:false,
+
+          plugins:{
+
+            legend:{
+              display:false
+            }
 
           },
 
-          options:{
+          scales:{
 
-            responsive:true,
-
-            maintainAspectRatio:false,
-
-            plugins:{
-
-              legend:{
-                display:false
-              }
-
+            y:{
+              beginAtZero:true
             }
 
           }
 
         }
-      );
 
-  }
-
-
-  const serviceTotals = {};
+      }
+    );
 
 
-  operations.forEach(item => {
+  const serviceNames =
+    services.map(
+      service=>service.name
+    );
 
-    const name =
-      item.service ||
-      "Inconnu";
 
+  const serviceTotals =
+    services.map(
+      service=>{
 
-    serviceTotals[name] =
-      (
-        serviceTotals[name] ||
-        0
-      ) +
-      Number(
-        item.total || 0
-      );
+        return operations
+          .filter(
+            item=>
+              item.serviceId
+              === service.id
+          )
+          .reduce(
+            (sum,item)=>
+              sum+item.total,
+            0
+          );
 
-  });
+      }
+    );
 
 
   if(serviceChart){
@@ -3890,62 +2475,61 @@ function renderCharts(){
   }
 
 
-  const serviceCanvas =
-    document.getElementById(
-      "serviceChart"
-    );
+  serviceChart =
+    new Chart(
+      document.getElementById(
+        "serviceChart"
+      ),
+      {
 
+        type:"doughnut",
 
-  if(serviceCanvas){
+        data:{
 
-    serviceChart =
-      new Chart(
-        serviceCanvas,
-        {
+          labels:
+            serviceNames,
 
-          type:"doughnut",
+          datasets:[{
 
-          data:{
+            data:
+              serviceTotals,
 
-            labels:
-              Object.keys(
-                serviceTotals
-              ),
+            borderWidth:
+              2
 
-            datasets:[{
+          }]
 
-              data:
-                Object.values(
-                  serviceTotals
-                )
+        },
 
-            }]
+        options:{
 
-          },
+          responsive:true,
 
-          options:{
+          maintainAspectRatio:false,
 
-            responsive:true,
+          plugins:{
 
-            maintainAspectRatio:false
+            legend:{
+              position:"bottom"
+            }
 
           }
 
         }
-      );
 
-  }
+      }
+    );
 
 }
 
 
 /* =====================================================
-   HISTORY
+   HISTORIQUE
 ===================================================== */
 
 function renderHistory(){
 
-  const table =
+  const tbody =
     document.getElementById(
       "historyTable"
     );
@@ -3953,87 +2537,101 @@ function renderHistory(){
 
   if(!operations.length){
 
-    table.innerHTML =
-      `<tr>
+    tbody.innerHTML = `
+
+      <tr>
+
         <td
           colspan="7"
-          class="empty"
-        >
-          Aucune opération aujourd'hui.
+          class="empty">
+
+          Aucune opération enregistrée aujourd'hui.
+
         </td>
-      </tr>`;
+
+      </tr>
+
+    `;
 
     return;
 
   }
 
 
-  table.innerHTML =
-    operations.map(item => `
+  const sorted =
+    [...operations].sort(
+      (a,b)=>
+        a.time.localeCompare(
+          b.time
+        )
+    );
 
-      <tr>
 
-        <td>
-          ${escapeHtml(
-            item.time || "—"
-          )}
-        </td>
+  tbody.innerHTML =
+    sorted.map(item=>{
 
-        <td>
-          ${escapeHtml(
-            item.service
-          )}
-        </td>
+      return `
 
-        <td>
-          ${item.quantity}
-        </td>
+        <tr>
 
-        <td>
-          ${money(
-            item.unit_price
-          )}
-        </td>
+          <td>
+            ${escapeHtml(item.time)}
+          </td>
 
-        <td>
-          <strong>
-            ${money(
-              item.total
+          <td>
+            <strong>
+              ${escapeHtml(item.service)}
+            </strong>
+          </td>
+
+          <td>
+            ${item.quantity}
+          </td>
+
+          <td>
+            ${money(item.unitPrice)}
+          </td>
+
+          <td>
+            <strong>
+              ${money(item.total)}
+            </strong>
+          </td>
+
+          <td>
+            ${escapeHtml(
+              item.note || "—"
             )}
-          </strong>
-        </td>
+          </td>
 
-        <td>
-          ${escapeHtml(
-            item.note || "—"
-          )}
-        </td>
+          <td>
 
-        <td>
+            <button
+              class="btn btn-danger"
+              onclick="deleteOperation(${item.id})">
 
-          <button
-            class="btn btn-danger"
-            onclick="deleteOperation('${item.id}')"
-          >
-            Supprimer
-          </button>
+              Supprimer
 
-        </td>
+            </button>
 
-      </tr>
+          </td>
 
-    `).join("");
+        </tr>
+
+      `;
+
+    }).join("");
 
 }
 
 
 /* =====================================================
-   ANALYSIS
+   ANALYSE
 ===================================================== */
 
 function renderAnalysis(){
 
-  const content =
+  const container =
     document.getElementById(
       "analysisContent"
     );
@@ -4041,9 +2639,8 @@ function renderAnalysis(){
 
   const revenue =
     operations.reduce(
-      (sum,item) =>
-        sum +
-        Number(item.total || 0),
+      (sum,item)=>
+        sum+item.total,
       0
     );
 
@@ -4054,63 +2651,57 @@ function renderAnalysis(){
 
   const items =
     operations.reduce(
-      (sum,item) =>
-        sum +
-        Number(item.quantity || 0),
+      (sum,item)=>
+        sum+item.quantity,
       0
     );
 
 
   const average =
     count
-      ? revenue / count
-      : 0;
+    ? revenue/count
+    : 0;
 
 
-  const serviceTotals = {};
-
-
-  operations.forEach(item => {
-
-    const name =
-      item.service ||
-      "Inconnu";
-
-
-    serviceTotals[name] =
-      (
-        serviceTotals[name] ||
-        0
-      ) +
-      Number(
-        item.total || 0
-      );
-
-  });
+  const percentage =
+    DAILY_GOAL
+    ? revenue/DAILY_GOAL*100
+    : 0;
 
 
   let bestService =
-    "Pas encore disponible";
+    "Aucun";
 
 
   let bestServiceAmount =
     0;
 
 
-  Object.keys(
-    serviceTotals
-  ).forEach(name => {
+  services.forEach(service=>{
+
+    const total =
+      operations
+        .filter(
+          item=>
+            item.serviceId
+            === service.id
+        )
+        .reduce(
+          (sum,item)=>
+            sum+item.total,
+          0
+        );
+
 
     if(
-      serviceTotals[name] >
-      bestServiceAmount
+      total>bestServiceAmount
     ){
 
-      bestService =
-        name;
-
       bestServiceAmount =
-        serviceTotals[name];
+        total;
+
+      bestService =
+        service.name;
 
     }
 
@@ -4120,26 +2711,15 @@ function renderAnalysis(){
   const hourTotals = {};
 
 
-  operations.forEach(item => {
-
-    if(!item.time)
-      return;
-
+  operations.forEach(item=>{
 
     const hour =
-      item.time
-        .split(":")[0] +
-      "h";
+      item.time.split(":")[0];
 
 
     hourTotals[hour] =
-      (
-        hourTotals[hour] ||
-        0
-      ) +
-      Number(
-        item.total || 0
-      );
+      (hourTotals[hour] || 0)
+      + item.total;
 
   });
 
@@ -4149,55 +2729,65 @@ function renderAnalysis(){
   let bestHourAmount = 0;
 
 
-  Object.keys(
-    hourTotals
-  ).forEach(hour => {
+  Object.keys(hourTotals)
+    .forEach(hour=>{
 
-    if(
-      hourTotals[hour] >
-      bestHourAmount
-    ){
+      if(
+        hourTotals[hour]
+        > bestHourAmount
+      ){
 
-      bestHour =
-        hour;
+        bestHourAmount =
+          hourTotals[hour];
 
-      bestHourAmount =
-        hourTotals[hour];
+        bestHour =
+          hour;
 
-    }
+      }
 
-  });
-
-
-  let conclusion =
-    "Commencez à enregistrer vos opérations pour obtenir une analyse.";
+    });
 
 
-  if(revenue >= DAILY_GOAL){
+  let conclusion;
+
+
+  if(!count){
 
     conclusion =
-      "Excellent travail : votre objectif journalier est atteint.";
+      "Aucune vente n'a encore été enregistrée aujourd'hui.";
 
-  }else if(revenue > 0){
+  }else if(
+    revenue>=DAILY_GOAL
+  ){
 
     conclusion =
-      "Vous avez commencé votre journée. Continuez pour atteindre votre objectif.";
+      "L'objectif journalier est atteint. La journée est très performante.";
+
+  }else{
+
+    conclusion =
+      "L'objectif n'est pas encore atteint. Continuez à développer les ventes.";
 
   }
 
 
-  content.innerHTML = `
+  container.innerHTML = `
 
     <div class="analysis-box">
 
       <strong>
-        Revenus
+        Performance globale
       </strong>
 
       <span>
-        Vous avez réalisé
+
+        Vous avez généré
         <b>${money(revenue)}</b>
-        aujourd'hui.
+        aujourd'hui, soit
+        <b>${percentage.toFixed(1)}%</b>
+        de l'objectif de
+        <b>${money(DAILY_GOAL)}</b>.
+
       </span>
 
     </div>
@@ -4210,11 +2800,13 @@ function renderAnalysis(){
       </strong>
 
       <span>
+
         ${count}
         opération(s) enregistrée(s)
         pour un total de
         ${items}
         unité(s) vendue(s).
+
       </span>
 
     </div>
@@ -4227,8 +2819,10 @@ function renderAnalysis(){
       </strong>
 
       <span>
+
         Chaque opération rapporte en moyenne
         <b>${money(average)}</b>.
+
       </span>
 
     </div>
@@ -4241,17 +2835,14 @@ function renderAnalysis(){
       </strong>
 
       <span>
-        ${escapeHtml(
-          bestService
-        )}
+
+        ${escapeHtml(bestService)}
 
         ${
           bestServiceAmount
-            ? "avec " +
-              money(
-                bestServiceAmount
-              )
-            : ""
+          ? "avec "
+            + money(bestServiceAmount)
+          : ""
         }
 
       </span>
@@ -4269,12 +2860,10 @@ function renderAnalysis(){
 
         ${
           bestHour
-            ? bestHour +
-              " avec " +
-              money(
-                bestHourAmount
-              )
-            : "Pas encore disponible"
+          ? bestHour
+            + "h avec "
+            + money(bestHourAmount)
+          : "Pas encore disponible"
         }
 
       </span>
@@ -4300,723 +2889,15 @@ function renderAnalysis(){
 
 
 /* =====================================================
-   WEEK
-===================================================== */
-
-function getWeekStart(){
-
-  const date =
-    new Date();
-
-  const day =
-    date.getDay();
-
-  const diff =
-    day === 0
-      ? -6
-      : 1 - day;
-
-
-  date.setDate(
-    date.getDate() + diff
-  );
-
-
-  return formatDate(
-    date
-  );
-
-}
-
-
-function formatDate(date){
-
-  const y =
-    date.getFullYear();
-
-  const m =
-    String(
-      date.getMonth()+1
-    ).padStart(2,"0");
-
-  const d =
-    String(
-      date.getDate()
-    ).padStart(2,"0");
-
-
-  return `${y}-${m}-${d}`;
-
-}
-
-
-async function renderWeek(){
-
-  const table =
-    document.getElementById(
-      "weekTable"
-    );
-
-
-  const weekStart =
-    getWeekStart();
-
-
-  const start =
-    new Date(
-      weekStart + "T00:00:00"
-    );
-
-
-  const end =
-    new Date(start);
-
-
-  end.setDate(
-    end.getDate()+6
-  );
-
-
-  try{
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient
-        .from("sales")
-        .select("*")
-        .eq(
-          "user_id",
-          currentUser.id
-        )
-        .gte(
-          "sale_date",
-          weekStart
-        )
-        .lte(
-          "sale_date",
-          formatDate(end)
-        )
-        .order(
-          "sale_date",
-          {
-            ascending:true
-          }
-        );
-
-
-    if(error)
-      throw error;
-
-
-    const sales =
-      data || [];
-
-
-    let weekTotal = 0;
-
-
-    let rows = "";
-
-
-    for(
-      let i=0;
-      i<7;
-      i++
-    ){
-
-      const day =
-        new Date(start);
-
-
-      day.setDate(
-        start.getDate()+i
-      );
-
-
-      const key =
-        formatDate(day);
-
-
-      const daySales =
-        sales.filter(
-          item =>
-            item.sale_date ===
-            key
-        );
-
-
-      const revenue =
-        daySales.reduce(
-          (sum,item) =>
-            sum +
-            Number(
-              item.total ||
-              (
-                Number(
-                  item.quantity || 0
-                ) *
-                Number(
-                  item.unit_price || 0
-                )
-              )
-            ),
-          0
-        );
-
-
-      const items =
-        daySales.reduce(
-          (sum,item) =>
-            sum +
-            Number(
-              item.quantity || 0
-            ),
-          0
-        );
-
-
-      weekTotal +=
-        revenue;
-
-
-      rows += `
-
-        <tr>
-
-          <td>
-            ${day.toLocaleDateString(
-              "fr-FR",
-              {
-                weekday:"long",
-                day:"numeric",
-                month:"short"
-              }
-            )}
-          </td>
-
-          <td>
-            <strong>
-              ${money(revenue)}
-            </strong>
-          </td>
-
-          <td>
-            ${daySales.length}
-          </td>
-
-          <td>
-            ${items}
-          </td>
-
-        </tr>
-
-      `;
-
-    }
-
-
-    table.innerHTML =
-      rows;
-
-
-    document.getElementById(
-      "weekTotal"
-    ).textContent =
-      "Total semaine : " +
-      money(weekTotal);
-
-
-  }catch(error){
-
-    console.error(error);
-
-    table.innerHTML =
-      `<tr>
-        <td
-          colspan="4"
-          class="empty"
-        >
-          Impossible de charger la semaine.
-        </td>
-      </tr>`;
-
-  }
-
-}
-
-
-/* =====================================================
-   NETFLIX
-===================================================== */
-
-function getSubscriptionStatus(
-  endDate
-){
-
-  const today =
-    new Date(
-      todayKey +
-      "T00:00:00"
-    );
-
-
-  const end =
-    new Date(
-      endDate +
-      "T00:00:00"
-    );
-
-
-  const diff =
-    Math.ceil(
-      (
-        end - today
-      ) /
-      86400000
-    );
-
-
-  if(diff < 0){
-
-    return {
-      key:"expired",
-      label:"Expiré"
-    };
-
-  }
-
-
-  if(diff <= 3){
-
-    return {
-      key:"soon",
-      label:"Bientôt expiré"
-    };
-
-  }
-
-
-  return {
-    key:"active",
-    label:"Actif"
-  };
-
-}
-
-
-function renderNetflix(){
-
-  const search =
-    (
-      document.getElementById(
-        "netflixSearch"
-      )?.value ||
-      ""
-    ).toLowerCase();
-
-
-  const filtered =
-    subscribers.filter(item => {
-
-      const customer =
-        String(
-          item.customer_name ||
-          ""
-        ).toLowerCase();
-
-
-      const profile =
-        String(
-          item.profile_name ||
-          ""
-        ).toLowerCase();
-
-
-      return (
-        customer.includes(search) ||
-        profile.includes(search)
-      );
-
-    });
-
-
-  let active = 0;
-
-  let soon = 0;
-
-  let expired = 0;
-
-
-  subscribers.forEach(item => {
-
-    const status =
-      getSubscriptionStatus(
-        item.end_date
-      );
-
-
-    if(
-      status.key === "active"
-    )
-      active++;
-
-
-    if(
-      status.key === "soon"
-    )
-      soon++;
-
-
-    if(
-      status.key === "expired"
-    )
-      expired++;
-
-  });
-
-
-  document.getElementById(
-    "netflixTotal"
-  ).textContent =
-    subscribers.length;
-
-
-  document.getElementById(
-    "netflixActive"
-  ).textContent =
-    active;
-
-
-  document.getElementById(
-    "netflixSoon"
-  ).textContent =
-    soon;
-
-
-  document.getElementById(
-    "netflixExpired"
-  ).textContent =
-    expired;
-
-
-  const table =
-    document.getElementById(
-      "netflixTable"
-    );
-
-
-  if(!filtered.length){
-
-    table.innerHTML =
-      `<tr>
-        <td
-          colspan="6"
-          class="empty"
-        >
-          Aucun abonnement trouvé.
-        </td>
-      </tr>`;
-
-    return;
-
-  }
-
-
-  table.innerHTML =
-    filtered.map(item => {
-
-      const status =
-        getSubscriptionStatus(
-          item.end_date
-        );
-
-
-      return `
-
-        <tr>
-
-          <td>
-            ${escapeHtml(
-              item.customer_name
-            )}
-          </td>
-
-          <td>
-            ${escapeHtml(
-              item.profile_name
-            )}
-          </td>
-
-          <td>
-            ${formatFrenchDate(
-              item.start_date
-            )}
-          </td>
-
-          <td>
-            ${formatFrenchDate(
-              item.end_date
-            )}
-          </td>
-
-          <td>
-
-            <span
-              class="status ${status.key}"
-            >
-              ${status.label}
-            </span>
-
-          </td>
-
-          <td>
-
-            <button
-              class="btn btn-danger"
-              onclick="deleteSubscription('${item.id}')"
-            >
-              Supprimer
-            </button>
-
-          </td>
-
-        </tr>
-
-      `;
-
-    }).join("");
-
-}
-
-
-async function addSubscription(){
-
-  const customerName =
-    document.getElementById(
-      "customerName"
-    ).value.trim();
-
-
-  const profileName =
-    document.getElementById(
-      "profileName"
-    ).value.trim();
-
-
-  const startDate =
-    document.getElementById(
-      "subscriptionStart"
-    ).value ||
-    todayKey;
-
-
-  const duration =
-    Number(
-      document.getElementById(
-        "subscriptionDuration"
-      ).value
-    );
-
-
-  if(!customerName){
-
-    showToast(
-      "Entrez le nom du client."
-    );
-
-    return;
-
-  }
-
-
-  if(!profileName){
-
-    showToast(
-      "Entrez le profil."
-    );
-
-    return;
-
-  }
-
-
-  const end =
-    new Date(
-      startDate +
-      "T00:00:00"
-    );
-
-
-  end.setDate(
-    end.getDate() +
-    duration
-  );
-
-
-  const endDate =
-    formatDate(end);
-
-
-  try{
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient
-        .from("subscribers")
-        .insert({
-
-          user_id:
-            currentUser.id,
-
-          customer_name:
-            customerName,
-
-          profile_name:
-            profileName,
-
-          start_date:
-            startDate,
-
-          duration_days:
-            duration,
-
-          end_date:
-            endDate
-
-        })
-        .select()
-        .single();
-
-
-    if(error)
-      throw error;
-
-
-    subscribers.unshift(
-      data
-    );
-
-
-    document.getElementById(
-      "customerName"
-    ).value = "";
-
-
-    document.getElementById(
-      "profileName"
-    ).value = "";
-
-
-    document.getElementById(
-      "subscriptionStart"
-    ).value = "";
-
-
-    document.getElementById(
-      "subscriptionDuration"
-    ).value = "30";
-
-
-    renderNetflix();
-
-
-    showToast(
-      "Abonnement ajouté."
-    );
-
-
-  }catch(error){
-
-    console.error(error);
-
-    showToast(
-      "Impossible d'ajouter l'abonnement."
-    );
-
-  }
-
-}
-
-
-async function deleteSubscription(id){
-
-  if(
-    !confirm(
-      "Supprimer cet abonnement ?"
-    )
-  ){
-
-    return;
-
-  }
-
-
-  try{
-
-    const {
-      error
-    } =
-      await supabaseClient
-        .from("subscribers")
-        .delete()
-        .eq(
-          "id",
-          id
-        )
-        .eq(
-          "user_id",
-          currentUser.id
-        );
-
-
-    if(error)
-      throw error;
-
-
-    subscribers =
-      subscribers.filter(
-        item =>
-          String(item.id) !==
-          String(id)
-      );
-
-
-    renderNetflix();
-
-
-    showToast(
-      "Abonnement supprimé."
-    );
-
-
-  }catch(error){
-
-    console.error(error);
-
-    showToast(
-      "Impossible de supprimer l'abonnement."
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   REPORT
+   RAPPORT
 ===================================================== */
 
 function renderReport(){
 
   const revenue =
     operations.reduce(
-      (sum,item) =>
-        sum +
-        Number(item.total || 0),
+      (sum,item)=>
+        sum+item.total,
       0
     );
 
@@ -5027,34 +2908,27 @@ function renderReport(){
 
   const items =
     operations.reduce(
-      (sum,item) =>
-        sum +
-        Number(item.quantity || 0),
+      (sum,item)=>
+        sum+item.quantity,
       0
     );
 
 
   const average =
     count
-      ? revenue / count
-      : 0;
+    ? revenue/count
+    : 0;
 
 
   const remaining =
     Math.max(
-      DAILY_GOAL -
-      revenue,
+      DAILY_GOAL-revenue,
       0
     );
 
 
   const percentage =
-    DAILY_GOAL
-      ? (
-          revenue /
-          DAILY_GOAL
-        ) * 100
-      : 0;
+    revenue/DAILY_GOAL*100;
 
 
   document.getElementById(
@@ -5068,15 +2942,10 @@ function renderReport(){
 
     <div class="report-line">
 
-      <span>
-        Date
-      </span>
+      <span>Date</span>
 
       <strong>
-        ${new Date()
-          .toLocaleDateString(
-            "fr-FR"
-          )}
+        ${new Date().toLocaleDateString("fr-FR")}
       </strong>
 
     </div>
@@ -5178,7 +3047,7 @@ function renderReport(){
 
 
 /* =====================================================
-   PRINT
+   IMPRESSION
 ===================================================== */
 
 function printReport(){
@@ -5234,18 +3103,14 @@ function printReport(){
 
       </head>
 
-
       <body>
 
         ${content}
 
-
         <script>
 
           window.onload=function(){
-
             window.print();
-
           }
 
         <\/script>
@@ -5258,61 +3123,6 @@ function printReport(){
 
 
   win.document.close();
-
-}
-
-
-/* =====================================================
-   SECURITY
-===================================================== */
-
-function escapeHtml(value){
-
-  return String(
-    value ?? ""
-  )
-  .replace(
-    /&/g,
-    "&amp;"
-  )
-  .replace(
-    /</g,
-    "&lt;"
-  )
-  .replace(
-    />/g,
-    "&gt;"
-  )
-  .replace(
-    /"/g,
-    "&quot;"
-  )
-  .replace(
-    /'/g,
-    "&#039;"
-  );
-
-}
-
-
-function formatFrenchDate(
-  date
-){
-
-  if(!date)
-    return "—";
-
-
-  const d =
-    new Date(
-      date +
-      "T00:00:00"
-    );
-
-
-  return d.toLocaleDateString(
-    "fr-FR"
-  );
 
 }
 
@@ -5338,7 +3148,7 @@ function showToast(message){
   );
 
 
-  setTimeout(() => {
+  setTimeout(()=>{
 
     toast.classList.remove(
       "show"
@@ -5350,15 +3160,63 @@ function showToast(message){
 
 
 /* =====================================================
-   START
+   ESCAPE HTML
 ===================================================== */
 
-window.addEventListener(
-  "load",
-  initAuth
-);
+function escapeHtml(value){
+
+  return String(
+    value ?? ""
+  )
+
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+
+  .replace(
+    /</g,
+    "&lt;"
+  )
+
+  .replace(
+    />/g,
+    "&gt;"
+  )
+
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+
+  .replace(
+    /'/g,
+    "&#039;"
+  );
+
+}
+
+
+/* =====================================================
+   INITIALISATION
+===================================================== */
+
+loadServices();
+
+loadData();
+
+renderServices();
+
+updateDashboard();
+
+renderHistory();
+
+renderAnalysis();
+
+renderReport();
 
 </script>
 
 </body>
 </html>
+```
