@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>SalesTrack — Analyse Journalière</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -47,7 +48,148 @@ button{
   min-height:100vh;
 }
 
-/* SIDEBAR */
+/* =========================
+   AUTHENTIFICATION
+========================= */
+
+.auth-screen{
+  min-height:100vh;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:
+    radial-gradient(circle at top right,rgba(254,67,2,.15),transparent 35%),
+    #f7f7f7;
+}
+
+.auth-screen.active{
+  display:flex;
+}
+
+.auth-card{
+  width:100%;
+  max-width:420px;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:30px;
+  box-shadow:0 20px 60px rgba(0,0,0,.10);
+}
+
+.auth-logo{
+  text-align:center;
+  font-size:30px;
+  font-weight:900;
+  margin-bottom:8px;
+}
+
+.auth-logo span{
+  color:var(--orange);
+}
+
+.auth-title{
+  text-align:center;
+  font-size:22px;
+  font-weight:900;
+  margin-top:20px;
+}
+
+.auth-subtitle{
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+  margin-top:7px;
+  margin-bottom:25px;
+}
+
+.auth-form{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.auth-field{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+.auth-field label{
+  font-size:13px;
+  font-weight:700;
+}
+
+.auth-field input{
+  width:100%;
+  padding:13px 14px;
+  border:1px solid var(--border);
+  border-radius:11px;
+  outline:none;
+}
+
+.auth-field input:focus{
+  border-color:var(--orange);
+}
+
+.auth-button{
+  width:100%;
+  border:0;
+  padding:14px;
+  border-radius:11px;
+  background:linear-gradient(135deg,var(--orange),var(--orange2));
+  color:#fff;
+  font-weight:800;
+  margin-top:5px;
+}
+
+.auth-button:hover{
+  transform:translateY(-1px);
+}
+
+.auth-switch{
+  width:100%;
+  border:0;
+  background:transparent;
+  color:var(--orange);
+  font-weight:700;
+  margin-top:18px;
+}
+
+.auth-message{
+  display:none;
+  margin-top:15px;
+  padding:12px;
+  border-radius:10px;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.auth-message.show{
+  display:block;
+}
+
+.auth-message.error{
+  background:#fff0ef;
+  color:var(--red);
+}
+
+.auth-message.success{
+  background:#edf9f1;
+  color:var(--green);
+}
+
+.auth-loading{
+  text-align:center;
+  color:var(--muted);
+  font-size:13px;
+  margin-top:15px;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
 .sidebar{
   width:245px;
   background:var(--dark);
@@ -99,11 +241,36 @@ button{
   bottom:20px;
   left:20px;
   right:20px;
-  color:#777;
-  font-size:12px;
 }
 
-/* MAIN */
+.user-email{
+  color:#aaa;
+  font-size:11px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  margin-bottom:10px;
+}
+
+.logout-btn{
+  width:100%;
+  border:1px solid #444;
+  background:#2d2d2c;
+  color:#fff;
+  padding:10px;
+  border-radius:9px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.logout-btn:hover{
+  background:#3a3a39;
+}
+
+/* =========================
+   MAIN
+========================= */
+
 .main{
   margin-left:245px;
   width:calc(100% - 245px);
@@ -136,7 +303,10 @@ button{
   font-weight:700;
 }
 
-/* SECTIONS */
+/* =========================
+   SECTIONS
+========================= */
+
 .section{
   display:none;
 }
@@ -145,7 +315,10 @@ button{
   display:block;
 }
 
-/* KPI */
+/* =========================
+   KPI
+========================= */
+
 .kpis{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -190,7 +363,10 @@ button{
   color:var(--red);
 }
 
-/* GOAL */
+/* =========================
+   GOAL
+========================= */
+
 .goal-card{
   margin-bottom:22px;
   background:linear-gradient(135deg,var(--orange),var(--orange2));
@@ -239,7 +415,10 @@ button{
   font-size:13px;
 }
 
-/* GRID */
+/* =========================
+   GRID
+========================= */
+
 .grid-2{
   display:grid;
   grid-template-columns:1.4fr 1fr;
@@ -263,7 +442,10 @@ button{
   position:relative;
 }
 
-/* FORMS */
+/* =========================
+   FORMS
+========================= */
+
 .form-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -327,17 +509,15 @@ button{
   color:var(--red);
 }
 
-.btn-edit{
-  background:#f1f1f1;
-  color:var(--dark);
-}
-
 .btn-full{
   width:100%;
   margin-top:18px;
 }
 
-/* TABLE */
+/* =========================
+   TABLE
+========================= */
+
 .table-wrap{
   overflow-x:auto;
 }
@@ -365,7 +545,10 @@ th{
   color:var(--muted);
 }
 
-/* SERVICE */
+/* =========================
+   SERVICE
+========================= */
+
 .service-row{
   display:flex;
   justify-content:space-between;
@@ -390,13 +573,10 @@ th{
   color:var(--orange);
 }
 
-.service-actions{
-  display:flex;
-  gap:7px;
-  flex-wrap:wrap;
-}
+/* =========================
+   ANALYSIS
+========================= */
 
-/* ANALYSIS */
 .analysis-box{
   padding:17px;
   border-radius:13px;
@@ -415,7 +595,80 @@ th{
   line-height:1.5;
 }
 
-/* REPORT */
+/* =========================
+   WEEK
+========================= */
+
+.week-table{
+  width:100%;
+}
+
+.week-total{
+  font-size:22px;
+  font-weight:900;
+  color:var(--orange);
+}
+
+/* =========================
+   NETFLIX
+========================= */
+
+.netflix-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  margin-bottom:22px;
+}
+
+.netflix-stat{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:17px;
+  padding:20px;
+  box-shadow:0 8px 30px rgba(0,0,0,.04);
+}
+
+.netflix-stat strong{
+  display:block;
+  font-size:25px;
+  margin-top:8px;
+}
+
+.netflix-form{
+  margin-bottom:22px;
+}
+
+.status{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.status.active{
+  background:#edf9f1;
+  color:var(--green);
+}
+
+.status.soon{
+  background:#fff7e6;
+  color:#b7791f;
+}
+
+.status.expired{
+  background:#fff0ef;
+  color:var(--red);
+}
+
+.search-box{
+  margin-bottom:15px;
+}
+
+/* =========================
+   REPORT
+========================= */
+
 .report{
   border:1px solid var(--border);
   border-radius:15px;
@@ -440,42 +693,40 @@ th{
   color:var(--orange);
 }
 
-/* WEEK */
-.week-table td,
-.week-table th{
-  text-align:center;
+/* =========================
+   LOADING
+========================= */
+
+.loading-overlay{
+  position:fixed;
+  inset:0;
+  background:#fff;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
 }
 
-.week-current{
+.loading-logo{
+  font-size:30px;
   font-weight:900;
+}
+
+.loading-logo span{
   color:var(--orange);
 }
 
-/* STATUS */
-.status{
-  display:inline-block;
-  padding:5px 9px;
-  border-radius:20px;
-  font-size:11px;
-  font-weight:800;
+.loading-text{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:10px;
 }
 
-.status-active{
-  background:#e8f8ef;
-  color:var(--green);
-}
+/* =========================
+   TOAST
+========================= */
 
-.status-soon{
-  background:#fff4df;
-  color:#b56a00;
-}
-
-.status-expired{
-  background:#fff0ef;
-  color:var(--red);
-}
-
-/* TOAST */
 .toast{
   position:fixed;
   right:20px;
@@ -488,8 +739,7 @@ th{
   pointer-events:none;
   transform:translateY(15px);
   transition:.3s;
-  z-index:100;
-  max-width:380px;
+  z-index:10000;
 }
 
 .toast.show{
@@ -497,45 +747,21 @@ th{
   transform:translateY(0);
 }
 
-/* LOADING */
-.loading{
-  position:fixed;
-  inset:0;
-  background:rgba(255,255,255,.94);
-  z-index:999;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  gap:12px;
-}
+/* =========================
+   MOBILE
+========================= */
 
-.loading.hidden{
-  display:none;
-}
-
-.spinner{
-  width:35px;
-  height:35px;
-  border:4px solid #eee;
-  border-top-color:var(--orange);
-  border-radius:50%;
-  animation:spin .8s linear infinite;
-}
-
-@keyframes spin{
-  to{
-    transform:rotate(360deg);
-  }
-}
-
-/* MOBILE */
 .mobile-menu{
   display:none;
 }
 
-@media(max-width:1000px){
+@media(max-width:1100px){
+
   .kpis{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .netflix-grid{
     grid-template-columns:repeat(2,1fr);
   }
 
@@ -549,6 +775,7 @@ th{
 }
 
 @media(max-width:750px){
+
   .sidebar{
     transform:translateX(-100%);
     transition:.3s;
@@ -591,6 +818,11 @@ th{
     gap:10px;
   }
 
+  .netflix-grid{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
   .card{
     padding:15px;
   }
@@ -606,10 +838,16 @@ th{
   .field.full{
     grid-column:auto;
   }
+
+  .auth-card{
+    padding:24px;
+  }
 }
 
 @media(max-width:450px){
-  .kpis{
+
+  .kpis,
+  .netflix-grid{
     grid-template-columns:1fr;
   }
 }
@@ -618,75 +856,234 @@ th{
 
 <body>
 
-<div class="loading" id="loading">
-  <div class="spinner"></div>
-  <strong>Connexion à SalesTrack...</strong>
-  <span id="loadingMessage">Chargement des données</span>
+<!-- =========================
+     LOADING
+========================= -->
+
+<div class="loading-overlay" id="loadingOverlay">
+
+  <div class="loading-logo">
+    Sales<span>Track</span>
+  </div>
+
+  <div class="loading-text" id="loadingText">
+    Chargement sécurisé...
+  </div>
+
 </div>
 
-<div class="app">
+
+<!-- =========================
+     AUTH
+========================= -->
+
+<div class="auth-screen" id="authScreen">
+
+  <div class="auth-card">
+
+    <div class="auth-logo">
+      Sales<span>Track</span>
+    </div>
+
+    <div class="auth-title" id="authTitle">
+      Connexion
+    </div>
+
+    <div class="auth-subtitle" id="authSubtitle">
+      Connectez-vous à votre espace SalesTrack.
+    </div>
+
+    <form class="auth-form" id="authForm">
+
+      <div class="auth-field">
+
+        <label>Email</label>
+
+        <input
+          type="email"
+          id="authEmail"
+          placeholder="exemple@email.com"
+          autocomplete="email"
+          required
+        >
+
+      </div>
+
+
+      <div class="auth-field">
+
+        <label>Mot de passe</label>
+
+        <input
+          type="password"
+          id="authPassword"
+          placeholder="Votre mot de passe"
+          autocomplete="current-password"
+          minlength="6"
+          required
+        >
+
+      </div>
+
+
+      <div
+        class="auth-field"
+        id="confirmPasswordContainer"
+        style="display:none;"
+      >
+
+        <label>Confirmer le mot de passe</label>
+
+        <input
+          type="password"
+          id="authPasswordConfirm"
+          placeholder="Confirmez votre mot de passe"
+          autocomplete="new-password"
+          minlength="6"
+        >
+
+      </div>
+
+
+      <button
+        type="submit"
+        class="auth-button"
+        id="authSubmit"
+      >
+        Se connecter
+      </button>
+
+    </form>
+
+
+    <button
+      class="auth-switch"
+      id="authSwitch"
+      type="button"
+      onclick="toggleAuthMode()"
+    >
+      Créer un compte
+    </button>
+
+
+    <div
+      class="auth-message"
+      id="authMessage"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     APPLICATION
+========================= -->
+
+<div class="app" id="app" style="display:none;">
 
 <!-- SIDEBAR -->
+
 <aside class="sidebar" id="sidebar">
 
   <div class="logo">
     Sales<span>Track</span>
   </div>
 
+
   <nav class="menu">
 
-    <button class="active" onclick="showSection('dashboard',this)">
+    <button
+      class="active"
+      onclick="showSection('dashboard',this)"
+    >
       Tableau de bord
     </button>
 
-    <button onclick="showSection('operation',this)">
+    <button
+      onclick="showSection('operation',this)"
+    >
       Nouvelle opération
     </button>
 
-    <button onclick="showSection('services',this)">
+    <button
+      onclick="showSection('services',this)"
+    >
       Services
     </button>
 
-    <button onclick="showSection('history',this)">
+    <button
+      onclick="showSection('history',this)"
+    >
       Historique
     </button>
 
-    <button onclick="showSection('analysis',this)">
+    <button
+      onclick="showSection('analysis',this)"
+    >
       Analyse du jour
     </button>
 
-    <button onclick="showSection('week',this)">
+    <button
+      onclick="showSection('week',this)"
+    >
       Semaine
     </button>
 
-    <button onclick="showSection('netflix',this)">
+    <button
+      onclick="showSection('netflix',this)"
+    >
       Netflix
     </button>
 
-    <button onclick="showSection('report',this)">
+    <button
+      onclick="showSection('report',this)"
+    >
       Rapport
     </button>
 
   </nav>
 
+
   <div class="sidebar-footer">
-    SalesTrack — Données synchronisées
+
+    <div
+      class="user-email"
+      id="userEmail"
+    >
+      -
+    </div>
+
+    <button
+      class="logout-btn"
+      onclick="logout()"
+    >
+      Déconnexion
+    </button>
+
   </div>
 
 </aside>
 
+
 <!-- MAIN -->
+
 <main class="main">
 
   <div class="topbar">
 
     <div class="title">
 
-      <button class="mobile-menu" onclick="toggleMenu()">
+      <button
+        class="mobile-menu"
+        onclick="toggleMenu()"
+      >
         Menu
       </button>
 
-      <h1>Analyse journalière</h1>
+      <h1>
+        Analyse journalière
+      </h1>
 
       <p>
         Suivez vos revenus et performances du jour.
@@ -694,28 +1091,43 @@ th{
 
     </div>
 
-    <div class="date-box" id="currentDate"></div>
+
+    <div
+      class="date-box"
+      id="currentDate"
+    ></div>
 
   </div>
 
 
-  <!-- DASHBOARD -->
-  <section id="dashboard" class="section active">
+  <!-- =========================
+       DASHBOARD
+  ========================= -->
+
+  <section
+    id="dashboard"
+    class="section active"
+  >
 
     <div class="kpis">
 
       <div class="card">
+
         <div class="kpi-label">
           Revenus aujourd'hui
         </div>
 
-        <div class="kpi-value orange" id="todayRevenue">
+        <div
+          class="kpi-value orange"
+          id="todayRevenue"
+        >
           0 HTG
         </div>
 
         <div class="kpi-small">
           Total encaissé aujourd'hui
         </div>
+
       </div>
 
 
@@ -725,7 +1137,10 @@ th{
           Opérations
         </div>
 
-        <div class="kpi-value" id="operationCount">
+        <div
+          class="kpi-value"
+          id="operationCount"
+        >
           0
         </div>
 
@@ -742,7 +1157,10 @@ th{
           Panier moyen
         </div>
 
-        <div class="kpi-value" id="averageSale">
+        <div
+          class="kpi-value"
+          id="averageSale"
+        >
           0 HTG
         </div>
 
@@ -759,7 +1177,10 @@ th{
           Services vendus
         </div>
 
-        <div class="kpi-value" id="itemsSold">
+        <div
+          class="kpi-value"
+          id="itemsSold"
+        >
           0
         </div>
 
@@ -777,18 +1198,27 @@ th{
       <div class="goal-top">
 
         <h2>
-          Objectif hebdomadaire
+          Objectif journalier
         </h2>
 
-        <div class="goal-percent" id="goalPercent">
+        <div
+          class="goal-percent"
+          id="goalPercent"
+        >
           0%
         </div>
 
       </div>
 
+
       <div class="progress">
-        <div id="goalProgress"></div>
+
+        <div
+          id="goalProgress"
+        ></div>
+
       </div>
+
 
       <div class="goal-info">
 
@@ -797,7 +1227,7 @@ th{
         </span>
 
         <span id="goalRemaining">
-          15 000 HTG restant
+          2 500 HTG restant
         </span>
 
       </div>
@@ -814,7 +1244,9 @@ th{
         </h3>
 
         <div class="chart-box">
+
           <canvas id="hourChart"></canvas>
+
         </div>
 
       </div>
@@ -827,7 +1259,9 @@ th{
         </h3>
 
         <div class="chart-box">
+
           <canvas id="serviceChart"></canvas>
+
         </div>
 
       </div>
@@ -843,11 +1277,17 @@ th{
           Meilleur service
         </div>
 
-        <div class="kpi-value" id="bestService">
+        <div
+          class="kpi-value"
+          id="bestService"
+        >
           —
         </div>
 
-        <div class="kpi-small" id="bestServiceRevenue">
+        <div
+          class="kpi-small"
+          id="bestServiceRevenue"
+        >
           0 HTG
         </div>
 
@@ -860,11 +1300,17 @@ th{
           Meilleure heure
         </div>
 
-        <div class="kpi-value" id="bestHour">
+        <div
+          class="kpi-value"
+          id="bestHour"
+        >
           —
         </div>
 
-        <div class="kpi-small" id="bestHourRevenue">
+        <div
+          class="kpi-small"
+          id="bestHourRevenue"
+        >
           0 HTG
         </div>
 
@@ -877,7 +1323,10 @@ th{
           Progression
         </div>
 
-        <div class="kpi-value" id="performanceStatus">
+        <div
+          class="kpi-value"
+          id="performanceStatus"
+        >
           En attente
         </div>
 
@@ -892,8 +1341,14 @@ th{
   </section>
 
 
-  <!-- OPERATION -->
-  <section id="operation" class="section">
+  <!-- =========================
+       OPERATION
+  ========================= -->
+
+  <section
+    id="operation"
+    class="section"
+  >
 
     <div class="card">
 
@@ -909,10 +1364,15 @@ th{
             Service
           </label>
 
-          <select id="serviceSelect" onchange="updatePrice()">
+          <select
+            id="serviceSelect"
+            onchange="updatePrice()"
+          >
+
             <option value="">
               Choisir un service
             </option>
+
           </select>
 
         </div>
@@ -1010,8 +1470,14 @@ th{
   </section>
 
 
-  <!-- SERVICES -->
-  <section id="services" class="section">
+  <!-- =========================
+       SERVICES
+  ========================= -->
+
+  <section
+    id="services"
+    class="section"
+  >
 
     <div class="card">
 
@@ -1019,69 +1485,26 @@ th{
         Services et tarifs
       </h3>
 
-      <div
-        class="form-grid"
-        style="margin-bottom:20px;"
-      >
-
-        <div class="field">
-
-          <label>
-            Nom du service
-          </label>
-
-          <input
-            id="newServiceName"
-            type="text"
-            placeholder="Ex : Création de flyer"
-          >
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Prix
-          </label>
-
-          <input
-            id="newServicePrice"
-            type="number"
-            min="0"
-            placeholder="0"
-          >
-
-        </div>
-
-      </div>
-
-
-      <button
-        class="btn btn-primary"
-        onclick="addService()"
-      >
-        Ajouter le service
-      </button>
-
-
-      <div
-        id="servicesList"
-        style="margin-top:20px;"
-      ></div>
+      <div id="servicesList"></div>
 
     </div>
 
   </section>
 
 
-  <!-- HISTORY -->
-  <section id="history" class="section">
+  <!-- =========================
+       HISTORY
+  ========================= -->
+
+  <section
+    id="history"
+    class="section"
+  >
 
     <div class="card">
 
       <h3>
-        Historique des opérations
+        Historique de la journée
       </h3>
 
       <div class="table-wrap">
@@ -1091,42 +1514,20 @@ th{
           <thead>
 
             <tr>
-
-              <th>
-                Date
-              </th>
-
-              <th>
-                Heure
-              </th>
-
-              <th>
-                Service
-              </th>
-
-              <th>
-                Qté
-              </th>
-
-              <th>
-                Prix
-              </th>
-
-              <th>
-                Total
-              </th>
-
-              <th>
-                Note
-              </th>
-
+              <th>Heure</th>
+              <th>Service</th>
+              <th>Qté</th>
+              <th>Prix</th>
+              <th>Total</th>
+              <th>Note</th>
               <th></th>
-
             </tr>
 
           </thead>
 
-          <tbody id="historyTable"></tbody>
+          <tbody
+            id="historyTable"
+          ></tbody>
 
         </table>
 
@@ -1137,8 +1538,14 @@ th{
   </section>
 
 
-  <!-- ANALYSIS -->
-  <section id="analysis" class="section">
+  <!-- =========================
+       ANALYSIS
+  ========================= -->
+
+  <section
+    id="analysis"
+    class="section"
+  >
 
     <div class="card">
 
@@ -1146,15 +1553,23 @@ th{
         Analyse automatique du jour
       </h3>
 
-      <div id="analysisContent"></div>
+      <div
+        id="analysisContent"
+      ></div>
 
     </div>
 
   </section>
 
 
-  <!-- WEEK -->
-  <section id="week" class="section">
+  <!-- =========================
+       WEEK
+  ========================= -->
+
+  <section
+    id="week"
+    class="section"
+  >
 
     <div class="card">
 
@@ -1164,7 +1579,7 @@ th{
 
       <div class="table-wrap">
 
-        <table class="week-table">
+        <table>
 
           <thead>
 
@@ -1183,87 +1598,91 @@ th{
 
       </div>
 
+      <div
+        style="margin-top:20px;"
+        class="week-total"
+        id="weekTotal"
+      >
+        0 HTG
+      </div>
+
     </div>
 
   </section>
 
 
-  <!-- NETFLIX -->
-  <section id="netflix" class="section">
+  <!-- =========================
+       NETFLIX
+  ========================= -->
 
-    <div class="kpis">
+  <section
+    id="netflix"
+    class="section"
+  >
 
-      <div class="card">
+    <div class="netflix-grid">
+
+      <div class="netflix-stat">
 
         <div class="kpi-label">
-          Abonnements
+          Total abonnements
         </div>
 
-        <div class="kpi-value" id="netflixTotal">
+        <strong id="netflixTotal">
           0
-        </div>
-
-        <div class="kpi-small">
-          Total enregistré
-        </div>
+        </strong>
 
       </div>
 
 
-      <div class="card">
+      <div class="netflix-stat">
 
         <div class="kpi-label">
           Actifs
         </div>
 
-        <div class="kpi-value green" id="netflixActive">
+        <strong
+          class="green"
+          id="netflixActive"
+        >
           0
-        </div>
-
-        <div class="kpi-small">
-          Abonnements actifs
-        </div>
+        </strong>
 
       </div>
 
 
-      <div class="card">
+      <div class="netflix-stat">
 
         <div class="kpi-label">
           Bientôt expirés
         </div>
 
-        <div class="kpi-value orange" id="netflixSoon">
+        <strong id="netflixSoon">
           0
-        </div>
-
-        <div class="kpi-small">
-          3 jours ou moins
-        </div>
+        </strong>
 
       </div>
 
 
-      <div class="card">
+      <div class="netflix-stat">
 
         <div class="kpi-label">
           Expirés
         </div>
 
-        <div class="kpi-value red" id="netflixExpired">
+        <strong
+          class="red"
+          id="netflixExpired"
+        >
           0
-        </div>
-
-        <div class="kpi-small">
-          Abonnements terminés
-        </div>
+        </strong>
 
       </div>
 
     </div>
 
 
-    <div class="card">
+    <div class="card netflix-form">
 
       <h3>
         Ajouter un abonnement Netflix
@@ -1278,8 +1697,8 @@ th{
           </label>
 
           <input
-            id="netflixCustomer"
             type="text"
+            id="customerName"
             placeholder="Nom du client"
           >
 
@@ -1289,13 +1708,13 @@ th{
         <div class="field">
 
           <label>
-            Nom du profil
+            Profil
           </label>
 
           <input
-            id="netflixProfile"
             type="text"
-            placeholder="Profil Netflix"
+            id="profileName"
+            placeholder="Ex : Profil 1"
           >
 
         </div>
@@ -1308,8 +1727,8 @@ th{
           </label>
 
           <input
-            id="netflixStart"
             type="date"
+            id="subscriptionStart"
           >
 
         </div>
@@ -1321,7 +1740,7 @@ th{
             Durée
           </label>
 
-          <select id="netflixDuration">
+          <select id="subscriptionDuration">
 
             <option value="7">
               7 jours
@@ -1352,7 +1771,7 @@ th{
 
       <button
         class="btn btn-primary btn-full"
-        onclick="addNetflix()"
+        onclick="addSubscription()"
       >
         Ajouter l'abonnement
       </button>
@@ -1360,24 +1779,19 @@ th{
     </div>
 
 
-    <div
-      class="card"
-      style="margin-top:20px;"
-    >
+    <div class="card">
 
       <h3>
-        Abonnements Netflix
+        Abonnements
       </h3>
 
-      <div class="field">
-
-        <label>
-          Rechercher
-        </label>
+      <div class="search-box">
 
         <input
-          id="netflixSearch"
+          class="field input"
+          style="width:100%;padding:12px 13px;border:1px solid var(--border);border-radius:10px;outline:none;"
           type="text"
+          id="netflixSearch"
           placeholder="Rechercher un client ou un profil..."
           oninput="renderNetflix()"
         >
@@ -1385,48 +1799,26 @@ th{
       </div>
 
 
-      <div
-        class="table-wrap"
-        style="margin-top:20px;"
-      >
+      <div class="table-wrap">
 
         <table>
 
           <thead>
 
             <tr>
-
-              <th>
-                Client
-              </th>
-
-              <th>
-                Profil
-              </th>
-
-              <th>
-                Début
-              </th>
-
-              <th>
-                Durée
-              </th>
-
-              <th>
-                Fin
-              </th>
-
-              <th>
-                Statut
-              </th>
-
+              <th>Client</th>
+              <th>Profil</th>
+              <th>Début</th>
+              <th>Expiration</th>
+              <th>Statut</th>
               <th></th>
-
             </tr>
 
           </thead>
 
-          <tbody id="netflixTable"></tbody>
+          <tbody
+            id="netflixTable"
+          ></tbody>
 
         </table>
 
@@ -1437,8 +1829,14 @@ th{
   </section>
 
 
-  <!-- REPORT -->
-  <section id="report" class="section">
+  <!-- =========================
+       REPORT
+  ========================= -->
+
+  <section
+    id="report"
+    class="section"
+  >
 
     <div class="card">
 
@@ -1450,6 +1848,7 @@ th{
         class="report"
         id="reportContent"
       ></div>
+
 
       <button
         class="btn btn-primary btn-full"
@@ -1466,7 +1865,11 @@ th{
 
 </div>
 
-<div class="toast" id="toast"></div>
+
+<div
+  class="toast"
+  id="toast"
+></div>
 
 
 <script>
@@ -1479,7 +1882,7 @@ const SUPABASE_URL =
   "https://olayznhimjjjwdrjvryp.supabase.co";
 
 const SUPABASE_ANON_KEY =
-  "sb_publishable_6NiV3HsDHuouUbaLZClcGw_-cpziTuq";
+  "sb_publishable_6NiV3HsDHuouBLaZClcGw_-cpziTuq";
 
 const supabaseClient =
   window.supabase.createClient(
@@ -1492,33 +1895,46 @@ const supabaseClient =
    CONFIGURATION
 ===================================================== */
 
-const WEEKLY_GOAL = 15000;
+const DAILY_GOAL = 2500;
 
-const DEFAULT_SERVICES = [
+const SERVICES = [
+
   {
+    id:"affiche",
     name:"Affiche",
     price:3000
   },
+
   {
+    id:"carte-visite",
     name:"Carte de visite",
     price:2500
   },
+
   {
+    id:"inscription",
     name:"Inscription formation",
     price:250
   },
+
   {
+    id:"formation",
     name:"Formation",
     price:3000
   },
+
   {
+    id:"meru",
     name:"Carte MERU",
     price:1250
   },
+
   {
+    id:"inscription-membre",
     name:"Inscription membre",
     price:150
   }
+
 ];
 
 
@@ -1528,73 +1944,43 @@ const DEFAULT_SERVICES = [
 
 let currentUser = null;
 
-let services = [];
 let operations = [];
+
+let servicesData = [];
+
 let subscribers = [];
 
 let hourChart = null;
+
 let serviceChart = null;
+
+let authMode = "login";
 
 
 /* =====================================================
    DATE
 ===================================================== */
 
-function todayString(){
+function today(){
 
   const d = new Date();
 
-  return [
-    d.getFullYear(),
-    String(d.getMonth()+1).padStart(2,"0"),
-    String(d.getDate()).padStart(2,"0")
-  ].join("-");
+  const year =
+    d.getFullYear();
+
+  const month =
+    String(d.getMonth()+1)
+      .padStart(2,"0");
+
+  const day =
+    String(d.getDate())
+      .padStart(2,"0");
+
+  return `${year}-${month}-${day}`;
 
 }
 
-
-function formatDate(date){
-
-  const d = new Date(date);
-
-  return d.toLocaleDateString(
-    "fr-FR"
-  );
-
-}
-
-
-function formatDateInput(date){
-
-  const d = new Date(date);
-
-  return [
-    d.getFullYear(),
-    String(d.getMonth()+1).padStart(2,"0"),
-    String(d.getDate()).padStart(2,"0")
-  ].join("-");
-
-}
-
-
-function getMonday(){
-
-  const d = new Date();
-
-  const day = d.getDay();
-
-  const diff =
-    day === 0
-      ? -6
-      : 1 - day;
-
-  d.setDate(
-    d.getDate() + diff
-  );
-
-  return formatDateInput(d);
-
-}
+const todayKey = today();
 
 
 document.getElementById(
@@ -1611,78 +1997,19 @@ document.getElementById(
   );
 
 
-document.getElementById(
-  "operationTime"
-).value =
-  new Date().toTimeString()
-    .slice(0,5);
-
-
-document.getElementById(
-  "netflixStart"
-).value =
-  todayString();
-
-
-/* =====================================================
-   FORMAT
-===================================================== */
-
-function money(value){
-
-  return Number(value || 0)
-    .toLocaleString("fr-FR")
-    + " HTG";
-
-}
-
-
-function escapeHtml(value){
-
-  return String(value ?? "")
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-/* =====================================================
-   TOAST
-===================================================== */
-
-function showToast(message){
-
-  const toast =
-    document.getElementById("toast");
-
-  toast.textContent =
-    message;
-
-  toast.classList.add("show");
-
-  setTimeout(()=>{
-    toast.classList.remove("show");
-  },3000);
-
-}
-
-
 /* =====================================================
    LOADING
 ===================================================== */
 
-function loading(message){
+function loading(text){
 
   document.getElementById(
-    "loadingMessage"
-  ).textContent = message;
+    "loadingText"
+  ).textContent = text;
 
   document.getElementById(
-    "loading"
-  ).classList.remove("hidden");
+    "loadingOverlay"
+  ).style.display = "flex";
 
 }
 
@@ -1690,36 +2017,457 @@ function loading(message){
 function stopLoading(){
 
   document.getElementById(
-    "loading"
-  ).classList.add("hidden");
+    "loadingOverlay"
+  ).style.display = "none";
 
 }
 
 
 /* =====================================================
-   ERROR
+   AUTH UI
 ===================================================== */
 
-function showError(error){
+function showAuth(){
 
-  console.error(error);
+  document.getElementById(
+    "app"
+  ).style.display = "none";
+
+  document.getElementById(
+    "authScreen"
+  ).classList.add("active");
+
+}
+
+
+function showApp(){
+
+  document.getElementById(
+    "authScreen"
+  ).classList.remove("active");
+
+  document.getElementById(
+    "app"
+  ).style.display = "flex";
+
+  document.getElementById(
+    "userEmail"
+  ).textContent =
+    currentUser?.email || "";
+
+}
+
+
+function toggleAuthMode(){
+
+  authMode =
+    authMode === "login"
+      ? "register"
+      : "login";
+
+  const title =
+    document.getElementById(
+      "authTitle"
+    );
+
+  const subtitle =
+    document.getElementById(
+      "authSubtitle"
+    );
+
+  const button =
+    document.getElementById(
+      "authSubmit"
+    );
+
+  const switchButton =
+    document.getElementById(
+      "authSwitch"
+    );
+
+  const confirm =
+    document.getElementById(
+      "confirmPasswordContainer"
+    );
+
+  const password =
+    document.getElementById(
+      "authPassword"
+    );
+
+  clearAuthMessage();
+
+  if(authMode === "register"){
+
+    title.textContent =
+      "Créer un compte";
+
+    subtitle.textContent =
+      "Créez votre compte SalesTrack.";
+
+    button.textContent =
+      "Créer mon compte";
+
+    switchButton.textContent =
+      "J'ai déjà un compte";
+
+    confirm.style.display =
+      "flex";
+
+    password.autocomplete =
+      "new-password";
+
+  }else{
+
+    title.textContent =
+      "Connexion";
+
+    subtitle.textContent =
+      "Connectez-vous à votre espace SalesTrack.";
+
+    button.textContent =
+      "Se connecter";
+
+    switchButton.textContent =
+      "Créer un compte";
+
+    confirm.style.display =
+      "none";
+
+    password.autocomplete =
+      "current-password";
+
+  }
+
+}
+
+
+function showAuthMessage(
+  message,
+  type = "error"
+){
+
+  const box =
+    document.getElementById(
+      "authMessage"
+    );
+
+  box.textContent =
+    message;
+
+  box.className =
+    "auth-message show " + type;
+
+}
+
+
+function clearAuthMessage(){
+
+  const box =
+    document.getElementById(
+      "authMessage"
+    );
+
+  box.textContent = "";
+
+  box.className =
+    "auth-message";
+
+}
+
+
+function friendlyAuthError(error){
 
   const message =
-    error?.message ||
-    "Une erreur est survenue.";
+    String(
+      error?.message || ""
+    ).toLowerCase();
 
-  showToast(message);
+  if(
+    message.includes(
+      "invalid login credentials"
+    )
+  ){
+
+    return "Email ou mot de passe incorrect.";
+
+  }
+
+  if(
+    message.includes(
+      "email not confirmed"
+    )
+  ){
+
+    return "Votre email n'est pas encore confirmé.";
+
+  }
+
+  if(
+    message.includes(
+      "already registered"
+    ) ||
+    message.includes(
+      "user already registered"
+    )
+  ){
+
+    return "Un compte existe déjà avec cet email.";
+
+  }
+
+  if(
+    message.includes(
+      "password should be at least"
+    )
+  ){
+
+    return "Le mot de passe doit contenir au moins 6 caractères.";
+
+  }
+
+  return (
+    error?.message ||
+    "Une erreur est survenue."
+  );
 
 }
 
 
 /* =====================================================
-   AUTH SUPABASE
+   LOGIN / REGISTER
+===================================================== */
+
+document.getElementById(
+  "authForm"
+).addEventListener(
+  "submit",
+  handleAuth
+);
+
+
+async function handleAuth(event){
+
+  event.preventDefault();
+
+  clearAuthMessage();
+
+  const email =
+    document.getElementById(
+      "authEmail"
+    ).value.trim();
+
+  const password =
+    document.getElementById(
+      "authPassword"
+    ).value;
+
+  const confirmPassword =
+    document.getElementById(
+      "authPasswordConfirm"
+    ).value;
+
+  const button =
+    document.getElementById(
+      "authSubmit"
+    );
+
+  if(!email || !password){
+
+    showAuthMessage(
+      "Entrez votre email et votre mot de passe."
+    );
+
+    return;
+
+  }
+
+  if(password.length < 6){
+
+    showAuthMessage(
+      "Le mot de passe doit contenir au moins 6 caractères."
+    );
+
+    return;
+
+  }
+
+
+  button.disabled = true;
+
+  button.textContent =
+    authMode === "login"
+      ? "Connexion..."
+      : "Création...";
+
+
+  try{
+
+    if(authMode === "login"){
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient.auth
+          .signInWithPassword({
+
+            email,
+            password
+
+          });
+
+
+      if(error)
+        throw error;
+
+
+      if(!data.session){
+
+        throw new Error(
+          "Aucune session n'a été créée."
+        );
+
+      }
+
+
+      currentUser =
+        data.user;
+
+
+      await startApplication();
+
+
+    }else{
+
+      if(
+        password !== confirmPassword
+      ){
+
+        throw new Error(
+          "Les mots de passe ne correspondent pas."
+        );
+
+      }
+
+
+      const {
+        data,
+        error
+      } =
+        await supabaseClient.auth
+          .signUp({
+
+            email,
+            password
+
+          });
+
+
+      if(error)
+        throw error;
+
+
+      /*
+        Si Supabase exige la confirmation
+        de l'email, il n'y aura pas toujours
+        de session immédiatement.
+      */
+
+      if(data.session){
+
+        currentUser =
+          data.user;
+
+        await startApplication();
+
+      }else{
+
+        showAuthMessage(
+          "Compte créé. Vérifiez votre email puis connectez-vous.",
+          "success"
+        );
+
+        authMode = "login";
+
+        document.getElementById(
+          "authTitle"
+        ).textContent =
+          "Connexion";
+
+        document.getElementById(
+          "authSubtitle"
+        ).textContent =
+          "Votre compte est créé. Connectez-vous.";
+
+        document.getElementById(
+          "authSubmit"
+        ).textContent =
+          "Se connecter";
+
+        document.getElementById(
+          "authSwitch"
+        ).textContent =
+          "Créer un compte";
+
+        document.getElementById(
+          "confirmPasswordContainer"
+        ).style.display =
+          "none";
+
+        document.getElementById(
+          "authPassword"
+        ).value = "";
+
+        document.getElementById(
+          "authPasswordConfirm"
+        ).value = "";
+
+      }
+
+    }
+
+  }catch(error){
+
+    console.error(error);
+
+    showAuthMessage(
+      friendlyAuthError(error)
+    );
+
+  }finally{
+
+    button.disabled = false;
+
+    if(authMode === "login"){
+
+      button.textContent =
+        "Se connecter";
+
+    }else{
+
+      button.textContent =
+        "Créer mon compte";
+
+    }
+
+  }
+
+}
+
+
+/* =====================================================
+   INITIALISATION AUTH
 ===================================================== */
 
 async function initAuth(){
 
   try{
+
+    loading(
+      "Vérification de votre session..."
+    );
+
 
     const {
       data,
@@ -1728,106 +2476,122 @@ async function initAuth(){
       await supabaseClient.auth
         .getSession();
 
+
     if(error)
       throw error;
 
-    let session =
-      data.session;
 
-    if(!session){
+    if(!data.session){
 
-      loading(
-        "Création de votre session sécurisée..."
-      );
+      stopLoading();
 
-      const result =
-        await supabaseClient.auth
-          .signInAnonymously();
+      showAuth();
 
-      if(result.error)
-        throw result.error;
-
-      session =
-        result.data.session;
+      return;
 
     }
 
-    if(!session){
-
-      throw new Error(
-        "Aucune session Supabase disponible."
-      );
-
-    }
 
     currentUser =
-      session.user;
+      data.session.user;
+
+
+    await startApplication();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    stopLoading();
+
+    showAuth();
+
+    showAuthMessage(
+      friendlyAuthError(error)
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   START APPLICATION
+===================================================== */
+
+async function startApplication(){
+
+  try{
+
+    loading(
+      "Chargement de votre espace..."
+    );
+
 
     await ensureDefaultData();
 
     await loadAll();
 
+    showApp();
+
     stopLoading();
+
+  }catch(error){
+
+    console.error(error);
+
+    stopLoading();
+
+    showAuth();
+
+    showAuthMessage(
+      "Impossible de charger vos données : " +
+      friendlyAuthError(error)
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+async function logout(){
+
+  try{
+
+    loading(
+      "Déconnexion..."
+    );
+
+
+    const {
+      error
+    } =
+      await supabaseClient.auth
+        .signOut();
+
+
+    if(error)
+      throw error;
+
+
+    currentUser = null;
+
+    location.reload();
 
   }catch(error){
 
     stopLoading();
 
+    showToast(
+      "Erreur lors de la déconnexion."
+    );
+
     console.error(error);
-
-    document.body.innerHTML = `
-
-      <div style="
-        min-height:100vh;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        padding:25px;
-        font-family:Arial,sans-serif;
-        background:#f7f7f7;
-      ">
-
-        <div style="
-          max-width:550px;
-          background:#fff;
-          padding:30px;
-          border-radius:18px;
-          border:1px solid #eee;
-          box-shadow:0 15px 40px rgba(0,0,0,.08);
-        ">
-
-          <h2 style="margin-bottom:12px;">
-            SalesTrack ne peut pas se connecter
-          </h2>
-
-          <p style="
-            color:#666;
-            line-height:1.6;
-            margin-bottom:15px;
-          ">
-            ${escapeHtml(
-              error?.message ||
-              "Erreur de connexion Supabase."
-            )}
-          </p>
-
-          <p style="
-            color:#666;
-            line-height:1.6;
-          ">
-            Vérifiez que
-            <strong>
-              Anonymous Sign-Ins
-            </strong>
-            est activé dans
-            Supabase Authentication.
-          </p>
-
-        </div>
-
-      </div>
-
-    `;
 
   }
 
@@ -1840,24 +2604,35 @@ async function initAuth(){
 
 async function ensureDefaultData(){
 
+  if(!currentUser)
+    return;
+
+
   const {
     data: existingServices,
-    error: servicesError
+    error: serviceError
   } =
     await supabaseClient
       .from("services")
-      .select("id,name,price")
-      .eq("user_id",currentUser.id);
+      .select("id")
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .limit(1);
 
-  if(servicesError)
-    throw servicesError;
+
+  if(serviceError)
+    throw serviceError;
 
 
-  if(!existingServices ||
-     existingServices.length === 0){
+  if(
+    !existingServices ||
+    existingServices.length === 0
+  ){
 
     const rows =
-      DEFAULT_SERVICES.map(service=>({
+      SERVICES.map(service => ({
 
         user_id:
           currentUser.id,
@@ -1870,6 +2645,7 @@ async function ensureDefaultData(){
 
       }));
 
+
     const {
       error
     } =
@@ -1877,31 +2653,35 @@ async function ensureDefaultData(){
         .from("services")
         .insert(rows);
 
+
     if(error)
       throw error;
 
   }
 
 
-  const weekStart =
-    getMonday();
-
   const {
-    data:goal,
-    error:goalError
+    data: goalData,
+    error: goalError
   } =
     await supabaseClient
       .from("weekly_goals")
-      .select("*")
-      .eq("user_id",currentUser.id)
-      .eq("week_start",weekStart)
-      .maybeSingle();
+      .select("id")
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .limit(1);
+
 
   if(goalError)
     throw goalError;
 
 
-  if(!goal){
+  if(
+    !goalData ||
+    goalData.length === 0
+  ){
 
     const {
       error
@@ -1914,24 +2694,16 @@ async function ensureDefaultData(){
             currentUser.id,
 
           goal_amount:
-            WEEKLY_GOAL,
+            15000,
 
           week_start:
-            weekStart
+            getWeekStart()
 
         });
 
-    if(error){
 
-      if(!String(error.message)
-        .toLowerCase()
-        .includes("duplicate")){
-
-        throw error;
-
-      }
-
-    }
+    if(error)
+      throw error;
 
   }
 
@@ -1944,10 +2716,6 @@ async function ensureDefaultData(){
 
 async function loadAll(){
 
-  loading(
-    "Chargement des données..."
-  );
-
   await Promise.all([
 
     loadServices(),
@@ -1958,27 +2726,26 @@ async function loadAll(){
 
   ]);
 
+
   renderServices();
-
-  renderNetflix();
-
-  updateDashboard();
 
   renderHistory();
 
-  renderAnalysis();
+  renderNetflix();
 
   renderWeek();
 
-  renderReport();
+  updateDashboard();
 
-  stopLoading();
+  renderAnalysis();
+
+  renderReport();
 
 }
 
 
 /* =====================================================
-   SERVICES
+   LOAD SERVICES
 ===================================================== */
 
 async function loadServices(){
@@ -1990,19 +2757,246 @@ async function loadServices(){
     await supabaseClient
       .from("services")
       .select("*")
-      .eq("user_id",currentUser.id)
-      .order("created_at",{
-        ascending:true
-      });
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .order(
+        "created_at",
+        {
+          ascending:true
+        }
+      );
+
 
   if(error)
     throw error;
 
-  services =
+
+  servicesData =
     data || [];
 
 }
 
+
+/* =====================================================
+   LOAD SALES
+===================================================== */
+
+async function loadOperations(){
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("sales")
+      .select("*")
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .eq(
+        "sale_date",
+        todayKey
+      )
+      .order(
+        "id",
+        {
+          ascending:false
+        }
+      );
+
+
+  if(error)
+    throw error;
+
+
+  operations =
+    (data || []).map(item => ({
+
+      id:
+        item.id,
+
+      service:
+        item.service_name,
+
+      service_id:
+        item.service_id,
+
+      quantity:
+        Number(item.quantity || 0),
+
+      unit_price:
+        Number(item.unit_price || 0),
+
+      total:
+        Number(
+          item.total ||
+          (
+            Number(item.quantity || 0) *
+            Number(item.unit_price || 0)
+          )
+        ),
+
+      time:
+        item.sale_time ||
+        item.time ||
+        "",
+
+      note:
+        item.note || ""
+
+    }));
+
+}
+
+
+/* =====================================================
+   LOAD SUBSCRIBERS
+===================================================== */
+
+async function loadSubscribers(){
+
+  const {
+    data,
+    error
+  } =
+    await supabaseClient
+      .from("subscribers")
+      .select("*")
+      .eq(
+        "user_id",
+        currentUser.id
+      )
+      .order(
+        "id",
+        {
+          ascending:false
+        }
+      );
+
+
+  if(error)
+    throw error;
+
+
+  subscribers =
+    data || [];
+
+}
+
+
+/* =====================================================
+   FORMAT
+===================================================== */
+
+function money(value){
+
+  return Number(
+    value || 0
+  ).toLocaleString(
+    "fr-FR"
+  ) + " HTG";
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function showSection(
+  id,
+  button
+){
+
+  document
+    .querySelectorAll(".section")
+    .forEach(section => {
+
+      section.classList.remove(
+        "active"
+      );
+
+    });
+
+
+  const section =
+    document.getElementById(id);
+
+
+  if(section){
+
+    section.classList.add(
+      "active"
+    );
+
+  }
+
+
+  document
+    .querySelectorAll(".menu button")
+    .forEach(btn => {
+
+      btn.classList.remove(
+        "active"
+      );
+
+    });
+
+
+  if(button){
+
+    button.classList.add(
+      "active"
+    );
+
+  }
+
+
+  document
+    .getElementById("sidebar")
+    .classList.remove(
+      "open"
+    );
+
+
+  if(id === "dashboard")
+    updateDashboard();
+
+  if(id === "history")
+    renderHistory();
+
+  if(id === "analysis")
+    renderAnalysis();
+
+  if(id === "week")
+    renderWeek();
+
+  if(id === "netflix")
+    renderNetflix();
+
+  if(id === "report")
+    renderReport();
+
+}
+
+
+function toggleMenu(){
+
+  document
+    .getElementById("sidebar")
+    .classList.toggle(
+      "open"
+    );
+
+}
+
+
+/* =====================================================
+   SERVICES
+===================================================== */
 
 function renderServices(){
 
@@ -2011,26 +3005,30 @@ function renderServices(){
       "serviceSelect"
     );
 
+
   select.innerHTML =
     `<option value="">
       Choisir un service
     </option>`;
 
 
-  services.forEach(service=>{
+  servicesData.forEach(service => {
 
     const option =
       document.createElement(
         "option"
       );
 
+
     option.value =
       service.id;
+
 
     option.textContent =
       service.name +
       " — " +
       money(service.price);
+
 
     select.appendChild(
       option
@@ -2044,11 +3042,17 @@ function renderServices(){
       "servicesList"
     );
 
-  if(!services.length){
+
+  list.innerHTML = "";
+
+
+  if(
+    !servicesData.length
+  ){
 
     list.innerHTML =
       `<div class="empty">
-        Aucun service enregistré.
+        Aucun service.
       </div>`;
 
     return;
@@ -2056,51 +3060,49 @@ function renderServices(){
   }
 
 
-  list.innerHTML =
-    services.map(service=>`
+  servicesData.forEach(service => {
 
-      <div class="service-row">
+    const div =
+      document.createElement(
+        "div"
+      );
 
-        <div>
 
-          <div class="service-name">
-            ${escapeHtml(service.name)}
-          </div>
+    div.className =
+      "service-row";
 
-          <div class="service-meta">
-            Tarif unitaire
-          </div>
 
+    div.innerHTML = `
+
+      <div>
+
+        <div class="service-name">
+          ${escapeHtml(service.name)}
         </div>
 
-        <div class="service-total">
-          ${money(service.price)}
-        </div>
-
-        <div class="service-actions">
-
-          <button
-            class="btn btn-edit"
-            onclick="editService('${service.id}')"
-          >
-            Modifier
-          </button>
-
-          <button
-            class="btn btn-danger"
-            onclick="deleteService('${service.id}')"
-          >
-            Supprimer
-          </button>
-
+        <div class="service-meta">
+          Tarif unitaire
         </div>
 
       </div>
 
-    `).join("");
+      <div class="service-total">
+        ${money(service.price)}
+      </div>
+
+    `;
+
+
+    list.appendChild(div);
+
+  });
 
 }
 
+
+/* =====================================================
+   PRICE
+===================================================== */
 
 function getSelectedService(){
 
@@ -2109,9 +3111,11 @@ function getSelectedService(){
       "serviceSelect"
     ).value;
 
-  return services.find(
+
+  return servicesData.find(
     service =>
-      service.id === id
+      String(service.id) ===
+      String(id)
   );
 
 }
@@ -2122,15 +3126,18 @@ function updatePrice(){
   const service =
     getSelectedService();
 
+
   const price =
     service
-      ? service.price
+      ? Number(service.price)
       : 0;
+
 
   document.getElementById(
     "unitPrice"
   ).value =
     money(price);
+
 
   updateTotal();
 
@@ -2142,6 +3149,7 @@ function updateTotal(){
   const service =
     getSelectedService();
 
+
   const quantity =
     Number(
       document.getElementById(
@@ -2149,11 +3157,13 @@ function updateTotal(){
       ).value
     ) || 0;
 
+
   const total =
     service
       ? Number(service.price) *
         quantity
       : 0;
+
 
   document.getElementById(
     "totalPrice"
@@ -2163,344 +3173,15 @@ function updateTotal(){
 }
 
 
-async function addService(){
-
-  const name =
-    document.getElementById(
-      "newServiceName"
-    ).value.trim();
-
-  const price =
-    Number(
-      document.getElementById(
-        "newServicePrice"
-      ).value
-    );
-
-
-  if(!name){
-
-    showToast(
-      "Entrez le nom du service."
-    );
-
-    return;
-
-  }
-
-
-  if(price < 0 || !Number.isFinite(price)){
-
-    showToast(
-      "Entrez un prix valide."
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    const {
-      error
-    } =
-      await supabaseClient
-        .from("services")
-        .insert({
-
-          user_id:
-            currentUser.id,
-
-          name:
-            name,
-
-          price:
-            price
-
-        });
-
-    if(error)
-      throw error;
-
-
-    document.getElementById(
-      "newServiceName"
-    ).value = "";
-
-    document.getElementById(
-      "newServicePrice"
-    ).value = "";
-
-
-    await loadServices();
-
-    renderServices();
-
-    updatePrice();
-
-    showToast(
-      "Service ajouté avec succès."
-    );
-
-  }catch(error){
-
-    showError(error);
-
-  }
-
-}
-
-
-async function editService(id){
-
-  const service =
-    services.find(
-      item => item.id === id
-    );
-
-  if(!service)
-    return;
-
-
-  const name =
-    prompt(
-      "Nom du service :",
-      service.name
-    );
-
-  if(name === null)
-    return;
-
-
-  const priceInput =
-    prompt(
-      "Prix du service :",
-      service.price
-    );
-
-  if(priceInput === null)
-    return;
-
-
-  const price =
-    Number(priceInput);
-
-
-  if(!name.trim() ||
-     !Number.isFinite(price) ||
-     price < 0){
-
-    showToast(
-      "Informations invalides."
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    const {
-      error
-    } =
-      await supabaseClient
-        .from("services")
-        .update({
-
-          name:
-            name.trim(),
-
-          price:
-            price
-
-        })
-        .eq("id",id)
-        .eq(
-          "user_id",
-          currentUser.id
-        );
-
-    if(error)
-      throw error;
-
-
-    await loadServices();
-
-    renderServices();
-
-    updatePrice();
-
-    showToast(
-      "Service modifié."
-    );
-
-  }catch(error){
-
-    showError(error);
-
-  }
-
-}
-
-
-async function deleteService(id){
-
-  const service =
-    services.find(
-      item => item.id === id
-    );
-
-  if(!service)
-    return;
-
-
-  if(!confirm(
-    `Supprimer "${service.name}" ?`
-  ))
-    return;
-
-
-  try{
-
-    const {
-      error
-    } =
-      await supabaseClient
-        .from("services")
-        .delete()
-        .eq("id",id)
-        .eq(
-          "user_id",
-          currentUser.id
-        );
-
-    if(error)
-      throw error;
-
-
-    await loadServices();
-
-    renderServices();
-
-    updatePrice();
-
-    showToast(
-      "Service supprimé."
-    );
-
-  }catch(error){
-
-    showError(error);
-
-  }
-
-}
-
-
 /* =====================================================
-   OPERATIONS
+   ADD OPERATION
 ===================================================== */
-
-async function loadOperations(){
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from("sales")
-      .select("*")
-      .eq("user_id",currentUser.id)
-      .order("sale_date",{
-        ascending:false
-      });
-
-  if(error)
-    throw error;
-
-  operations =
-    data || [];
-
-}
-
-
-function getLocalDateFromSale(saleDate){
-
-  return new Date(
-    saleDate
-  ).toLocaleDateString(
-    "en-CA",
-    {
-      timeZone:
-        "America/Port-au-Prince"
-    }
-  );
-
-}
-
-
-function getLocalTimeFromSale(saleDate){
-
-  return new Date(
-    saleDate
-  ).toLocaleTimeString(
-    "fr-FR",
-    {
-      timeZone:
-        "America/Port-au-Prince",
-      hour:"2-digit",
-      minute:"2-digit",
-      hour12:false
-    }
-  );
-
-}
-
-
-function localDateTimeToISO(
-  dateString,
-  timeString
-){
-
-  const [
-    year,
-    month,
-    day
-  ] =
-    dateString
-      .split("-")
-      .map(Number);
-
-  const [
-    hour,
-    minute
-  ] =
-    timeString
-      .split(":")
-      .map(Number);
-
-
-  const local =
-    new Date(
-      year,
-      month - 1,
-      day,
-      hour,
-      minute,
-      0
-    );
-
-  return local.toISOString();
-
-}
-
 
 async function addOperation(){
 
   const service =
     getSelectedService();
+
 
   const quantity =
     Number(
@@ -2509,10 +3190,12 @@ async function addOperation(){
       ).value
     );
 
+
   const time =
     document.getElementById(
       "operationTime"
     ).value;
+
 
   const note =
     document.getElementById(
@@ -2531,12 +3214,13 @@ async function addOperation(){
   }
 
 
-  if(!quantity ||
-     quantity < 1 ||
-     !Number.isInteger(quantity)){
+  if(
+    !quantity ||
+    quantity < 1
+  ){
 
     showToast(
-      "Entrez une quantité valide."
+      "La quantité doit être supérieure à 0."
     );
 
     return;
@@ -2544,86 +3228,129 @@ async function addOperation(){
   }
 
 
-  if(!time){
+  const saleTime =
+    time ||
+    new Date().toTimeString()
+      .slice(0,5);
 
-    showToast(
-      "Entrez l'heure de l'opération."
-    );
 
-    return;
+  const payload = {
 
-  }
+    user_id:
+      currentUser.id,
+
+    service_id:
+      service.id,
+
+    service_name:
+      service.name,
+
+    quantity:
+      quantity,
+
+    unit_price:
+      Number(service.price),
+
+    sale_date:
+      todayKey
+
+  };
+
+
+  /*
+    On conserve la logique de ta table.
+    Le champ note/time est ajouté seulement
+    s'il existe dans ta table.
+  */
+
+  if(time)
+    payload.sale_time = saleTime;
+
+  if(note)
+    payload.note = note;
 
 
   try{
 
-    const saleDate =
-      localDateTimeToISO(
-        todayString(),
-        time
-      );
-
-
     const {
+      data,
       error
     } =
       await supabaseClient
         .from("sales")
-        .insert({
+        .insert(payload)
+        .select()
+        .single();
 
-          user_id:
-            currentUser.id,
-
-          service_id:
-            service.id,
-
-          service_name:
-            service.name,
-
-          quantity:
-            quantity,
-
-          unit_price:
-            Number(service.price),
-
-          sale_date:
-            saleDate
-
-        });
 
     if(error)
       throw error;
+
+
+    operations.unshift({
+
+      id:
+        data.id,
+
+      service:
+        data.service_name,
+
+      service_id:
+        data.service_id,
+
+      quantity:
+        Number(data.quantity),
+
+      unit_price:
+        Number(data.unit_price),
+
+      total:
+        Number(
+          data.total ||
+          Number(data.quantity) *
+          Number(data.unit_price)
+        ),
+
+      time:
+        data.sale_time ||
+        saleTime,
+
+      note:
+        data.note ||
+        note
+
+    });
 
 
     document.getElementById(
       "serviceSelect"
     ).value = "";
 
+
     document.getElementById(
       "quantity"
     ).value = 1;
+
 
     document.getElementById(
       "unitPrice"
     ).value = "";
 
+
     document.getElementById(
       "totalPrice"
     ).value = "";
 
+
     document.getElementById(
       "operationTime"
-    ).value =
-      new Date()
-        .toTimeString()
-        .slice(0,5);
+    ).value = "";
+
 
     document.getElementById(
       "operationNote"
     ).value = "";
 
-
-    await loadOperations();
 
     updateDashboard();
 
@@ -2631,30 +3358,42 @@ async function addOperation(){
 
     renderAnalysis();
 
-    renderWeek();
-
     renderReport();
 
 
     showToast(
-      "Opération ajoutée avec succès."
+      "Opération enregistrée."
     );
+
 
   }catch(error){
 
-    showError(error);
+    console.error(error);
+
+    showToast(
+      "Impossible d'enregistrer l'opération."
+    );
 
   }
 
 }
 
 
+/* =====================================================
+   DELETE OPERATION
+===================================================== */
+
 async function deleteOperation(id){
 
-  if(!confirm(
-    "Supprimer cette opération ?"
-  ))
+  if(
+    !confirm(
+      "Supprimer cette opération ?"
+    )
+  ){
+
     return;
+
+  }
 
 
   try{
@@ -2665,25 +3404,33 @@ async function deleteOperation(id){
       await supabaseClient
         .from("sales")
         .delete()
-        .eq("id",id)
+        .eq(
+          "id",
+          id
+        )
         .eq(
           "user_id",
           currentUser.id
         );
 
+
     if(error)
       throw error;
 
 
-    await loadOperations();
+    operations =
+      operations.filter(
+        item =>
+          String(item.id) !==
+          String(id)
+      );
+
 
     updateDashboard();
 
     renderHistory();
 
     renderAnalysis();
-
-    renderWeek();
 
     renderReport();
 
@@ -2692,30 +3439,16 @@ async function deleteOperation(id){
       "Opération supprimée."
     );
 
+
   }catch(error){
 
-    showError(error);
+    console.error(error);
+
+    showToast(
+      "Impossible de supprimer l'opération."
+    );
 
   }
-
-}
-
-
-/* =====================================================
-   TODAY DATA
-===================================================== */
-
-function getTodayOperations(){
-
-  const today =
-    todayString();
-
-  return operations.filter(
-    operation =>
-      getLocalDateFromSale(
-        operation.sale_date
-      ) === today
-  );
 
 }
 
@@ -2726,26 +3459,24 @@ function getTodayOperations(){
 
 function updateDashboard(){
 
-  const today =
-    getTodayOperations();
-
-
   const revenue =
-    today.reduce(
-      (sum,item)=>
-        sum + Number(item.total || 0),
+    operations.reduce(
+      (sum,item) =>
+        sum +
+        Number(item.total || 0),
       0
     );
 
 
   const count =
-    today.length;
+    operations.length;
 
 
   const items =
-    today.reduce(
-      (sum,item)=>
-        sum + Number(item.quantity || 0),
+    operations.reduce(
+      (sum,item) =>
+        sum +
+        Number(item.quantity || 0),
       0
     );
 
@@ -2754,40 +3485,6 @@ function updateDashboard(){
     count
       ? revenue / count
       : 0;
-
-
-  const weekStart =
-    getMonday();
-
-
-  const weekRevenue =
-    operations
-      .filter(item =>
-        getLocalDateFromSale(
-          item.sale_date
-        ) >= weekStart
-      )
-      .reduce(
-        (sum,item)=>
-          sum + Number(item.total || 0),
-        0
-      );
-
-
-  const percentage =
-    WEEKLY_GOAL
-      ? (
-          weekRevenue /
-          WEEKLY_GOAL
-        ) * 100
-      : 0;
-
-
-  const progress =
-    Math.min(
-      percentage,
-      100
-    );
 
 
   document.getElementById(
@@ -2814,10 +3511,25 @@ function updateDashboard(){
     money(average);
 
 
+  const percentage =
+    DAILY_GOAL
+      ? (revenue / DAILY_GOAL) * 100
+      : 0;
+
+
+  const progress =
+    Math.min(
+      percentage,
+      100
+    );
+
+
   document.getElementById(
     "goalPercent"
   ).textContent =
-    Math.round(percentage) + "%";
+    Math.round(
+      percentage
+    ) + "%";
 
 
   document.getElementById(
@@ -2829,14 +3541,13 @@ function updateDashboard(){
   document.getElementById(
     "goalCurrent"
   ).textContent =
-    money(weekRevenue) +
-    " réalisés cette semaine";
+    money(revenue) +
+    " réalisés";
 
 
   const remaining =
     Math.max(
-      WEEKLY_GOAL -
-      weekRevenue,
+      DAILY_GOAL - revenue,
       0
     );
 
@@ -2855,31 +3566,28 @@ function updateDashboard(){
 
 
   if(
-    weekRevenue >=
-    WEEKLY_GOAL
+    revenue >= DAILY_GOAL
   ){
 
     status =
       "Objectif atteint";
 
   }else if(
-    weekRevenue >=
-    WEEKLY_GOAL * .75
+    revenue >= DAILY_GOAL * .75
   ){
 
     status =
       "Très bien";
 
   }else if(
-    weekRevenue >=
-    WEEKLY_GOAL * .5
+    revenue >= DAILY_GOAL * .5
   ){
 
     status =
       "En bonne voie";
 
   }else if(
-    weekRevenue > 0
+    revenue > 0
   ){
 
     status =
@@ -2894,11 +3602,11 @@ function updateDashboard(){
     status;
 
 
-  calculateBestService(today);
+  calculateBestService();
 
-  calculateBestHour(today);
+  calculateBestHour();
 
-  renderCharts(today);
+  renderCharts();
 
 }
 
@@ -2907,19 +3615,26 @@ function updateDashboard(){
    BEST SERVICE
 ===================================================== */
 
-function calculateBestService(today){
+function calculateBestService(){
 
   const totals = {};
 
 
-  today.forEach(item=>{
+  operations.forEach(item => {
 
     const name =
-      item.service_name;
+      item.service ||
+      "Inconnu";
+
 
     totals[name] =
-      (totals[name] || 0) +
-      Number(item.total || 0);
+      (
+        totals[name] ||
+        0
+      ) +
+      Number(
+        item.total || 0
+      );
 
   });
 
@@ -2927,27 +3642,29 @@ function calculateBestService(today){
   let best = null;
 
 
-  Object.keys(totals)
-    .forEach(name=>{
+  Object.keys(
+    totals
+  ).forEach(name => {
 
-      if(
-        !best ||
-        totals[name] >
-        totals[best]
-      ){
+    if(
+      !best ||
+      totals[name] >
+      totals[best]
+    ){
 
-        best =
-          name;
+      best =
+        name;
 
-      }
+    }
 
-    });
+  });
 
 
   document.getElementById(
     "bestService"
   ).textContent =
-    best || "—";
+    best ||
+    "—";
 
 
   document.getElementById(
@@ -2964,22 +3681,28 @@ function calculateBestService(today){
    BEST HOUR
 ===================================================== */
 
-function calculateBestHour(today){
+function calculateBestHour(){
 
   const totals = {};
 
 
-  today.forEach(item=>{
+  operations.forEach(item => {
 
     const hour =
-      getLocalTimeFromSale(
-        item.sale_date
-      ).split(":")[0] + "h";
+      item.time
+        ? item.time
+            .split(":")[0] + "h"
+        : "—";
 
 
     totals[hour] =
-      (totals[hour] || 0) +
-      Number(item.total || 0);
+      (
+        totals[hour] ||
+        0
+      ) +
+      Number(
+        item.total || 0
+      );
 
   });
 
@@ -2987,27 +3710,29 @@ function calculateBestHour(today){
   let best = null;
 
 
-  Object.keys(totals)
-    .forEach(hour=>{
+  Object.keys(
+    totals
+  ).forEach(hour => {
 
-      if(
-        !best ||
-        totals[hour] >
-        totals[best]
-      ){
+    if(
+      !best ||
+      totals[hour] >
+      totals[best]
+    ){
 
-        best =
-          hour;
+      best =
+        hour;
 
-      }
+    }
 
-    });
+  });
 
 
   document.getElementById(
     "bestHour"
   ).textContent =
-    best || "—";
+    best ||
+    "—";
 
 
   document.getElementById(
@@ -3024,48 +3749,49 @@ function calculateBestHour(today){
    CHARTS
 ===================================================== */
 
-function renderCharts(today){
+function renderCharts(){
 
   const hours = [];
 
 
   for(
-    let i = 0;
-    i < 24;
+    let i=0;
+    i<24;
     i++
   ){
 
     hours.push(
-      String(i).padStart(2,"0")
-      + "h"
+      String(i)
+        .padStart(2,"0") +
+      "h"
     );
 
   }
 
 
   const hourTotals =
-    hours.map(label=>{
+    hours.map(hour => {
 
-      const hour =
-        label.replace("h","");
+      const h =
+        hour.replace(
+          "h",
+          ""
+        );
 
 
-      return today
+      return operations
         .filter(item => {
 
-          const time =
-            getLocalTimeFromSale(
-              item.sale_date
-            );
-
           return (
-            time.split(":")[0] ===
-            hour
+            item.time &&
+            item.time
+              .split(":")[0] ===
+            h
           );
 
         })
         .reduce(
-          (sum,item)=>
+          (sum,item) =>
             sum +
             Number(
               item.total || 0
@@ -3076,153 +3802,139 @@ function renderCharts(today){
     });
 
 
-  if(hourChart)
+  if(hourChart){
+
     hourChart.destroy();
 
+  }
 
-  hourChart =
-    new Chart(
-      document.getElementById(
-        "hourChart"
-      ),
-      {
 
-        type:"line",
+  const hourCanvas =
+    document.getElementById(
+      "hourChart"
+    );
 
-        data:{
 
-          labels:
-            hours,
+  if(hourCanvas){
 
-          datasets:[{
+    hourChart =
+      new Chart(
+        hourCanvas,
+        {
 
-            label:
-              "Revenus HTG",
+          type:"bar",
 
-            data:
-              hourTotals,
+          data:{
 
-            borderWidth:
-              3,
+            labels:hours,
 
-            tension:
-              .35,
+            datasets:[{
 
-            fill:
-              false
+              label:"Revenus",
 
-          }]
+              data:
+                hourTotals
 
-        },
-
-        options:{
-
-          responsive:
-            true,
-
-          maintainAspectRatio:
-            false,
-
-          plugins:{
-
-            legend:{
-              display:false
-            }
+            }]
 
           },
 
-          scales:{
+          options:{
 
-            y:{
-              beginAtZero:true
+            responsive:true,
+
+            maintainAspectRatio:false,
+
+            plugins:{
+
+              legend:{
+                display:false
+              }
+
             }
 
           }
 
         }
+      );
 
-      }
-    );
-
-
-  const serviceNames =
-    services.map(
-      service =>
-        service.name
-    );
+  }
 
 
-  const serviceTotals =
-    services.map(service=>{
-
-      return today
-        .filter(
-          item =>
-            item.service_id ===
-            service.id
-        )
-        .reduce(
-          (sum,item)=>
-            sum +
-            Number(
-              item.total || 0
-            ),
-          0
-        );
-
-    });
+  const serviceTotals = {};
 
 
-  if(serviceChart)
+  operations.forEach(item => {
+
+    const name =
+      item.service ||
+      "Inconnu";
+
+
+    serviceTotals[name] =
+      (
+        serviceTotals[name] ||
+        0
+      ) +
+      Number(
+        item.total || 0
+      );
+
+  });
+
+
+  if(serviceChart){
+
     serviceChart.destroy();
 
+  }
 
-  serviceChart =
-    new Chart(
-      document.getElementById(
-        "serviceChart"
-      ),
-      {
 
-        type:"doughnut",
+  const serviceCanvas =
+    document.getElementById(
+      "serviceChart"
+    );
 
-        data:{
 
-          labels:
-            serviceNames,
+  if(serviceCanvas){
 
-          datasets:[{
+    serviceChart =
+      new Chart(
+        serviceCanvas,
+        {
 
-            data:
-              serviceTotals,
+          type:"doughnut",
 
-            borderWidth:
-              2
+          data:{
 
-          }]
+            labels:
+              Object.keys(
+                serviceTotals
+              ),
 
-        },
+            datasets:[{
 
-        options:{
+              data:
+                Object.values(
+                  serviceTotals
+                )
 
-          responsive:
-            true,
+            }]
 
-          maintainAspectRatio:
-            false,
+          },
 
-          plugins:{
+          options:{
 
-            legend:{
-              position:"bottom"
-            }
+            responsive:true,
+
+            maintainAspectRatio:false
 
           }
 
         }
+      );
 
-      }
-    );
+  }
 
 }
 
@@ -3233,7 +3945,7 @@ function renderCharts(today){
 
 function renderHistory(){
 
-  const tbody =
+  const table =
     document.getElementById(
       "historyTable"
     );
@@ -3241,104 +3953,76 @@ function renderHistory(){
 
   if(!operations.length){
 
-    tbody.innerHTML = `
-
-      <tr>
-
+    table.innerHTML =
+      `<tr>
         <td
-          colspan="8"
+          colspan="7"
           class="empty"
         >
-          Aucune opération enregistrée.
+          Aucune opération aujourd'hui.
         </td>
-
-      </tr>
-
-    `;
+      </tr>`;
 
     return;
 
   }
 
 
-  tbody.innerHTML =
-    operations.map(item=>{
+  table.innerHTML =
+    operations.map(item => `
 
-      const date =
-        getLocalDateFromSale(
-          item.sale_date
-        );
+      <tr>
 
-      const time =
-        getLocalTimeFromSale(
-          item.sale_date
-        );
+        <td>
+          ${escapeHtml(
+            item.time || "—"
+          )}
+        </td>
 
+        <td>
+          ${escapeHtml(
+            item.service
+          )}
+        </td>
 
-      return `
+        <td>
+          ${item.quantity}
+        </td>
 
-        <tr>
+        <td>
+          ${money(
+            item.unit_price
+          )}
+        </td>
 
-          <td>
-            ${escapeHtml(
-              formatDate(
-                date + "T12:00:00"
-              )
-            )}
-          </td>
-
-          <td>
-            ${escapeHtml(time)}
-          </td>
-
-          <td>
-            <strong>
-              ${escapeHtml(
-                item.service_name
-              )}
-            </strong>
-          </td>
-
-          <td>
-            ${Number(
-              item.quantity
-            )}
-          </td>
-
-          <td>
+        <td>
+          <strong>
             ${money(
-              item.unit_price
+              item.total
             )}
-          </td>
+          </strong>
+        </td>
 
-          <td>
-            <strong>
-              ${money(
-                item.total
-              )}
-            </strong>
-          </td>
+        <td>
+          ${escapeHtml(
+            item.note || "—"
+          )}
+        </td>
 
-          <td>
-            —
-          </td>
+        <td>
 
-          <td>
+          <button
+            class="btn btn-danger"
+            onclick="deleteOperation('${item.id}')"
+          >
+            Supprimer
+          </button>
 
-            <button
-              class="btn btn-danger"
-              onclick="deleteOperation('${item.id}')"
-            >
-              Supprimer
-            </button>
+        </td>
 
-          </td>
+      </tr>
 
-        </tr>
-
-      `;
-
-    }).join("");
+    `).join("");
 
 }
 
@@ -3349,19 +4033,15 @@ function renderHistory(){
 
 function renderAnalysis(){
 
-  const container =
+  const content =
     document.getElementById(
       "analysisContent"
     );
 
 
-  const today =
-    getTodayOperations();
-
-
   const revenue =
-    today.reduce(
-      (sum,item)=>
+    operations.reduce(
+      (sum,item) =>
         sum +
         Number(item.total || 0),
       0
@@ -3369,12 +4049,12 @@ function renderAnalysis(){
 
 
   const count =
-    today.length;
+    operations.length;
 
 
   const items =
-    today.reduce(
-      (sum,item)=>
+    operations.reduce(
+      (sum,item) =>
         sum +
         Number(item.quantity || 0),
       0
@@ -3387,35 +4067,30 @@ function renderAnalysis(){
       : 0;
 
 
-  const percentage =
-    WEEKLY_GOAL
-      ? (
-          revenue /
-          WEEKLY_GOAL
-        ) * 100
-      : 0;
-
-
   const serviceTotals = {};
 
 
-  today.forEach(item=>{
+  operations.forEach(item => {
 
-    serviceTotals[
-      item.service_name
-    ] =
+    const name =
+      item.service ||
+      "Inconnu";
+
+
+    serviceTotals[name] =
       (
-        serviceTotals[
-          item.service_name
-        ] || 0
+        serviceTotals[name] ||
+        0
       ) +
-      Number(item.total || 0);
+      Number(
+        item.total || 0
+      );
 
   });
 
 
   let bestService =
-    "Aucun";
+    "Pas encore disponible";
 
 
   let bestServiceAmount =
@@ -3424,18 +4099,18 @@ function renderAnalysis(){
 
   Object.keys(
     serviceTotals
-  ).forEach(name=>{
+  ).forEach(name => {
 
     if(
       serviceTotals[name] >
       bestServiceAmount
     ){
 
-      bestServiceAmount =
-        serviceTotals[name];
-
       bestService =
         name;
+
+      bestServiceAmount =
+        serviceTotals[name];
 
     }
 
@@ -3445,89 +4120,84 @@ function renderAnalysis(){
   const hourTotals = {};
 
 
-  today.forEach(item=>{
+  operations.forEach(item => {
+
+    if(!item.time)
+      return;
+
 
     const hour =
-      getLocalTimeFromSale(
-        item.sale_date
-      ).split(":")[0];
+      item.time
+        .split(":")[0] +
+      "h";
 
 
     hourTotals[hour] =
-      (hourTotals[hour] || 0) +
-      Number(item.total || 0);
+      (
+        hourTotals[hour] ||
+        0
+      ) +
+      Number(
+        item.total || 0
+      );
 
   });
 
 
-  let bestHour =
-    null;
+  let bestHour = null;
 
-
-  let bestHourAmount =
-    0;
+  let bestHourAmount = 0;
 
 
   Object.keys(
     hourTotals
-  ).forEach(hour=>{
+  ).forEach(hour => {
 
     if(
       hourTotals[hour] >
       bestHourAmount
     ){
 
-      bestHourAmount =
-        hourTotals[hour];
-
       bestHour =
         hour;
+
+      bestHourAmount =
+        hourTotals[hour];
 
     }
 
   });
 
 
-  let conclusion;
+  let conclusion =
+    "Commencez à enregistrer vos opérations pour obtenir une analyse.";
 
 
-  if(!count){
-
-    conclusion =
-      "Aucune vente n'a encore été enregistrée aujourd'hui.";
-
-  }else if(
-    revenue >=
-    WEEKLY_GOAL
-  ){
+  if(revenue >= DAILY_GOAL){
 
     conclusion =
-      "Votre revenu actuel atteint ou dépasse l'objectif défini.";
+      "Excellent travail : votre objectif journalier est atteint.";
 
-  }else{
+  }else if(revenue > 0){
 
     conclusion =
-      "Continuez à développer les ventes pour augmenter votre progression.";
+      "Vous avez commencé votre journée. Continuez pour atteindre votre objectif.";
 
   }
 
 
-  container.innerHTML = `
+  content.innerHTML = `
 
     <div class="analysis-box">
 
       <strong>
-        Performance globale
+        Revenus
       </strong>
 
       <span>
-
-        Vous avez généré
-        <b>
-          ${money(revenue)}
-        </b>
+        Vous avez réalisé
+        <b>${money(revenue)}</b>
         aujourd'hui.
-
       </span>
 
     </div>
@@ -3540,13 +4210,11 @@ function renderAnalysis(){
       </strong>
 
       <span>
-
         ${count}
         opération(s) enregistrée(s)
         pour un total de
         ${items}
         unité(s) vendue(s).
-
       </span>
 
     </div>
@@ -3559,12 +4227,8 @@ function renderAnalysis(){
       </strong>
 
       <span>
-
         Chaque opération rapporte en moyenne
-        <b>
-          ${money(average)}
-        </b>.
-
+        <b>${money(average)}</b>.
       </span>
 
     </div>
@@ -3577,7 +4241,6 @@ function renderAnalysis(){
       </strong>
 
       <span>
-
         ${escapeHtml(
           bestService
         )}
@@ -3607,7 +4270,7 @@ function renderAnalysis(){
         ${
           bestHour
             ? bestHour +
-              "h avec " +
+              " avec " +
               money(
                 bestHourAmount
               )
@@ -3640,74 +4303,172 @@ function renderAnalysis(){
    WEEK
 ===================================================== */
 
-function renderWeek(){
+function getWeekStart(){
 
-  const tbody =
+  const date =
+    new Date();
+
+  const day =
+    date.getDay();
+
+  const diff =
+    day === 0
+      ? -6
+      : 1 - day;
+
+
+  date.setDate(
+    date.getDate() + diff
+  );
+
+
+  return formatDate(
+    date
+  );
+
+}
+
+
+function formatDate(date){
+
+  const y =
+    date.getFullYear();
+
+  const m =
+    String(
+      date.getMonth()+1
+    ).padStart(2,"0");
+
+  const d =
+    String(
+      date.getDate()
+    ).padStart(2,"0");
+
+
+  return `${y}-${m}-${d}`;
+
+}
+
+
+async function renderWeek(){
+
+  const table =
     document.getElementById(
       "weekTable"
     );
 
 
-  const monday =
+  const weekStart =
+    getWeekStart();
+
+
+  const start =
     new Date(
-      getMonday() +
-      "T12:00:00"
+      weekStart + "T00:00:00"
     );
 
 
-  const days = [];
+  const end =
+    new Date(start);
 
 
-  for(
-    let i = 0;
-    i < 7;
-    i++
-  ){
-
-    const date =
-      new Date(monday);
-
-    date.setDate(
-      monday.getDate() + i
-    );
-
-    days.push(date);
-
-  }
+  end.setDate(
+    end.getDate()+6
+  );
 
 
-  tbody.innerHTML =
-    days.map(date=>{
+  try{
 
-      const key =
-        formatDateInput(
-          date
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("sales")
+        .select("*")
+        .eq(
+          "user_id",
+          currentUser.id
+        )
+        .gte(
+          "sale_date",
+          weekStart
+        )
+        .lte(
+          "sale_date",
+          formatDate(end)
+        )
+        .order(
+          "sale_date",
+          {
+            ascending:true
+          }
         );
 
 
-      const dayOperations =
-        operations.filter(
+    if(error)
+      throw error;
+
+
+    const sales =
+      data || [];
+
+
+    let weekTotal = 0;
+
+
+    let rows = "";
+
+
+    for(
+      let i=0;
+      i<7;
+      i++
+    ){
+
+      const day =
+        new Date(start);
+
+
+      day.setDate(
+        start.getDate()+i
+      );
+
+
+      const key =
+        formatDate(day);
+
+
+      const daySales =
+        sales.filter(
           item =>
-            getLocalDateFromSale(
-              item.sale_date
-            ) === key
+            item.sale_date ===
+            key
         );
 
 
       const revenue =
-        dayOperations.reduce(
-          (sum,item)=>
+        daySales.reduce(
+          (sum,item) =>
             sum +
             Number(
-              item.total || 0
+              item.total ||
+              (
+                Number(
+                  item.quantity || 0
+                ) *
+                Number(
+                  item.unit_price || 0
+                )
+              )
             ),
           0
         );
 
 
       const items =
-        dayOperations.reduce(
-          (sum,item)=>
+        daySales.reduce(
+          (sum,item) =>
             sum +
             Number(
               item.quantity || 0
@@ -3716,41 +4477,309 @@ function renderWeek(){
         );
 
 
-      const isToday =
-        key ===
-        todayString();
+      weekTotal +=
+        revenue;
 
 
-      return `
+      rows += `
 
-        <tr
-          class="${
-            isToday
-              ? "week-current"
-              : ""
-          }"
-        >
+        <tr>
 
           <td>
-            ${date.toLocaleDateString(
+            ${day.toLocaleDateString(
               "fr-FR",
               {
                 weekday:"long",
-                day:"numeric"
+                day:"numeric",
+                month:"short"
               }
             )}
           </td>
 
           <td>
-            ${money(revenue)}
+            <strong>
+              ${money(revenue)}
+            </strong>
           </td>
 
           <td>
-            ${dayOperations.length}
+            ${daySales.length}
           </td>
 
           <td>
             ${items}
+          </td>
+
+        </tr>
+
+      `;
+
+    }
+
+
+    table.innerHTML =
+      rows;
+
+
+    document.getElementById(
+      "weekTotal"
+    ).textContent =
+      "Total semaine : " +
+      money(weekTotal);
+
+
+  }catch(error){
+
+    console.error(error);
+
+    table.innerHTML =
+      `<tr>
+        <td
+          colspan="4"
+          class="empty"
+        >
+          Impossible de charger la semaine.
+        </td>
+      </tr>`;
+
+  }
+
+}
+
+
+/* =====================================================
+   NETFLIX
+===================================================== */
+
+function getSubscriptionStatus(
+  endDate
+){
+
+  const today =
+    new Date(
+      todayKey +
+      "T00:00:00"
+    );
+
+
+  const end =
+    new Date(
+      endDate +
+      "T00:00:00"
+    );
+
+
+  const diff =
+    Math.ceil(
+      (
+        end - today
+      ) /
+      86400000
+    );
+
+
+  if(diff < 0){
+
+    return {
+      key:"expired",
+      label:"Expiré"
+    };
+
+  }
+
+
+  if(diff <= 3){
+
+    return {
+      key:"soon",
+      label:"Bientôt expiré"
+    };
+
+  }
+
+
+  return {
+    key:"active",
+    label:"Actif"
+  };
+
+}
+
+
+function renderNetflix(){
+
+  const search =
+    (
+      document.getElementById(
+        "netflixSearch"
+      )?.value ||
+      ""
+    ).toLowerCase();
+
+
+  const filtered =
+    subscribers.filter(item => {
+
+      const customer =
+        String(
+          item.customer_name ||
+          ""
+        ).toLowerCase();
+
+
+      const profile =
+        String(
+          item.profile_name ||
+          ""
+        ).toLowerCase();
+
+
+      return (
+        customer.includes(search) ||
+        profile.includes(search)
+      );
+
+    });
+
+
+  let active = 0;
+
+  let soon = 0;
+
+  let expired = 0;
+
+
+  subscribers.forEach(item => {
+
+    const status =
+      getSubscriptionStatus(
+        item.end_date
+      );
+
+
+    if(
+      status.key === "active"
+    )
+      active++;
+
+
+    if(
+      status.key === "soon"
+    )
+      soon++;
+
+
+    if(
+      status.key === "expired"
+    )
+      expired++;
+
+  });
+
+
+  document.getElementById(
+    "netflixTotal"
+  ).textContent =
+    subscribers.length;
+
+
+  document.getElementById(
+    "netflixActive"
+  ).textContent =
+    active;
+
+
+  document.getElementById(
+    "netflixSoon"
+  ).textContent =
+    soon;
+
+
+  document.getElementById(
+    "netflixExpired"
+  ).textContent =
+    expired;
+
+
+  const table =
+    document.getElementById(
+      "netflixTable"
+    );
+
+
+  if(!filtered.length){
+
+    table.innerHTML =
+      `<tr>
+        <td
+          colspan="6"
+          class="empty"
+        >
+          Aucun abonnement trouvé.
+        </td>
+      </tr>`;
+
+    return;
+
+  }
+
+
+  table.innerHTML =
+    filtered.map(item => {
+
+      const status =
+        getSubscriptionStatus(
+          item.end_date
+        );
+
+
+      return `
+
+        <tr>
+
+          <td>
+            ${escapeHtml(
+              item.customer_name
+            )}
+          </td>
+
+          <td>
+            ${escapeHtml(
+              item.profile_name
+            )}
+          </td>
+
+          <td>
+            ${formatFrenchDate(
+              item.start_date
+            )}
+          </td>
+
+          <td>
+            ${formatFrenchDate(
+              item.end_date
+            )}
+          </td>
+
+          <td>
+
+            <span
+              class="status ${status.key}"
+            >
+              ${status.label}
+            </span>
+
+          </td>
+
+          <td>
+
+            <button
+              class="btn btn-danger"
+              onclick="deleteSubscription('${item.id}')"
+            >
+              Supprimer
+            </button>
+
           </td>
 
         </tr>
@@ -3762,19 +4791,230 @@ function renderWeek(){
 }
 
 
+async function addSubscription(){
+
+  const customerName =
+    document.getElementById(
+      "customerName"
+    ).value.trim();
+
+
+  const profileName =
+    document.getElementById(
+      "profileName"
+    ).value.trim();
+
+
+  const startDate =
+    document.getElementById(
+      "subscriptionStart"
+    ).value ||
+    todayKey;
+
+
+  const duration =
+    Number(
+      document.getElementById(
+        "subscriptionDuration"
+      ).value
+    );
+
+
+  if(!customerName){
+
+    showToast(
+      "Entrez le nom du client."
+    );
+
+    return;
+
+  }
+
+
+  if(!profileName){
+
+    showToast(
+      "Entrez le profil."
+    );
+
+    return;
+
+  }
+
+
+  const end =
+    new Date(
+      startDate +
+      "T00:00:00"
+    );
+
+
+  end.setDate(
+    end.getDate() +
+    duration
+  );
+
+
+  const endDate =
+    formatDate(end);
+
+
+  try{
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("subscribers")
+        .insert({
+
+          user_id:
+            currentUser.id,
+
+          customer_name:
+            customerName,
+
+          profile_name:
+            profileName,
+
+          start_date:
+            startDate,
+
+          duration_days:
+            duration,
+
+          end_date:
+            endDate
+
+        })
+        .select()
+        .single();
+
+
+    if(error)
+      throw error;
+
+
+    subscribers.unshift(
+      data
+    );
+
+
+    document.getElementById(
+      "customerName"
+    ).value = "";
+
+
+    document.getElementById(
+      "profileName"
+    ).value = "";
+
+
+    document.getElementById(
+      "subscriptionStart"
+    ).value = "";
+
+
+    document.getElementById(
+      "subscriptionDuration"
+    ).value = "30";
+
+
+    renderNetflix();
+
+
+    showToast(
+      "Abonnement ajouté."
+    );
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast(
+      "Impossible d'ajouter l'abonnement."
+    );
+
+  }
+
+}
+
+
+async function deleteSubscription(id){
+
+  if(
+    !confirm(
+      "Supprimer cet abonnement ?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .from("subscribers")
+        .delete()
+        .eq(
+          "id",
+          id
+        )
+        .eq(
+          "user_id",
+          currentUser.id
+        );
+
+
+    if(error)
+      throw error;
+
+
+    subscribers =
+      subscribers.filter(
+        item =>
+          String(item.id) !==
+          String(id)
+      );
+
+
+    renderNetflix();
+
+
+    showToast(
+      "Abonnement supprimé."
+    );
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast(
+      "Impossible de supprimer l'abonnement."
+    );
+
+  }
+
+}
+
+
 /* =====================================================
    REPORT
 ===================================================== */
 
 function renderReport(){
 
-  const today =
-    getTodayOperations();
-
-
   const revenue =
-    today.reduce(
-      (sum,item)=>
+    operations.reduce(
+      (sum,item) =>
         sum +
         Number(item.total || 0),
       0
@@ -3782,12 +5022,12 @@ function renderReport(){
 
 
   const count =
-    today.length;
+    operations.length;
 
 
   const items =
-    today.reduce(
-      (sum,item)=>
+    operations.reduce(
+      (sum,item) =>
         sum +
         Number(item.quantity || 0),
       0
@@ -3800,40 +5040,21 @@ function renderReport(){
       : 0;
 
 
-  const weekStart =
-    getMonday();
-
-
-  const weekRevenue =
-    operations
-      .filter(item =>
-        getLocalDateFromSale(
-          item.sale_date
-        ) >= weekStart
-      )
-      .reduce(
-        (sum,item)=>
-          sum +
-          Number(item.total || 0),
-        0
-      );
+  const remaining =
+    Math.max(
+      DAILY_GOAL -
+      revenue,
+      0
+    );
 
 
   const percentage =
-    WEEKLY_GOAL
+    DAILY_GOAL
       ? (
-          weekRevenue /
-          WEEKLY_GOAL
+          revenue /
+          DAILY_GOAL
         ) * 100
       : 0;
-
-
-  const remaining =
-    Math.max(
-      WEEKLY_GOAL -
-      weekRevenue,
-      0
-    );
 
 
   document.getElementById(
@@ -3877,24 +5098,11 @@ function renderReport(){
     <div class="report-line">
 
       <span>
-        Revenus de la semaine
+        Objectif
       </span>
 
       <strong>
-        ${money(weekRevenue)}
-      </strong>
-
-    </div>
-
-
-    <div class="report-line">
-
-      <span>
-        Objectif hebdomadaire
-      </span>
-
-      <strong>
-        ${money(WEEKLY_GOAL)}
+        ${money(DAILY_GOAL)}
       </strong>
 
     </div>
@@ -3970,697 +5178,6 @@ function renderReport(){
 
 
 /* =====================================================
-   NETFLIX
-===================================================== */
-
-async function loadSubscribers(){
-
-  const {
-    data,
-    error
-  } =
-    await supabaseClient
-      .from("subscribers")
-      .select("*")
-      .eq(
-        "user_id",
-        currentUser.id
-      )
-      .order(
-        "end_date",
-        {
-          ascending:true
-        }
-      );
-
-  if(error)
-    throw error;
-
-  subscribers =
-    data || [];
-
-}
-
-
-function getNetflixStatus(
-  endDate
-){
-
-  const today =
-    new Date(
-      todayString() +
-      "T00:00:00"
-    );
-
-
-  const end =
-    new Date(
-      endDate +
-      "T00:00:00"
-    );
-
-
-  const difference =
-    Math.ceil(
-      (
-        end -
-        today
-      ) /
-      86400000
-    );
-
-
-  if(difference < 0){
-
-    return {
-      name:"Expiré",
-      className:
-        "status-expired"
-    };
-
-  }
-
-
-  if(difference <= 3){
-
-    return {
-      name:"Bientôt expiré",
-      className:
-        "status-soon"
-    };
-
-  }
-
-
-  return {
-    name:"Actif",
-    className:
-      "status-active"
-  };
-
-}
-
-
-async function addNetflix(){
-
-  const customer =
-    document.getElementById(
-      "netflixCustomer"
-    ).value.trim();
-
-  const profile =
-    document.getElementById(
-      "netflixProfile"
-    ).value.trim();
-
-  const start =
-    document.getElementById(
-      "netflixStart"
-    ).value;
-
-  const duration =
-    Number(
-      document.getElementById(
-        "netflixDuration"
-      ).value
-    );
-
-
-  if(!customer){
-
-    showToast(
-      "Entrez le nom du client."
-    );
-
-    return;
-
-  }
-
-
-  if(!start){
-
-    showToast(
-      "Choisissez la date de début."
-    );
-
-    return;
-
-  }
-
-
-  if(
-    ![7,15,30,60,90]
-      .includes(duration)
-  ){
-
-    showToast(
-      "Durée invalide."
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    const {
-      error
-    } =
-      await supabaseClient
-        .from("subscribers")
-        .insert({
-
-          user_id:
-            currentUser.id,
-
-          customer_name:
-            customer,
-
-          profile_name:
-            profile || null,
-
-          start_date:
-            start,
-
-          duration_days:
-            duration
-
-        });
-
-    if(error)
-      throw error;
-
-
-    document.getElementById(
-      "netflixCustomer"
-    ).value = "";
-
-    document.getElementById(
-      "netflixProfile"
-    ).value = "";
-
-    document.getElementById(
-      "netflixStart"
-    ).value =
-      todayString();
-
-    document.getElementById(
-      "netflixDuration"
-    ).value =
-      "30";
-
-
-    await loadSubscribers();
-
-    renderNetflix();
-
-
-    showToast(
-      "Abonnement Netflix ajouté."
-    );
-
-  }catch(error){
-
-    showError(error);
-
-  }
-
-}
-
-
-async function editNetflix(id){
-
-  const subscriber =
-    subscribers.find(
-      item => item.id === id
-    );
-
-  if(!subscriber)
-    return;
-
-
-  const customer =
-    prompt(
-      "Nom du client :",
-      subscriber.customer_name
-    );
-
-  if(customer === null)
-    return;
-
-
-  const profile =
-    prompt(
-      "Nom du profil :",
-      subscriber.profile_name || ""
-    );
-
-  if(profile === null)
-    return;
-
-
-  const start =
-    prompt(
-      "Date de début (AAAA-MM-JJ) :",
-      subscriber.start_date
-    );
-
-  if(start === null)
-    return;
-
-
-  const duration =
-    Number(
-      prompt(
-        "Durée (7, 15, 30, 60 ou 90 jours) :",
-        subscriber.duration_days
-      )
-    );
-
-
-  if(
-    !customer.trim() ||
-    !start ||
-    ![7,15,30,60,90]
-      .includes(duration)
-  ){
-
-    showToast(
-      "Informations invalides."
-    );
-
-    return;
-
-  }
-
-
-  try{
-
-    const {
-      error
-    } =
-      await supabaseClient
-        .from("subscribers")
-        .update({
-
-          customer_name:
-            customer.trim(),
-
-          profile_name:
-            profile.trim() ||
-            null,
-
-          start_date:
-            start,
-
-          duration_days:
-            duration
-
-        })
-        .eq("id",id)
-        .eq(
-          "user_id",
-          currentUser.id
-        );
-
-    if(error)
-      throw error;
-
-
-    await loadSubscribers();
-
-    renderNetflix();
-
-
-    showToast(
-      "Abonnement modifié."
-    );
-
-  }catch(error){
-
-    showError(error);
-
-  }
-
-}
-
-
-async function deleteNetflix(id){
-
-  if(!confirm(
-    "Supprimer cet abonnement Netflix ?"
-  ))
-    return;
-
-
-  try{
-
-    const {
-      error
-    } =
-      await supabaseClient
-        .from("subscribers")
-        .delete()
-        .eq("id",id)
-        .eq(
-          "user_id",
-          currentUser.id
-        );
-
-    if(error)
-      throw error;
-
-
-    await loadSubscribers();
-
-    renderNetflix();
-
-
-    showToast(
-      "Abonnement supprimé."
-    );
-
-  }catch(error){
-
-    showError(error);
-
-  }
-
-}
-
-
-function renderNetflix(){
-
-  const search =
-    (
-      document.getElementById(
-        "netflixSearch"
-      )?.value || ""
-    )
-    .toLowerCase()
-    .trim();
-
-
-  const filtered =
-    subscribers.filter(
-      item => {
-
-        return (
-          String(
-            item.customer_name || ""
-          )
-          .toLowerCase()
-          .includes(search)
-
-          ||
-
-          String(
-            item.profile_name || ""
-          )
-          .toLowerCase()
-          .includes(search)
-        );
-
-      }
-    );
-
-
-  let active = 0;
-  let soon = 0;
-  let expired = 0;
-
-
-  subscribers.forEach(item=>{
-
-    const status =
-      getNetflixStatus(
-        item.end_date
-      );
-
-
-    if(
-      status.name ===
-      "Actif"
-    ){
-
-      active++;
-
-    }else if(
-      status.name ===
-      "Bientôt expiré"
-    ){
-
-      soon++;
-
-    }else{
-
-      expired++;
-
-    }
-
-  });
-
-
-  document.getElementById(
-    "netflixTotal"
-  ).textContent =
-    subscribers.length;
-
-
-  document.getElementById(
-    "netflixActive"
-  ).textContent =
-    active;
-
-
-  document.getElementById(
-    "netflixSoon"
-  ).textContent =
-    soon;
-
-
-  document.getElementById(
-    "netflixExpired"
-  ).textContent =
-    expired;
-
-
-  const tbody =
-    document.getElementById(
-      "netflixTable"
-    );
-
-
-  if(!filtered.length){
-
-    tbody.innerHTML = `
-
-      <tr>
-
-        <td
-          colspan="7"
-          class="empty"
-        >
-          Aucun abonnement trouvé.
-        </td>
-
-      </tr>
-
-    `;
-
-    return;
-
-  }
-
-
-  tbody.innerHTML =
-    filtered.map(item=>{
-
-      const status =
-        getNetflixStatus(
-          item.end_date
-        );
-
-
-      return `
-
-        <tr>
-
-          <td>
-            <strong>
-              ${escapeHtml(
-                item.customer_name
-              )}
-            </strong>
-          </td>
-
-          <td>
-            ${escapeHtml(
-              item.profile_name ||
-              "—"
-            )}
-          </td>
-
-          <td>
-            ${escapeHtml(
-              item.start_date
-            )}
-          </td>
-
-          <td>
-            ${item.duration_days}
-            jours
-          </td>
-
-          <td>
-            ${escapeHtml(
-              item.end_date
-            )}
-          </td>
-
-          <td>
-
-            <span
-              class="status ${status.className}"
-            >
-              ${status.name}
-            </span>
-
-          </td>
-
-          <td>
-
-            <div class="service-actions">
-
-              <button
-                class="btn btn-edit"
-                onclick="editNetflix('${item.id}')"
-              >
-                Modifier
-              </button>
-
-              <button
-                class="btn btn-danger"
-                onclick="deleteNetflix('${item.id}')"
-              >
-                Supprimer
-              </button>
-
-            </div>
-
-          </td>
-
-        </tr>
-
-      `;
-
-    }).join("");
-
-}
-
-
-/* =====================================================
-   NAVIGATION
-===================================================== */
-
-function showSection(
-  id,
-  button
-){
-
-  document
-    .querySelectorAll(
-      ".section"
-    )
-    .forEach(section=>{
-
-      section.classList.remove(
-        "active"
-      );
-
-    });
-
-
-  const section =
-    document.getElementById(id);
-
-
-  if(section){
-
-    section.classList.add(
-      "active"
-    );
-
-  }
-
-
-  document
-    .querySelectorAll(
-      ".menu button"
-    )
-    .forEach(btn=>{
-
-      btn.classList.remove(
-        "active"
-      );
-
-    });
-
-
-  if(button){
-
-    button.classList.add(
-      "active"
-    );
-
-  }
-
-
-  document
-    .getElementById(
-      "sidebar"
-    )
-    .classList.remove(
-      "open"
-    );
-
-
-  if(id === "dashboard")
-    updateDashboard();
-
-  if(id === "history")
-    renderHistory();
-
-  if(id === "analysis")
-    renderAnalysis();
-
-  if(id === "week")
-    renderWeek();
-
-  if(id === "netflix")
-    renderNetflix();
-
-  if(id === "report")
-    renderReport();
-
-}
-
-
-function toggleMenu(){
-
-  document
-    .getElementById(
-      "sidebar"
-    )
-    .classList.toggle(
-      "open"
-    );
-
-}
-
-
-/* =====================================================
    PRINT
 ===================================================== */
 
@@ -4678,17 +5195,6 @@ function printReport(){
       "_blank",
       "width=800,height=700"
     );
-
-
-  if(!win){
-
-    showToast(
-      "Autorisez les fenêtres popup pour imprimer."
-    );
-
-    return;
-
-  }
 
 
   win.document.write(`
@@ -4728,9 +5234,11 @@ function printReport(){
 
       </head>
 
+
       <body>
 
         ${content}
+
 
         <script>
 
@@ -4755,7 +5263,94 @@ function printReport(){
 
 
 /* =====================================================
-   INITIALISATION
+   SECURITY
+===================================================== */
+
+function escapeHtml(value){
+
+  return String(
+    value ?? ""
+  )
+  .replace(
+    /&/g,
+    "&amp;"
+  )
+  .replace(
+    /</g,
+    "&lt;"
+  )
+  .replace(
+    />/g,
+    "&gt;"
+  )
+  .replace(
+    /"/g,
+    "&quot;"
+  )
+  .replace(
+    /'/g,
+    "&#039;"
+  );
+
+}
+
+
+function formatFrenchDate(
+  date
+){
+
+  if(!date)
+    return "—";
+
+
+  const d =
+    new Date(
+      date +
+      "T00:00:00"
+    );
+
+
+  return d.toLocaleDateString(
+    "fr-FR"
+  );
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+function showToast(message){
+
+  const toast =
+    document.getElementById(
+      "toast"
+    );
+
+
+  toast.textContent =
+    message;
+
+
+  toast.classList.add(
+    "show"
+  );
+
+
+  setTimeout(() => {
+
+    toast.classList.remove(
+      "show"
+    );
+
+  },2500);
+
+}
+
+
+/* =====================================================
+   START
 ===================================================== */
 
 window.addEventListener(
