@@ -1,40 +1,45 @@
-```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Baba Design — Analyse Journalière</title>
 
+<title>SalesTrack</title>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
+:root{
+  --orange:#FE4302;
+  --orange2:#FE1402;
+  --black:#222221;
+  --white:#ffffff;
+  --gray:#f5f5f5;
+  --gray2:#777;
+  --border:#e8e8e8;
+  --green:#16803c;
+  --red:#d92323;
+  --shadow:0 12px 35px rgba(0,0,0,.08);
+  --radius:18px;
+}
+
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
 }
 
-:root{
-  --orange:#FE4302;
-  --orange2:#FE1402;
-  --dark:#222221;
-  --white:#ffffff;
-  --gray:#f5f5f5;
-  --border:#e8e8e8;
-  --muted:#777;
-  --green:#159447;
-  --red:#d92d20;
-}
-
 body{
   font-family:Inter,Arial,sans-serif;
-  background:#fff;
-  color:var(--dark);
-  min-height:100vh;
+  background:#f7f7f7;
+  color:var(--black);
 }
 
-button,input,select{
+button,
+input,
+select,
+textarea{
   font:inherit;
 }
 
@@ -42,459 +47,472 @@ button{
   cursor:pointer;
 }
 
-.app{
-  display:flex;
-  min-height:100vh;
+.hidden{
+  display:none!important;
 }
 
-/* SIDEBAR */
+/* LOGIN */
 
-.sidebar{
-  width:245px;
-  background:var(--dark);
-  color:#fff;
-  padding:25px 18px;
-  position:fixed;
-  left:0;
-  top:0;
-  bottom:0;
-  z-index:20;
-  overflow-y:auto;
+.auth-screen{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  background:
+    radial-gradient(circle at top left,rgba(254,67,2,.16),transparent 35%),
+    #f7f7f7;
+}
+
+.auth-card{
+  width:100%;
+  max-width:430px;
+  background:white;
+  padding:35px;
+  border-radius:24px;
+  box-shadow:var(--shadow);
 }
 
 .logo{
-  font-size:24px;
+  font-size:28px;
   font-weight:900;
-  margin-bottom:35px;
-  padding:0 10px;
+  margin-bottom:8px;
 }
 
 .logo span{
   color:var(--orange);
 }
 
-.menu{
+.auth-card p{
+  color:var(--gray2);
+  margin-bottom:25px;
+}
+
+.field{
+  margin-bottom:16px;
+}
+
+.field label{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:7px;
+}
+
+.field input,
+.field select,
+.field textarea{
+  width:100%;
+  padding:13px 14px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  outline:none;
+  background:white;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+  border-color:var(--orange);
+}
+
+.primary-btn{
+  width:100%;
+  border:0;
+  border-radius:12px;
+  padding:14px;
+  color:white;
+  font-weight:800;
+  background:linear-gradient(135deg,var(--orange),var(--orange2));
+}
+
+.auth-switch{
+  text-align:center;
+  margin-top:18px;
+  font-size:14px;
+}
+
+.auth-switch button{
+  border:0;
+  background:none;
+  color:var(--orange);
+  font-weight:800;
+}
+
+/* APP */
+
+.app{
+  min-height:100vh;
+  display:flex;
+}
+
+.sidebar{
+  width:255px;
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  background:var(--black);
+  color:white;
+  padding:25px 16px;
+  z-index:20;
+}
+
+.sidebar-logo{
+  font-size:25px;
+  font-weight:900;
+  padding:0 12px 30px;
+}
+
+.sidebar-logo span{
+  color:var(--orange);
+}
+
+.nav{
   display:flex;
   flex-direction:column;
-  gap:8px;
+  gap:7px;
 }
 
-.menu button{
+.nav button{
   border:0;
   background:transparent;
-  color:#bbb;
-  padding:13px 14px;
-  border-radius:10px;
+  color:#aaa;
   text-align:left;
-  transition:.25s;
-}
-
-.menu button:hover,
-.menu button.active{
-  background:linear-gradient(135deg,var(--orange),var(--orange2));
-  color:#fff;
-}
-
-.sidebar-footer{
-  position:absolute;
-  bottom:20px;
-  left:20px;
-  right:20px;
-  color:#777;
-  font-size:12px;
-}
-
-/* MAIN */
-
-.main{
-  margin-left:245px;
-  width:calc(100% - 245px);
-  padding:30px;
-}
-
-.topbar{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:28px;
-  gap:15px;
-}
-
-.title h1{
-  font-size:30px;
-  font-weight:900;
-}
-
-.title p{
-  color:var(--muted);
-  margin-top:5px;
-}
-
-.date-box{
-  background:#fff;
-  border:1px solid var(--border);
-  padding:12px 16px;
+  padding:13px 14px;
   border-radius:12px;
   font-weight:700;
 }
 
-/* SECTIONS */
+.nav button:hover,
+.nav button.active{
+  color:white;
+  background:linear-gradient(135deg,var(--orange),var(--orange2));
+}
 
-.section{
+.logout{
+  position:absolute;
+  bottom:25px;
+  left:16px;
+  right:16px;
+  border:1px solid #444;
+  background:#292929;
+  color:white;
+  padding:12px;
+  border-radius:12px;
+}
+
+.main{
+  margin-left:255px;
+  width:calc(100% - 255px);
+  padding:25px;
+}
+
+.mobile-top{
   display:none;
 }
 
-.section.active{
+.page{
+  display:none;
+}
+
+.page.active{
   display:block;
 }
 
-/* KPI */
+.page-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:22px;
+}
 
-.kpis{
+.page-header h1{
+  font-size:28px;
+}
+
+.page-header p{
+  color:var(--gray2);
+  margin-top:5px;
+}
+
+/* CARDS */
+
+.cards{
   display:grid;
   grid-template-columns:repeat(4,1fr);
-  gap:18px;
-  margin-bottom:22px;
+  gap:16px;
+  margin-bottom:20px;
 }
 
 .card{
-  background:#fff;
+  background:white;
   border:1px solid var(--border);
-  border-radius:17px;
+  border-radius:var(--radius);
   padding:20px;
-  box-shadow:0 8px 30px rgba(0,0,0,.04);
+  box-shadow:0 5px 20px rgba(0,0,0,.03);
 }
 
-.kpi-label{
-  color:var(--muted);
+.card-label{
+  color:var(--gray2);
   font-size:13px;
+  font-weight:700;
   margin-bottom:10px;
 }
 
-.kpi-value{
-  font-size:28px;
+.card-value{
+  font-size:27px;
   font-weight:900;
 }
 
-.kpi-small{
-  margin-top:8px;
-  color:var(--muted);
-  font-size:12px;
-}
-
-.orange{
+.orange-value{
   color:var(--orange);
-}
-
-.green{
-  color:var(--green);
-}
-
-.red{
-  color:var(--red);
-}
-
-/* GOAL */
-
-.goal-card{
-  margin-bottom:22px;
-  background:linear-gradient(135deg,var(--orange),var(--orange2));
-  color:#fff;
-  border-radius:18px;
-  padding:22px;
-  box-shadow:0 15px 35px rgba(254,67,2,.18);
-}
-
-.goal-top{
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  align-items:center;
-}
-
-.goal-top h2{
-  font-size:18px;
-}
-
-.goal-percent{
-  font-size:30px;
-  font-weight:900;
-}
-
-.progress{
-  height:11px;
-  background:rgba(255,255,255,.25);
-  border-radius:30px;
-  overflow:hidden;
-  margin-top:16px;
-}
-
-.progress div{
-  height:100%;
-  width:0%;
-  background:#fff;
-  border-radius:30px;
-  transition:.5s;
-}
-
-.goal-info{
-  display:flex;
-  justify-content:space-between;
-  margin-top:10px;
-  font-size:13px;
 }
 
 /* GRID */
 
 .grid-2{
   display:grid;
-  grid-template-columns:1.4fr 1fr;
+  grid-template-columns:1fr 1fr;
   gap:20px;
-  margin-bottom:22px;
+  margin-bottom:20px;
 }
 
-.grid-3{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
+.panel{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px;
+  box-shadow:0 5px 20px rgba(0,0,0,.03);
 }
 
-.card h3{
-  margin-bottom:18px;
-  font-size:17px;
+.panel h3{
+  margin-bottom:17px;
 }
 
 .chart-box{
   height:300px;
-  position:relative;
 }
 
-/* FORMS */
+/* PROGRESS */
 
-.form-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:16px;
+.progress-wrap{
+  margin-top:15px;
 }
 
-.field{
-  display:flex;
-  flex-direction:column;
-  gap:7px;
+.progress-bar{
+  height:13px;
+  background:#eee;
+  border-radius:30px;
+  overflow:hidden;
 }
 
-.field.full{
-  grid-column:1/-1;
+.progress-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--orange),var(--orange2));
+  width:0%;
+  transition:.4s;
 }
 
-.field label{
-  font-size:13px;
-  font-weight:700;
-}
-
-.field input,
-.field select{
-  width:100%;
-  padding:12px 13px;
-  border:1px solid var(--border);
-  border-radius:10px;
-  outline:none;
-  background:#fff;
-}
-
-.field input:focus,
-.field select:focus{
-  border-color:var(--orange);
-}
-
-.btn{
-  border:0;
-  padding:13px 18px;
-  border-radius:10px;
-  font-weight:800;
-  transition:.2s;
-}
-
-.btn-primary{
-  background:linear-gradient(135deg,var(--orange),var(--orange2));
-  color:#fff;
-}
-
-.btn-primary:hover{
-  transform:translateY(-1px);
-}
-
-.btn-dark{
-  background:var(--dark);
-  color:#fff;
-}
-
-.btn-danger{
-  background:#fff0ef;
-  color:var(--red);
-}
-
-.btn-full{
-  width:100%;
-  margin-top:18px;
-}
-
-/* SERVICE */
-
-.service-row{
+.progress-info{
   display:flex;
   justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  padding:14px 0;
-  border-bottom:1px solid var(--border);
+  margin-top:8px;
+  font-size:13px;
+  color:var(--gray2);
 }
 
-.service-left{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
+/* FORM */
 
-.service-name{
-  font-weight:800;
-}
-
-.service-meta{
-  color:var(--muted);
-  font-size:12px;
-  margin-top:4px;
-}
-
-.service-total{
-  font-weight:900;
-  color:var(--orange);
-}
-
-.service-delete{
-  border:0;
-  background:#fff0ef;
-  color:var(--red);
-  padding:7px 10px;
-  border-radius:8px;
-  font-size:11px;
-  font-weight:700;
-}
-
-/* CUSTOM SERVICE */
-
-.add-service-card{
-  margin-top:20px;
-  background:var(--gray);
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:18px;
-}
-
-.add-service-card h4{
-  margin-bottom:15px;
-}
-
-.add-service-form{
+.operation-form{
   display:grid;
-  grid-template-columns:1fr 1fr auto;
-  gap:12px;
+  grid-template-columns:1.5fr .7fr .8fr auto;
+  gap:10px;
+  align-items:end;
 }
 
-.add-service-form input{
+.form-input{
   width:100%;
-  padding:12px;
+  padding:13px;
   border:1px solid var(--border);
-  border-radius:10px;
+  border-radius:12px;
   outline:none;
-  background:#fff;
 }
 
-.add-service-form input:focus{
-  border-color:var(--orange);
-}
-
-.add-service-form button{
+.add-btn{
   border:0;
-  background:var(--dark);
-  color:#fff;
-  padding:12px 18px;
-  border-radius:10px;
+  padding:13px 18px;
+  border-radius:12px;
+  color:white;
+  background:linear-gradient(135deg,var(--orange),var(--orange2));
   font-weight:800;
 }
 
 /* TABLE */
 
 .table-wrap{
-  overflow-x:auto;
+  overflow:auto;
 }
 
 table{
   width:100%;
   border-collapse:collapse;
+  min-width:700px;
 }
 
-th,td{
-  padding:13px 10px;
-  border-bottom:1px solid var(--border);
+th,
+td{
+  padding:13px;
   text-align:left;
-  font-size:13px;
+  border-bottom:1px solid #eee;
 }
 
 th{
-  color:var(--muted);
+  color:#777;
   font-size:12px;
+  text-transform:uppercase;
 }
 
-.empty{
-  text-align:center;
-  padding:30px;
-  color:var(--muted);
+.delete-btn,
+.edit-btn{
+  border:0;
+  border-radius:9px;
+  padding:7px 10px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.delete-btn{
+  background:#fff0f0;
+  color:var(--red);
+}
+
+.edit-btn{
+  background:#fff1eb;
+  color:var(--orange);
+}
+
+/* SERVICES */
+
+.service-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.service-card{
+  background:white;
+  border:1px solid var(--border);
+  padding:18px;
+  border-radius:16px;
+}
+
+.service-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.service-name{
+  font-weight:800;
+}
+
+.service-price{
+  color:var(--orange);
+  font-weight:900;
+  margin-top:8px;
+}
+
+.add-service-card{
+  margin-top:20px;
+  background:white;
+  border:1px dashed #ccc;
+  padding:20px;
+  border-radius:16px;
+}
+
+.add-service-form{
+  display:grid;
+  grid-template-columns:1fr 220px auto;
+  gap:10px;
+  margin-top:15px;
+}
+
+/* SUBSCRIBERS */
+
+.subscriber-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.stat-box{
+  background:white;
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:20px;
+}
+
+.stat-box strong{
+  display:block;
+  font-size:28px;
+  margin-top:7px;
+}
+
+.subscriber-form{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr 1fr auto;
+  gap:10px;
+  align-items:end;
+  margin-bottom:20px;
+}
+
+.subscriber-search{
+  display:flex;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.subscriber-search input{
+  flex:1;
+}
+
+.status{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:30px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.status.active{
+  background:#e8f8ee;
+  color:var(--green);
+}
+
+.status.expired{
+  background:#ffeded;
+  color:var(--red);
+}
+
+.status.soon{
+  background:#fff3df;
+  color:#b46a00;
 }
 
 /* ANALYSIS */
 
-.analysis-box{
-  padding:17px;
-  border-radius:13px;
-  background:var(--gray);
-  margin-bottom:12px;
+.analysis{
+  border-left:4px solid var(--orange);
 }
 
-.analysis-box strong{
-  display:block;
-  margin-bottom:5px;
+.analysis p{
+  line-height:1.7;
+  margin-bottom:8px;
 }
 
-.analysis-box span{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.5;
-}
-
-/* REPORT */
-
-.report{
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:20px;
-  background:#fff;
-}
-
-.report h2{
-  margin-bottom:15px;
-}
-
-.report-line{
-  display:flex;
-  justify-content:space-between;
-  padding:11px 0;
-  border-bottom:1px solid var(--border);
-}
-
-.report-total{
-  font-size:21px;
-  font-weight:900;
+.analysis strong{
   color:var(--orange);
 }
 
@@ -504,48 +522,42 @@ th{
   position:fixed;
   right:20px;
   bottom:20px;
-  background:var(--dark);
-  color:#fff;
-  padding:13px 18px;
-  border-radius:10px;
-  opacity:0;
-  pointer-events:none;
-  transform:translateY(15px);
-  transition:.3s;
+  background:var(--black);
+  color:white;
+  padding:14px 18px;
+  border-radius:12px;
   z-index:100;
+  transform:translateY(100px);
+  opacity:0;
+  transition:.3s;
 }
 
 .toast.show{
-  opacity:1;
   transform:translateY(0);
+  opacity:1;
 }
 
-/* MOBILE */
+/* RESPONSIVE */
 
-.mobile-menu{
-  display:none;
-}
-
-@media(max-width:1000px){
-
-  .kpis{
+@media(max-width:1100px){
+  .cards{
     grid-template-columns:repeat(2,1fr);
   }
 
-  .grid-2{
-    grid-template-columns:1fr;
+  .service-grid{
+    grid-template-columns:repeat(2,1fr);
   }
 
-  .grid-3{
-    grid-template-columns:1fr;
+  .subscriber-form{
+    grid-template-columns:1fr 1fr;
   }
 
-  .add-service-form{
-    grid-template-columns:1fr;
+  .operation-form{
+    grid-template-columns:1fr 1fr;
   }
 }
 
-@media(max-width:750px){
+@media(max-width:800px){
 
   .sidebar{
     transform:translateX(-100%);
@@ -559,65 +571,60 @@ th{
   .main{
     margin-left:0;
     width:100%;
-    padding:18px;
+    padding:16px;
+  }
+
+  .mobile-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
   }
 
   .mobile-menu{
-    display:block;
     border:0;
-    background:var(--dark);
-    color:#fff;
+    background:var(--black);
+    color:white;
     padding:10px 13px;
-    border-radius:9px;
-    margin-bottom:10px;
+    border-radius:10px;
   }
 
-  .topbar{
-    align-items:flex-start;
-  }
-
-  .title h1{
-    font-size:23px;
-  }
-
-  .date-box{
-    display:none;
-  }
-
-  .kpis{
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  }
-
-  .card{
-    padding:15px;
-  }
-
-  .kpi-value{
-    font-size:21px;
-  }
-
-  .form-grid{
+  .grid-2{
     grid-template-columns:1fr;
   }
 
-  .field.full{
-    grid-column:auto;
+  .cards{
+    grid-template-columns:1fr 1fr;
   }
 
-  .service-left{
-    align-items:flex-start;
+  .service-grid{
+    grid-template-columns:1fr;
+  }
+
+  .add-service-form{
+    grid-template-columns:1fr;
+  }
+
+  .subscriber-stats{
+    grid-template-columns:1fr;
+  }
+
+  .subscriber-form{
+    grid-template-columns:1fr;
   }
 }
 
-@media(max-width:450px){
-
-  .kpis{
+@media(max-width:500px){
+  .cards{
     grid-template-columns:1fr;
   }
 
-  .service-row{
-    align-items:flex-start;
+  .page-header h1{
+    font-size:23px;
+  }
+
+  .auth-card{
+    padding:25px;
   }
 }
 </style>
@@ -625,655 +632,591 @@ th{
 
 <body>
 
-<div class="app">
+<!-- AUTH -->
 
-<!-- SIDEBAR -->
+<div id="authScreen" class="auth-screen">
 
-<aside class="sidebar" id="sidebar">
+  <div class="auth-card">
 
-  <div class="logo">
-    Sales<span>Track</span>
+    <div class="logo">
+      Sales<span>Track</span>
+    </div>
+
+    <p id="authDescription">
+      Connectez-vous à votre espace.
+    </p>
+
+    <div class="field">
+      <label>Email</label>
+      <input id="authEmail" type="email" placeholder="Votre email">
+    </div>
+
+    <div class="field">
+      <label>Mot de passe</label>
+      <input id="authPassword" type="password" placeholder="Votre mot de passe">
+    </div>
+
+    <button class="primary-btn" id="authBtn" onclick="handleAuth()">
+      Se connecter
+    </button>
+
+    <div class="auth-switch">
+      <span id="switchText">Vous n'avez pas de compte ?</span>
+      <button onclick="toggleAuthMode()" id="switchBtn">
+        Créer un compte
+      </button>
+    </div>
+
   </div>
 
-  <nav class="menu">
+</div>
 
-    <button class="active"
-      onclick="showSection('dashboard',this)">
-      Tableau de bord
+
+<!-- APP -->
+
+<div id="app" class="app hidden">
+
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-logo">
+      Sales<span>Track</span>
+    </div>
+
+    <nav class="nav">
+
+      <button class="active" onclick="showPage('dashboard',this)">
+        Dashboard
+      </button>
+
+      <button onclick="showPage('operations',this)">
+        Opérations
+      </button>
+
+      <button onclick="showPage('services',this)">
+        Services
+      </button>
+
+      <button onclick="showPage('subscribers',this)">
+        Abonnés Netflix
+      </button>
+
+      <button onclick="showPage('history',this)">
+        Historique
+      </button>
+
+    </nav>
+
+    <button class="logout" onclick="logout()">
+      Déconnexion
     </button>
 
-    <button
-      onclick="showSection('operation',this)">
-      Nouvelle opération
-    </button>
-
-    <button
-      onclick="showSection('services',this)">
-      Services
-    </button>
-
-    <button
-      onclick="showSection('history',this)">
-      Historique
-    </button>
-
-    <button
-      onclick="showSection('analysis',this)">
-      Analyse du jour
-    </button>
-
-    <button
-      onclick="showSection('report',this)">
-      Rapport
-    </button>
-
-  </nav>
-
-  <div class="sidebar-footer">
-    Analyse locale de la journée
-  </div>
-
-</aside>
+  </aside>
 
 
-<!-- MAIN -->
+  <main class="main">
 
-<main class="main">
-
-  <div class="topbar">
-
-    <div class="title">
-
-      <button
-        class="mobile-menu"
-        onclick="toggleMenu()">
+    <div class="mobile-top">
+      <strong>SalesTrack</strong>
+      <button class="mobile-menu" onclick="toggleSidebar()">
         Menu
       </button>
-
-      <h1>Analyse journalière</h1>
-
-      <p>
-        Suivez vos revenus et performances du jour.
-      </p>
-
-    </div>
-
-    <div
-      class="date-box"
-      id="currentDate">
-    </div>
-
-  </div>
-
-
-  <!-- DASHBOARD -->
-
-  <section
-    id="dashboard"
-    class="section active">
-
-    <div class="kpis">
-
-      <div class="card">
-
-        <div class="kpi-label">
-          Revenus aujourd'hui
-        </div>
-
-        <div
-          class="kpi-value orange"
-          id="todayRevenue">
-          0 HTG
-        </div>
-
-        <div class="kpi-small">
-          Total encaissé aujourd'hui
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="kpi-label">
-          Opérations
-        </div>
-
-        <div
-          class="kpi-value"
-          id="operationCount">
-          0
-        </div>
-
-        <div class="kpi-small">
-          Transactions enregistrées
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="kpi-label">
-          Panier moyen
-        </div>
-
-        <div
-          class="kpi-value"
-          id="averageSale">
-          0 HTG
-        </div>
-
-        <div class="kpi-small">
-          Revenu moyen par opération
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="kpi-label">
-          Services vendus
-        </div>
-
-        <div
-          class="kpi-value"
-          id="itemsSold">
-          0
-        </div>
-
-        <div class="kpi-small">
-          Quantité totale vendue
-        </div>
-
-      </div>
-
     </div>
 
 
-    <div class="goal-card">
+    <!-- DASHBOARD -->
 
-      <div class="goal-top">
+    <section id="dashboard" class="page active">
 
-        <h2>
-          Objectif journalier
-        </h2>
+      <div class="page-header">
+        <div>
+          <h1>Dashboard</h1>
+          <p>Analyse de votre activité du jour.</p>
+        </div>
+      </div>
 
-        <div
-          class="goal-percent"
-          id="goalPercent">
-          0%
+      <div class="cards">
+
+        <div class="card">
+          <div class="card-label">Revenus aujourd'hui</div>
+          <div class="card-value orange-value" id="todayRevenue">
+            0 HTG
+          </div>
         </div>
 
-      </div>
+        <div class="card">
+          <div class="card-label">Opérations</div>
+          <div class="card-value" id="todayOperations">
+            0
+          </div>
+        </div>
 
-      <div class="progress">
+        <div class="card">
+          <div class="card-label">Vente moyenne</div>
+          <div class="card-value" id="averageSale">
+            0 HTG
+          </div>
+        </div>
 
-        <div id="goalProgress"></div>
-
-      </div>
-
-      <div class="goal-info">
-
-        <span id="goalCurrent">
-          0 HTG réalisés
-        </span>
-
-        <span id="goalRemaining">
-          2 500 HTG restant
-        </span>
-
-      </div>
-
-    </div>
-
-
-    <div class="grid-2">
-
-      <div class="card">
-
-        <h3>
-          Revenus par heure
-        </h3>
-
-        <div class="chart-box">
-
-          <canvas id="hourChart"></canvas>
-
+        <div class="card">
+          <div class="card-label">Articles vendus</div>
+          <div class="card-value" id="itemsSold">
+            0
+          </div>
         </div>
 
       </div>
 
 
-      <div class="card">
+      <div class="grid-2">
 
-        <h3>
-          Services les plus rentables
-        </h3>
+        <div class="panel">
 
-        <div class="chart-box">
+          <h3>Objectif journalier</h3>
 
-          <canvas id="serviceChart"></canvas>
+          <div class="card-value">
+            <span id="goalCurrent">0</span> /
+            2 500 HTG
+          </div>
 
-        </div>
+          <div class="progress-wrap">
 
-      </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="goalProgress"></div>
+            </div>
 
-    </div>
+            <div class="progress-info">
+              <span id="goalPercent">0%</span>
+              <span id="goalRemaining">Reste 2 500 HTG</span>
+            </div>
 
-
-    <div class="grid-3">
-
-      <div class="card">
-
-        <div class="kpi-label">
-          Meilleur service
-        </div>
-
-        <div
-          class="kpi-value"
-          id="bestService">
-          —
-        </div>
-
-        <div
-          class="kpi-small"
-          id="bestServiceRevenue">
-          0 HTG
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="kpi-label">
-          Meilleure heure
-        </div>
-
-        <div
-          class="kpi-value"
-          id="bestHour">
-          —
-        </div>
-
-        <div
-          class="kpi-small"
-          id="bestHourRevenue">
-          0 HTG
-        </div>
-
-      </div>
-
-
-      <div class="card">
-
-        <div class="kpi-label">
-          Progression
-        </div>
-
-        <div
-          class="kpi-value"
-          id="performanceStatus">
-          En attente
-        </div>
-
-        <div class="kpi-small">
-          Performance par rapport à l'objectif
-        </div>
-
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- OPERATION -->
-
-  <section
-    id="operation"
-    class="section">
-
-    <div class="card">
-
-      <h3>
-        Ajouter une opération
-      </h3>
-
-      <div class="form-grid">
-
-        <div class="field">
-
-          <label>
-            Service
-          </label>
-
-          <select
-            id="serviceSelect"
-            onchange="updatePrice()">
-
-            <option value="">
-              Choisir un service
-            </option>
-
-          </select>
+          </div>
 
         </div>
 
 
-        <div class="field">
+        <div class="panel">
 
-          <label>
-            Quantité
-          </label>
+          <h3>Performance</h3>
 
-          <input
-            type="number"
-            id="quantity"
-            min="1"
-            value="1"
-            oninput="updateTotal()">
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Prix unitaire
-          </label>
-
-          <input
-            type="text"
-            id="unitPrice"
-            readonly
-            placeholder="0 HTG">
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Total
-          </label>
-
-          <input
-            type="text"
-            id="totalPrice"
-            readonly
-            placeholder="0 HTG">
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Heure
-          </label>
-
-          <input
-            type="time"
-            id="operationTime">
-
-        </div>
-
-
-        <div class="field">
-
-          <label>
-            Note
-          </label>
-
-          <input
-            type="text"
-            id="operationNote"
-            placeholder="Ex : Client Facebook">
+          <div id="performanceText">
+            Aucune vente enregistrée aujourd'hui.
+          </div>
 
         </div>
 
       </div>
 
 
-      <button
-        class="btn btn-primary btn-full"
-        onclick="addOperation()">
+      <div class="grid-2">
 
-        Ajouter l'opération
+        <div class="panel">
 
-      </button>
+          <h3>Revenus par heure</h3>
 
-    </div>
+          <div class="chart-box">
+            <canvas id="hourChart"></canvas>
+          </div>
 
-  </section>
+        </div>
 
+        <div class="panel">
 
-  <!-- SERVICES -->
+          <h3>Revenus par service</h3>
 
-  <section
-    id="services"
-    class="section">
+          <div class="chart-box">
+            <canvas id="serviceChart"></canvas>
+          </div>
 
-    <div class="card">
+        </div>
 
-      <h3>
-        Services et tarifs
-      </h3>
-
-      <div id="servicesList"></div>
+      </div>
 
 
-      <!-- AJOUT SERVICE -->
+      <div class="grid-2">
 
-      <div class="add-service-card">
+        <div class="panel">
 
-        <h4>
-          Ajouter mon propre service
-        </h4>
+          <h3>Meilleur service</h3>
 
-        <div class="add-service-form">
+          <div class="card-value" id="bestService">
+            —
+          </div>
 
-          <input
-            type="text"
-            id="customServiceName"
-            placeholder="Nom du service">
+        </div>
 
-          <input
-            type="number"
-            id="customServicePrice"
-            min="0"
-            placeholder="Prix en HTG">
+        <div class="panel">
+
+          <h3>Meilleure heure</h3>
+
+          <div class="card-value" id="bestHour">
+            —
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="panel analysis">
+
+        <h3>Analyse automatique du jour</h3>
+
+        <div id="dailyAnalysis">
+          Ajoutez des opérations pour obtenir une analyse.
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- OPERATIONS -->
+
+    <section id="operations" class="page">
+
+      <div class="page-header">
+
+        <div>
+          <h1>Nouvelle opération</h1>
+          <p>Enregistrez vos revenus et services.</p>
+        </div>
+
+      </div>
+
+
+      <div class="panel">
+
+        <div class="operation-form">
+
+          <div class="field">
+            <label>Service</label>
+
+            <select class="form-input" id="operationService">
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Quantité</label>
+
+            <input
+              class="form-input"
+              id="operationQuantity"
+              type="number"
+              min="1"
+              value="1"
+            >
+          </div>
+
+          <div class="field">
+            <label>Prix unitaire</label>
+
+            <input
+              class="form-input"
+              id="operationPrice"
+              type="number"
+              min="0"
+            >
+          </div>
 
           <button
-            onclick="addCustomService()">
-
+            class="add-btn"
+            onclick="addSale()"
+          >
             Ajouter
-
           </button>
 
         </div>
 
       </div>
 
-    </div>
-
-  </section>
+    </section>
 
 
-  <!-- HISTORY -->
+    <!-- SERVICES -->
 
-  <section
-    id="history"
-    class="section">
+    <section id="services" class="page">
 
-    <div class="card">
+      <div class="page-header">
 
-      <h3>
-        Historique de la journée
-      </h3>
-
-      <div class="table-wrap">
-
-        <table>
-
-          <thead>
-
-            <tr>
-              <th>Heure</th>
-              <th>Service</th>
-              <th>Qté</th>
-              <th>Prix</th>
-              <th>Total</th>
-              <th>Note</th>
-              <th></th>
-            </tr>
-
-          </thead>
-
-          <tbody
-            id="historyTable">
-          </tbody>
-
-        </table>
+        <div>
+          <h1>Services</h1>
+          <p>Gérez vos services et leurs prix.</p>
+        </div>
 
       </div>
 
-    </div>
-
-  </section>
-
-
-  <!-- ANALYSIS -->
-
-  <section
-    id="analysis"
-    class="section">
-
-    <div class="card">
-
-      <h3>
-        Analyse automatique du jour
-      </h3>
-
-      <div
-        id="analysisContent">
+      <div class="service-grid" id="servicesList">
       </div>
 
-    </div>
 
-  </section>
+      <div class="add-service-card">
 
+        <h3>Ajouter mon propre service</h3>
 
-  <!-- REPORT -->
+        <div class="add-service-form">
 
-  <section
-    id="report"
-    class="section">
+          <input
+            class="form-input"
+            id="customServiceName"
+            placeholder="Nom du service"
+          >
 
-    <div class="card">
+          <input
+            class="form-input"
+            id="customServicePrice"
+            type="number"
+            min="0"
+            placeholder="Prix en HTG"
+          >
 
-      <h3>
-        Rapport du jour
-      </h3>
+          <button
+            class="add-btn"
+            onclick="addCustomService()"
+          >
+            Ajouter
+          </button>
 
-      <div
-        class="report"
-        id="reportContent">
+        </div>
+
       </div>
 
-      <button
-        class="btn btn-primary btn-full"
-        onclick="printReport()">
+    </section>
 
-        Imprimer le rapport
 
-      </button>
+    <!-- SUBSCRIBERS -->
 
-    </div>
+    <section id="subscribers" class="page">
 
-  </section>
+      <div class="page-header">
 
-</main>
+        <div>
+          <h1>Abonnés Netflix</h1>
+          <p>
+            Gérez vos abonnements indépendamment du chiffre d'affaires.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="subscriber-stats">
+
+        <div class="stat-box">
+          <div class="card-label">Total abonnés</div>
+          <strong id="totalSubscribers">0</strong>
+        </div>
+
+        <div class="stat-box">
+          <div class="card-label">Abonnements actifs</div>
+          <strong id="activeSubscribers">0</strong>
+        </div>
+
+        <div class="stat-box">
+          <div class="card-label">Abonnements expirés</div>
+          <strong id="expiredSubscribers">0</strong>
+        </div>
+
+      </div>
+
+
+      <div class="panel">
+
+        <h3>Ajouter un abonné</h3>
+
+        <div class="subscriber-form">
+
+          <div class="field">
+            <label>Nom du client</label>
+            <input
+              class="form-input"
+              id="customerName"
+              placeholder="Ex: Jean Pierre"
+            >
+          </div>
+
+          <div class="field">
+            <label>Nom sur le profil</label>
+            <input
+              class="form-input"
+              id="profileName"
+              placeholder="Ex: Jean"
+            >
+          </div>
+
+          <div class="field">
+            <label>Date de début</label>
+            <input
+              class="form-input"
+              id="startDate"
+              type="date"
+            >
+          </div>
+
+          <div class="field">
+            <label>Durée</label>
+            <select
+              class="form-input"
+              id="subscriptionType"
+            >
+              <option value="7 jours">7 jours</option>
+              <option value="15 jours">15 jours</option>
+              <option value="30 jours" selected>30 jours</option>
+              <option value="60 jours">60 jours</option>
+              <option value="90 jours">90 jours</option>
+            </select>
+          </div>
+
+          <button
+            class="add-btn"
+            onclick="addSubscriber()"
+          >
+            Ajouter
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="panel">
+
+        <h3>Liste des abonnés</h3>
+
+        <div class="subscriber-search">
+
+          <input
+            class="form-input"
+            id="subscriberSearch"
+            placeholder="Rechercher un client ou un profil..."
+            oninput="renderSubscribers()"
+          >
+
+          <select
+            class="form-input"
+            id="subscriberFilter"
+            onchange="renderSubscribers()"
+          >
+            <option value="all">Tous</option>
+            <option value="active">Actifs</option>
+            <option value="expired">Expirés</option>
+          </select>
+
+        </div>
+
+        <div class="table-wrap">
+
+          <table>
+
+            <thead>
+
+              <tr>
+                <th>Client</th>
+                <th>Profil</th>
+                <th>Début</th>
+                <th>Expiration</th>
+                <th>Durée</th>
+                <th>Statut</th>
+                <th>Action</th>
+              </tr>
+
+            </thead>
+
+            <tbody id="subscribersTable">
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- HISTORY -->
+
+    <section id="history" class="page">
+
+      <div class="page-header">
+
+        <div>
+          <h1>Historique</h1>
+          <p>Historique de vos opérations enregistrées.</p>
+        </div>
+
+      </div>
+
+      <div class="panel">
+
+        <div class="table-wrap">
+
+          <table>
+
+            <thead>
+
+              <tr>
+                <th>Date</th>
+                <th>Heure</th>
+                <th>Service</th>
+                <th>Quantité</th>
+                <th>Prix</th>
+                <th>Total</th>
+                <th>Action</th>
+              </tr>
+
+            </thead>
+
+            <tbody id="historyTable">
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
 
 </div>
 
 
-<div
-  class="toast"
-  id="toast">
-</div>
+<div id="toast" class="toast"></div>
 
 
 <script>
 
 /* =====================================================
-   CONFIGURATION
+   SUPABASE CONFIGURATION
+===================================================== */
+
+const SUPABASE_URL = "https://olayznhimjjjwdrjvryp.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_6NiV3HsDHuouUbaLZClcGw_-cpziTuq";
+
+const { createClient } = supabase;
+
+const db = createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
+
+/* =====================================================
+   CONFIG
 ===================================================== */
 
 const DAILY_GOAL = 2500;
 
+let authMode = "login";
 
-/* =====================================================
-   SERVICES PAR DEFAUT
-===================================================== */
-
-const DEFAULT_SERVICES = [
-
-  {
-    id:"affiche",
-    name:"Affiche",
-    price:3000,
-    default:true
-  },
-
-  {
-    id:"carte-visite",
-    name:"Carte de visite",
-    price:2500,
-    default:true
-  },
-
-  {
-    id:"inscription-formation",
-    name:"Inscription formation",
-    price:250,
-    default:true
-  },
-
-  {
-    id:"formation",
-    name:"Formation",
-    price:3000,
-    default:true
-  },
-
-  {
-    id:"meru",
-    name:"Carte MERU",
-    price:1250,
-    default:true
-  },
-
-  {
-    id:"inscription-membre",
-    name:"Inscription membre",
-    price:150,
-    default:true
-  }
-
-];
-
-
-/* =====================================================
-   VARIABLES
-===================================================== */
+let currentUser = null;
 
 let services = [];
 
-let operations = [];
+let sales = [];
+
+let subscribers = [];
 
 let hourChart = null;
 
@@ -1284,1845 +1227,35 @@ let serviceChart = null;
    DATE
 ===================================================== */
 
-const todayKey =
-  new Date()
-    .toISOString()
-    .slice(0,10);
+function localDate(){
+
+  const d = new Date();
+
+  const y = d.getFullYear();
+
+  const m = String(d.getMonth()+1).padStart(2,"0");
+
+  const day = String(d.getDate()).padStart(2,"0");
+
+  return `${y}-${m}-${day}`;
+}
 
 
-document.getElementById("currentDate")
-  .textContent =
-  new Date().toLocaleDateString(
-    "fr-FR",
-    {
-      weekday:"long",
-      day:"numeric",
-      month:"long",
-      year:"numeric"
-    }
-  );
+function formatMoney(value){
 
-
-/* =====================================================
-   STORAGE SERVICES
-===================================================== */
-
-function loadServices(){
-
-  try{
-
-    const saved =
-      localStorage.getItem(
-        "salestrack_services"
-      );
-
-    if(saved){
-
-      const customServices =
-        JSON.parse(saved);
-
-      services =
-        [
-          ...DEFAULT_SERVICES,
-          ...customServices
-        ];
-
-    }else{
-
-      services =
-        [...DEFAULT_SERVICES];
-
-    }
-
-  }catch(error){
-
-    services =
-      [...DEFAULT_SERVICES];
-
-  }
+  return Number(value || 0).toLocaleString(
+    "fr-FR"
+  ) + " HTG";
 
 }
 
 
-function saveServices(){
+function formatDate(date){
 
-  const customServices =
-    services.filter(
-      service=>!service.default
-    );
+  if(!date) return "—";
 
-  localStorage.setItem(
-    "salestrack_services",
-    JSON.stringify(customServices)
-  );
-
-}
-
-
-/* =====================================================
-   STORAGE OPERATIONS
-===================================================== */
-
-function storageKey(){
-
-  return "salestrack_" + todayKey;
-
-}
-
-
-function loadData(){
-
-  try{
-
-    const saved =
-      localStorage.getItem(
-        storageKey()
-      );
-
-    operations =
-      saved
-      ? JSON.parse(saved)
-      : [];
-
-  }catch(error){
-
-    operations = [];
-
-  }
-
-}
-
-
-function saveData(){
-
-  localStorage.setItem(
-    storageKey(),
-    JSON.stringify(operations)
-  );
-
-}
-
-
-/* =====================================================
-   FORMAT
-===================================================== */
-
-function money(value){
-
-  return Number(value || 0)
-    .toLocaleString("fr-FR")
-    + " HTG";
-
-}
-
-
-/* =====================================================
-   NAVIGATION
-===================================================== */
-
-function showSection(id,button){
-
-  document
-    .querySelectorAll(".section")
-    .forEach(section=>{
-
-      section.classList.remove("active");
-
-    });
-
-
-  document
-    .getElementById(id)
-    .classList.add("active");
-
-
-  document
-    .querySelectorAll(".menu button")
-    .forEach(btn=>{
-
-      btn.classList.remove("active");
-
-    });
-
-
-  if(button){
-
-    button.classList.add("active");
-
-  }
-
-
-  document
-    .getElementById("sidebar")
-    .classList.remove("open");
-
-
-  if(id==="dashboard"){
-
-    updateDashboard();
-
-  }
-
-
-  if(id==="services"){
-
-    renderServices();
-
-  }
-
-
-  if(id==="history"){
-
-    renderHistory();
-
-  }
-
-
-  if(id==="analysis"){
-
-    renderAnalysis();
-
-  }
-
-
-  if(id==="report"){
-
-    renderReport();
-
-  }
-
-}
-
-
-function toggleMenu(){
-
-  document
-    .getElementById("sidebar")
-    .classList.toggle("open");
-
-}
-
-
-/* =====================================================
-   RENDRE SERVICES
-===================================================== */
-
-function renderServices(){
-
-  const select =
-    document.getElementById(
-      "serviceSelect"
-    );
-
-
-  const currentValue =
-    select.value;
-
-
-  select.innerHTML =
-    `<option value="">
-      Choisir un service
-    </option>`;
-
-
-  services.forEach(service=>{
-
-    const option =
-      document.createElement("option");
-
-    option.value =
-      service.id;
-
-    option.textContent =
-      service.name
-      + " — "
-      + money(service.price);
-
-    select.appendChild(option);
-
-  });
-
-
-  if(
-    services.some(
-      service=>service.id===currentValue
-    )
-  ){
-
-    select.value =
-      currentValue;
-
-  }
-
-
-  const list =
-    document.getElementById(
-      "servicesList"
-    );
-
-
-  list.innerHTML = "";
-
-
-  services.forEach(service=>{
-
-    const div =
-      document.createElement("div");
-
-
-    div.className =
-      "service-row";
-
-
-    const deleteButton =
-      service.default
-      ? ""
-      : `
-        <button
-          class="service-delete"
-          onclick="deleteCustomService('${service.id}')">
-          Supprimer
-        </button>
-      `;
-
-
-    div.innerHTML = `
-
-      <div class="service-left">
-
-        <div>
-
-          <div class="service-name">
-            ${escapeHtml(service.name)}
-          </div>
-
-          <div class="service-meta">
-            Tarif unitaire
-          </div>
-
-        </div>
-
-      </div>
-
-      <div
-        style="display:flex;align-items:center;gap:10px">
-
-        <div class="service-total">
-          ${money(service.price)}
-        </div>
-
-        ${deleteButton}
-
-      </div>
-
-    `;
-
-
-    list.appendChild(div);
-
-  });
-
-}
-
-
-/* =====================================================
-   AJOUTER SERVICE PERSONNALISE
-===================================================== */
-
-function addCustomService(){
-
-  const nameInput =
-    document.getElementById(
-      "customServiceName"
-    );
-
-
-  const priceInput =
-    document.getElementById(
-      "customServicePrice"
-    );
-
-
-  const name =
-    nameInput.value.trim();
-
-
-  const price =
-    Number(priceInput.value);
-
-
-  if(!name){
-
-    showToast(
-      "Entrez le nom du service."
-    );
-
-    return;
-
-  }
-
-
-  if(!price || price < 0){
-
-    showToast(
-      "Entrez un prix valide."
-    );
-
-    return;
-
-  }
-
-
-  const exists =
-    services.some(
-      service=>
-        service.name.toLowerCase()
-        === name.toLowerCase()
-    );
-
-
-  if(exists){
-
-    showToast(
-      "Ce service existe déjà."
-    );
-
-    return;
-
-  }
-
-
-  const newService = {
-
-    id:
-      "custom-" +
-      Date.now(),
-
-    name:
-      name,
-
-    price:
-      price,
-
-    default:
-      false
-
-  };
-
-
-  services.push(
-    newService
-  );
-
-
-  saveServices();
-
-  renderServices();
-
-
-  nameInput.value = "";
-
-  priceInput.value = "";
-
-
-  showToast(
-    "Service ajouté avec succès."
-  );
-
-}
-
-
-/* =====================================================
-   SUPPRIMER SERVICE PERSONNALISE
-===================================================== */
-
-function deleteCustomService(id){
-
-  const service =
-    services.find(
-      item=>item.id===id
-    );
-
-
-  if(!service){
-
-    return;
-
-  }
-
-
-  const used =
-    operations.some(
-      item=>item.serviceId===id
-    );
-
-
-  if(used){
-
-    showToast(
-      "Ce service est déjà utilisé dans l'historique."
-    );
-
-    return;
-
-  }
-
-
-  if(
-    !confirm(
-      "Supprimer le service " +
-      service.name +
-      " ?"
-    )
-  ){
-
-    return;
-
-  }
-
-
-  services =
-    services.filter(
-      item=>item.id!==id
-    );
-
-
-  saveServices();
-
-  renderServices();
-
-
-  showToast(
-    "Service supprimé."
-  );
-
-}
-
-
-/* =====================================================
-   SERVICE SELECTIONNE
-===================================================== */
-
-function getSelectedService(){
-
-  const id =
-    document.getElementById(
-      "serviceSelect"
-    ).value;
-
-
-  return services.find(
-    service=>service.id===id
-  );
-
-}
-
-
-/* =====================================================
-   PRIX
-===================================================== */
-
-function updatePrice(){
-
-  const service =
-    getSelectedService();
-
-
-  const price =
-    service
-    ? service.price
-    : 0;
-
-
-  document.getElementById(
-    "unitPrice"
-  ).value =
-    money(price);
-
-
-  updateTotal();
-
-}
-
-
-function updateTotal(){
-
-  const service =
-    getSelectedService();
-
-
-  const quantity =
-    Number(
-      document.getElementById(
-        "quantity"
-      ).value
-    ) || 0;
-
-
-  const total =
-    service
-    ? service.price * quantity
-    : 0;
-
-
-  document.getElementById(
-    "totalPrice"
-  ).value =
-    money(total);
-
-}
-
-
-/* =====================================================
-   AJOUT OPERATION
-===================================================== */
-
-function addOperation(){
-
-  const service =
-    getSelectedService();
-
-
-  const quantity =
-    Number(
-      document.getElementById(
-        "quantity"
-      ).value
-    );
-
-
-  const time =
-    document.getElementById(
-      "operationTime"
-    ).value;
-
-
-  const note =
-    document.getElementById(
-      "operationNote"
-    ).value.trim();
-
-
-  if(!service){
-
-    showToast(
-      "Choisissez un service."
-    );
-
-    return;
-
-  }
-
-
-  if(!quantity || quantity<1){
-
-    showToast(
-      "Entrez une quantité valide."
-    );
-
-    return;
-
-  }
-
-
-  if(!time){
-
-    showToast(
-      "Entrez l'heure de l'opération."
-    );
-
-    return;
-
-  }
-
-
-  const operation = {
-
-    id:
-      Date.now(),
-
-    serviceId:
-      service.id,
-
-    service:
-      service.name,
-
-    quantity:
-      quantity,
-
-    unitPrice:
-      service.price,
-
-    total:
-      service.price * quantity,
-
-    time:
-      time,
-
-    note:
-      note
-
-  };
-
-
-  operations.push(
-    operation
-  );
-
-
-  saveData();
-
-
-  document.getElementById(
-    "serviceSelect"
-  ).value = "";
-
-
-  document.getElementById(
-    "quantity"
-  ).value = 1;
-
-
-  document.getElementById(
-    "unitPrice"
-  ).value = "";
-
-
-  document.getElementById(
-    "totalPrice"
-  ).value = "";
-
-
-  document.getElementById(
-    "operationTime"
-  ).value = "";
-
-
-  document.getElementById(
-    "operationNote"
-  ).value = "";
-
-
-  updateDashboard();
-
-
-  showToast(
-    "Opération ajoutée avec succès."
-  );
-
-}
-
-
-/* =====================================================
-   SUPPRIMER OPERATION
-===================================================== */
-
-function deleteOperation(id){
-
-  if(
-    !confirm(
-      "Supprimer cette opération ?"
-    )
-  ){
-
-    return;
-
-  }
-
-
-  operations =
-    operations.filter(
-      operation=>
-        operation.id!==id
-    );
-
-
-  saveData();
-
-  renderHistory();
-
-  updateDashboard();
-
-
-  showToast(
-    "Opération supprimée."
-  );
-
-}
-
-
-/* =====================================================
-   DASHBOARD
-===================================================== */
-
-function updateDashboard(){
-
-  const revenue =
-    operations.reduce(
-      (sum,item)=>
-        sum + item.total,
-      0
-    );
-
-
-  const count =
-    operations.length;
-
-
-  const items =
-    operations.reduce(
-      (sum,item)=>
-        sum + item.quantity,
-      0
-    );
-
-
-  const average =
-    count
-    ? revenue/count
-    : 0;
-
-
-  const percentage =
-    DAILY_GOAL
-    ? revenue/DAILY_GOAL*100
-    : 0;
-
-
-  const progress =
-    Math.min(
-      percentage,
-      100
-    );
-
-
-  document.getElementById(
-    "todayRevenue"
-  ).textContent =
-    money(revenue);
-
-
-  document.getElementById(
-    "operationCount"
-  ).textContent =
-    count;
-
-
-  document.getElementById(
-    "itemsSold"
-  ).textContent =
-    items;
-
-
-  document.getElementById(
-    "averageSale"
-  ).textContent =
-    money(average);
-
-
-  document.getElementById(
-    "goalPercent"
-  ).textContent =
-    Math.round(
-      percentage
-    ) + "%";
-
-
-  document.getElementById(
-    "goalProgress"
-  ).style.width =
-    progress + "%";
-
-
-  document.getElementById(
-    "goalCurrent"
-  ).textContent =
-    money(revenue)
-    + " réalisés";
-
-
-  const remaining =
-    Math.max(
-      DAILY_GOAL-revenue,
-      0
-    );
-
-
-  document.getElementById(
-    "goalRemaining"
-  ).textContent =
-    remaining>0
-    ? money(remaining)
-      + " restant"
-    : "Objectif atteint";
-
-
-  let status =
-    "En attente";
-
-
-  if(
-    revenue>=DAILY_GOAL
-  ){
-
-    status =
-      "Objectif atteint";
-
-  }else if(
-    revenue>=DAILY_GOAL*.75
-  ){
-
-    status =
-      "Très bien";
-
-  }else if(
-    revenue>=DAILY_GOAL*.5
-  ){
-
-    status =
-      "En bonne voie";
-
-  }else if(
-    revenue>0
-  ){
-
-    status =
-      "À accélérer";
-
-  }
-
-
-  document.getElementById(
-    "performanceStatus"
-  ).textContent =
-    status;
-
-
-  calculateBestService();
-
-  calculateBestHour();
-
-  renderCharts();
-
-}
-
-
-/* =====================================================
-   MEILLEUR SERVICE
-===================================================== */
-
-function calculateBestService(){
-
-  const totals = {};
-
-
-  operations.forEach(item=>{
-
-    totals[item.service] =
-      (totals[item.service] || 0)
-      + item.total;
-
-  });
-
-
-  let best = null;
-
-
-  Object.keys(totals)
-    .forEach(name=>{
-
-      if(
-        !best ||
-        totals[name]>totals[best]
-      ){
-
-        best =
-          name;
-
-      }
-
-    });
-
-
-  document.getElementById(
-    "bestService"
-  ).textContent =
-    best || "—";
-
-
-  document.getElementById(
-    "bestServiceRevenue"
-  ).textContent =
-    best
-    ? money(totals[best])
-    : "0 HTG";
-
-}
-
-
-/* =====================================================
-   MEILLEURE HEURE
-===================================================== */
-
-function calculateBestHour(){
-
-  const totals = {};
-
-
-  operations.forEach(item=>{
-
-    const hour =
-      item.time
-      ? item.time.split(":")[0]
-        + "h"
-      : "—";
-
-
-    totals[hour] =
-      (totals[hour] || 0)
-      + item.total;
-
-  });
-
-
-  let best = null;
-
-
-  Object.keys(totals)
-    .forEach(hour=>{
-
-      if(
-        !best ||
-        totals[hour]>totals[best]
-      ){
-
-        best =
-          hour;
-
-      }
-
-    });
-
-
-  document.getElementById(
-    "bestHour"
-  ).textContent =
-    best || "—";
-
-
-  document.getElementById(
-    "bestHourRevenue"
-  ).textContent =
-    best
-    ? money(totals[best])
-    : "0 HTG";
-
-}
-
-
-/* =====================================================
-   GRAPHIQUES
-===================================================== */
-
-function renderCharts(){
-
-  const hours = [];
-
-
-  for(
-    let i=0;
-    i<24;
-    i++
-  ){
-
-    hours.push(
-      String(i)
-        .padStart(2,"0")
-      + "h"
-    );
-
-  }
-
-
-  const hourTotals =
-    hours.map(hour=>{
-
-      const h =
-        hour.replace(
-          "h",
-          ""
-        );
-
-
-      return operations
-        .filter(item=>{
-
-          return item.time
-            &&
-            item.time
-              .split(":")[0]
-            === h;
-
-        })
-        .reduce(
-          (sum,item)=>
-            sum+item.total,
-          0
-        );
-
-    });
-
-
-  if(hourChart){
-
-    hourChart.destroy();
-
-  }
-
-
-  hourChart =
-    new Chart(
-      document.getElementById(
-        "hourChart"
-      ),
-      {
-
-        type:"line",
-
-        data:{
-
-          labels:hours,
-
-          datasets:[{
-
-            label:
-              "Revenus HTG",
-
-            data:
-              hourTotals,
-
-            borderWidth:
-              3,
-
-            tension:
-              .35,
-
-            fill:
-              false
-
-          }]
-
-        },
-
-        options:{
-
-          responsive:true,
-
-          maintainAspectRatio:false,
-
-          plugins:{
-
-            legend:{
-              display:false
-            }
-
-          },
-
-          scales:{
-
-            y:{
-              beginAtZero:true
-            }
-
-          }
-
-        }
-
-      }
-    );
-
-
-  const serviceNames =
-    services.map(
-      service=>service.name
-    );
-
-
-  const serviceTotals =
-    services.map(
-      service=>{
-
-        return operations
-          .filter(
-            item=>
-              item.serviceId
-              === service.id
-          )
-          .reduce(
-            (sum,item)=>
-              sum+item.total,
-            0
-          );
-
-      }
-    );
-
-
-  if(serviceChart){
-
-    serviceChart.destroy();
-
-  }
-
-
-  serviceChart =
-    new Chart(
-      document.getElementById(
-        "serviceChart"
-      ),
-      {
-
-        type:"doughnut",
-
-        data:{
-
-          labels:
-            serviceNames,
-
-          datasets:[{
-
-            data:
-              serviceTotals,
-
-            borderWidth:
-              2
-
-          }]
-
-        },
-
-        options:{
-
-          responsive:true,
-
-          maintainAspectRatio:false,
-
-          plugins:{
-
-            legend:{
-              position:"bottom"
-            }
-
-          }
-
-        }
-
-      }
-    );
-
-}
-
-
-/* =====================================================
-   HISTORIQUE
-===================================================== */
-
-function renderHistory(){
-
-  const tbody =
-    document.getElementById(
-      "historyTable"
-    );
-
-
-  if(!operations.length){
-
-    tbody.innerHTML = `
-
-      <tr>
-
-        <td
-          colspan="7"
-          class="empty">
-
-          Aucune opération enregistrée aujourd'hui.
-
-        </td>
-
-      </tr>
-
-    `;
-
-    return;
-
-  }
-
-
-  const sorted =
-    [...operations].sort(
-      (a,b)=>
-        a.time.localeCompare(
-          b.time
-        )
-    );
-
-
-  tbody.innerHTML =
-    sorted.map(item=>{
-
-      return `
-
-        <tr>
-
-          <td>
-            ${escapeHtml(item.time)}
-          </td>
-
-          <td>
-            <strong>
-              ${escapeHtml(item.service)}
-            </strong>
-          </td>
-
-          <td>
-            ${item.quantity}
-          </td>
-
-          <td>
-            ${money(item.unitPrice)}
-          </td>
-
-          <td>
-            <strong>
-              ${money(item.total)}
-            </strong>
-          </td>
-
-          <td>
-            ${escapeHtml(
-              item.note || "—"
-            )}
-          </td>
-
-          <td>
-
-            <button
-              class="btn btn-danger"
-              onclick="deleteOperation(${item.id})">
-
-              Supprimer
-
-            </button>
-
-          </td>
-
-        </tr>
-
-      `;
-
-    }).join("");
-
-}
-
-
-/* =====================================================
-   ANALYSE
-===================================================== */
-
-function renderAnalysis(){
-
-  const container =
-    document.getElementById(
-      "analysisContent"
-    );
-
-
-  const revenue =
-    operations.reduce(
-      (sum,item)=>
-        sum+item.total,
-      0
-    );
-
-
-  const count =
-    operations.length;
-
-
-  const items =
-    operations.reduce(
-      (sum,item)=>
-        sum+item.quantity,
-      0
-    );
-
-
-  const average =
-    count
-    ? revenue/count
-    : 0;
-
-
-  const percentage =
-    DAILY_GOAL
-    ? revenue/DAILY_GOAL*100
-    : 0;
-
-
-  let bestService =
-    "Aucun";
-
-
-  let bestServiceAmount =
-    0;
-
-
-  services.forEach(service=>{
-
-    const total =
-      operations
-        .filter(
-          item=>
-            item.serviceId
-            === service.id
-        )
-        .reduce(
-          (sum,item)=>
-            sum+item.total,
-          0
-        );
-
-
-    if(
-      total>bestServiceAmount
-    ){
-
-      bestServiceAmount =
-        total;
-
-      bestService =
-        service.name;
-
-    }
-
-  });
-
-
-  const hourTotals = {};
-
-
-  operations.forEach(item=>{
-
-    const hour =
-      item.time.split(":")[0];
-
-
-    hourTotals[hour] =
-      (hourTotals[hour] || 0)
-      + item.total;
-
-  });
-
-
-  let bestHour = null;
-
-  let bestHourAmount = 0;
-
-
-  Object.keys(hourTotals)
-    .forEach(hour=>{
-
-      if(
-        hourTotals[hour]
-        > bestHourAmount
-      ){
-
-        bestHourAmount =
-          hourTotals[hour];
-
-        bestHour =
-          hour;
-
-      }
-
-    });
-
-
-  let conclusion;
-
-
-  if(!count){
-
-    conclusion =
-      "Aucune vente n'a encore été enregistrée aujourd'hui.";
-
-  }else if(
-    revenue>=DAILY_GOAL
-  ){
-
-    conclusion =
-      "L'objectif journalier est atteint. La journée est très performante.";
-
-  }else{
-
-    conclusion =
-      "L'objectif n'est pas encore atteint. Continuez à développer les ventes.";
-
-  }
-
-
-  container.innerHTML = `
-
-    <div class="analysis-box">
-
-      <strong>
-        Performance globale
-      </strong>
-
-      <span>
-
-        Vous avez généré
-        <b>${money(revenue)}</b>
-        aujourd'hui, soit
-        <b>${percentage.toFixed(1)}%</b>
-        de l'objectif de
-        <b>${money(DAILY_GOAL)}</b>.
-
-      </span>
-
-    </div>
-
-
-    <div class="analysis-box">
-
-      <strong>
-        Volume de ventes
-      </strong>
-
-      <span>
-
-        ${count}
-        opération(s) enregistrée(s)
-        pour un total de
-        ${items}
-        unité(s) vendue(s).
-
-      </span>
-
-    </div>
-
-
-    <div class="analysis-box">
-
-      <strong>
-        Panier moyen
-      </strong>
-
-      <span>
-
-        Chaque opération rapporte en moyenne
-        <b>${money(average)}</b>.
-
-      </span>
-
-    </div>
-
-
-    <div class="analysis-box">
-
-      <strong>
-        Service le plus rentable
-      </strong>
-
-      <span>
-
-        ${escapeHtml(bestService)}
-
-        ${
-          bestServiceAmount
-          ? "avec "
-            + money(bestServiceAmount)
-          : ""
-        }
-
-      </span>
-
-    </div>
-
-
-    <div class="analysis-box">
-
-      <strong>
-        Meilleure heure
-      </strong>
-
-      <span>
-
-        ${
-          bestHour
-          ? bestHour
-            + "h avec "
-            + money(bestHourAmount)
-          : "Pas encore disponible"
-        }
-
-      </span>
-
-    </div>
-
-
-    <div class="analysis-box">
-
-      <strong>
-        Conclusion
-      </strong>
-
-      <span>
-        ${conclusion}
-      </span>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =====================================================
-   RAPPORT
-===================================================== */
-
-function renderReport(){
-
-  const revenue =
-    operations.reduce(
-      (sum,item)=>
-        sum+item.total,
-      0
-    );
-
-
-  const count =
-    operations.length;
-
-
-  const items =
-    operations.reduce(
-      (sum,item)=>
-        sum+item.quantity,
-      0
-    );
-
-
-  const average =
-    count
-    ? revenue/count
-    : 0;
-
-
-  const remaining =
-    Math.max(
-      DAILY_GOAL-revenue,
-      0
-    );
-
-
-  const percentage =
-    revenue/DAILY_GOAL*100;
-
-
-  document.getElementById(
-    "reportContent"
-  ).innerHTML = `
-
-    <h2>
-      Rapport SalesTrack
-    </h2>
-
-
-    <div class="report-line">
-
-      <span>Date</span>
-
-      <strong>
-        ${new Date().toLocaleDateString("fr-FR")}
-      </strong>
-
-    </div>
-
-
-    <div class="report-line">
-
-      <span>
-        Revenus du jour
-      </span>
-
-      <strong class="report-total">
-        ${money(revenue)}
-      </strong>
-
-    </div>
-
-
-    <div class="report-line">
-
-      <span>
-        Objectif
-      </span>
-
-      <strong>
-        ${money(DAILY_GOAL)}
-      </strong>
-
-    </div>
-
-
-    <div class="report-line">
-
-      <span>
-        Progression
-      </span>
-
-      <strong>
-        ${percentage.toFixed(1)}%
-      </strong>
-
-    </div>
-
-
-    <div class="report-line">
-
-      <span>
-        Reste à atteindre
-      </span>
-
-      <strong>
-        ${money(remaining)}
-      </strong>
-
-    </div>
-
-
-    <div class="report-line">
-
-      <span>
-        Nombre d'opérations
-      </span>
-
-      <strong>
-        ${count}
-      </strong>
-
-    </div>
-
-
-    <div class="report-line">
-
-      <span>
-        Quantité vendue
-      </span>
-
-      <strong>
-        ${items}
-      </strong>
-
-    </div>
-
-
-    <div class="report-line">
-
-      <span>
-        Panier moyen
-      </span>
-
-      <strong>
-        ${money(average)}
-      </strong>
-
-    </div>
-
-  `;
-
-}
-
-
-/* =====================================================
-   IMPRESSION
-===================================================== */
-
-function printReport(){
-
-  const content =
-    document.getElementById(
-      "reportContent"
-    ).innerHTML;
-
-
-  const win =
-    window.open(
-      "",
-      "_blank",
-      "width=800,height=700"
-    );
-
-
-  win.document.write(`
-
-    <html>
-
-      <head>
-
-        <title>
-          Rapport Baba Design
-        </title>
-
-        <style>
-
-          body{
-            font-family:Arial,sans-serif;
-            padding:40px;
-            color:#222;
-          }
-
-          h2{
-            margin-bottom:20px;
-          }
-
-          .report-line{
-            display:flex;
-            justify-content:space-between;
-            padding:12px 0;
-            border-bottom:1px solid #ddd;
-          }
-
-          .report-total{
-            font-size:22px;
-          }
-
-        </style>
-
-      </head>
-
-      <body>
-
-        ${content}
-
-        <script>
-
-          window.onload=function(){
-            window.print();
-          }
-
-        <\/script>
-
-      </body>
-
-    </html>
-
-  `);
-
-
-  win.document.close();
+  return new Date(date + "T00:00:00")
+    .toLocaleDateString("fr-FR");
 
 }
 
@@ -3134,86 +1267,1495 @@ function printReport(){
 function showToast(message){
 
   const toast =
-    document.getElementById(
-      "toast"
-    );
+    document.getElementById("toast");
 
+  toast.textContent = message;
 
-  toast.textContent =
-    message;
-
-
-  toast.classList.add(
-    "show"
-  );
-
+  toast.classList.add("show");
 
   setTimeout(()=>{
-
-    toast.classList.remove(
-      "show"
-    );
-
-  },2500);
+    toast.classList.remove("show");
+  },3000);
 
 }
 
 
 /* =====================================================
-   ESCAPE HTML
+   AUTH
 ===================================================== */
 
-function escapeHtml(value){
+function toggleAuthMode(){
 
-  return String(
-    value ?? ""
-  )
+  if(authMode === "login"){
 
-  .replace(
-    /&/g,
-    "&amp;"
-  )
+    authMode = "signup";
 
-  .replace(
-    /</g,
-    "&lt;"
-  )
+    document.getElementById("authDescription")
+      .textContent =
+      "Créez votre compte SalesTrack.";
 
-  .replace(
-    />/g,
-    "&gt;"
-  )
+    document.getElementById("authBtn")
+      .textContent =
+      "Créer mon compte";
 
-  .replace(
-    /"/g,
-    "&quot;"
-  )
+    document.getElementById("switchText")
+      .textContent =
+      "Vous avez déjà un compte ?";
 
-  .replace(
-    /'/g,
-    "&#039;"
+    document.getElementById("switchBtn")
+      .textContent =
+      "Se connecter";
+
+  }else{
+
+    authMode = "login";
+
+    document.getElementById("authDescription")
+      .textContent =
+      "Connectez-vous à votre espace.";
+
+    document.getElementById("authBtn")
+      .textContent =
+      "Se connecter";
+
+    document.getElementById("switchText")
+      .textContent =
+      "Vous n'avez pas de compte ?";
+
+    document.getElementById("switchBtn")
+      .textContent =
+      "Créer un compte";
+
+  }
+
+}
+
+
+async function handleAuth(){
+
+  const email =
+    document.getElementById("authEmail")
+      .value.trim();
+
+  const password =
+    document.getElementById("authPassword")
+      .value;
+
+  if(!email || !password){
+
+    showToast("Veuillez remplir tous les champs.");
+
+    return;
+
+  }
+
+  const btn =
+    document.getElementById("authBtn");
+
+  btn.disabled = true;
+
+  if(authMode === "signup"){
+
+    const {data,error} =
+      await db.auth.signUp({
+        email,
+        password
+      });
+
+    btn.disabled = false;
+
+    if(error){
+
+      showToast(error.message);
+
+      return;
+
+    }
+
+    showToast(
+      "Compte créé. Vérifiez votre email si nécessaire."
+    );
+
+  }else{
+
+    const {data,error} =
+      await db.auth.signInWithPassword({
+        email,
+        password
+      });
+
+    btn.disabled = false;
+
+    if(error){
+
+      showToast(
+        "Email ou mot de passe incorrect."
+      );
+
+      return;
+
+    }
+
+    currentUser = data.user;
+
+    await startApp();
+
+  }
+
+}
+
+
+async function logout(){
+
+  await db.auth.signOut();
+
+  location.reload();
+
+}
+
+
+/* =====================================================
+   START APP
+===================================================== */
+
+async function startApp(){
+
+  document
+    .getElementById("authScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("app")
+    .classList.remove("hidden");
+
+  await loadServices();
+
+  await loadSales();
+
+  await loadSubscribers();
+
+  renderServices();
+
+  renderSubscribers();
+
+  renderHistory();
+
+  updateOperationPrice();
+
+  updateDashboard();
+
+}
+
+
+/* =====================================================
+   SERVICES
+===================================================== */
+
+const DEFAULT_SERVICES = [
+
+  {
+    name:"Affiche",
+    price:3000
+  },
+
+  {
+    name:"Carte de visite",
+    price:2500
+  },
+
+  {
+    name:"Inscription formation",
+    price:250
+  },
+
+  {
+    name:"Formation",
+    price:3000
+  },
+
+  {
+    name:"Carte MERU",
+    price:1250
+  },
+
+  {
+    name:"Inscription membre",
+    price:150
+  }
+
+];
+
+
+async function loadServices(){
+
+  const {data,error} =
+    await db
+      .from("services")
+      .select("*")
+      .order("created_at",{ascending:true});
+
+  if(error){
+
+    console.error(error);
+
+    return;
+
+  }
+
+  services = data || [];
+
+  if(services.length === 0){
+
+    for(const service of DEFAULT_SERVICES){
+
+      await db
+        .from("services")
+        .insert({
+          user_id:currentUser.id,
+          name:service.name,
+          price:service.price,
+          is_default:true
+        });
+
+    }
+
+    const result =
+      await db
+        .from("services")
+        .select("*")
+        .order("created_at",{ascending:true});
+
+    services = result.data || [];
+
+  }
+
+}
+
+
+function renderServices(){
+
+  const container =
+    document.getElementById("servicesList");
+
+  container.innerHTML = "";
+
+  services.forEach(service => {
+
+    const card =
+      document.createElement("div");
+
+    card.className = "service-card";
+
+    card.innerHTML = `
+
+      <div class="service-top">
+
+        <div class="service-name">
+          ${escapeHTML(service.name)}
+        </div>
+
+        ${
+          service.is_default
+          ? ""
+          : `
+          <button
+            class="delete-btn"
+            onclick="deleteService('${service.id}')"
+          >
+            Supprimer
+          </button>
+          `
+        }
+
+      </div>
+
+      <div class="service-price">
+        ${formatMoney(service.price)}
+      </div>
+
+    `;
+
+    container.appendChild(card);
+
+  });
+
+
+  const select =
+    document.getElementById("operationService");
+
+  select.innerHTML = "";
+
+  services.forEach(service => {
+
+    const option =
+      document.createElement("option");
+
+    option.value = service.id;
+
+    option.textContent =
+      `${service.name} — ${formatMoney(service.price)}`;
+
+    select.appendChild(option);
+
+  });
+
+}
+
+
+async function addCustomService(){
+
+  const name =
+    document.getElementById("customServiceName")
+      .value.trim();
+
+  const price =
+    Number(
+      document.getElementById("customServicePrice")
+        .value
+    );
+
+  if(!name){
+
+    showToast("Entrez le nom du service.");
+
+    return;
+
+  }
+
+  if(!price || price < 0){
+
+    showToast("Entrez un prix valide.");
+
+    return;
+
+  }
+
+  const exists =
+    services.some(
+      s => s.name.toLowerCase() === name.toLowerCase()
+    );
+
+  if(exists){
+
+    showToast("Ce service existe déjà.");
+
+    return;
+
+  }
+
+  const {error} =
+    await db
+      .from("services")
+      .insert({
+        user_id:currentUser.id,
+        name,
+        price,
+        is_default:false
+      });
+
+  if(error){
+
+    showToast("Impossible d'ajouter le service.");
+
+    return;
+
+  }
+
+  document.getElementById("customServiceName")
+    .value = "";
+
+  document.getElementById("customServicePrice")
+    .value = "";
+
+  await loadServices();
+
+  renderServices();
+
+  showToast("Service ajouté.");
+
+}
+
+
+async function deleteService(id){
+
+  const used =
+    sales.some(s => s.service_id === id);
+
+  if(used){
+
+    showToast(
+      "Ce service est déjà utilisé dans une opération."
+    );
+
+    return;
+
+  }
+
+  if(!confirm("Supprimer ce service ?")) return;
+
+  const {error} =
+    await db
+      .from("services")
+      .delete()
+      .eq("id",id)
+      .eq("user_id",currentUser.id);
+
+  if(error){
+
+    showToast("Impossible de supprimer le service.");
+
+    return;
+
+  }
+
+  await loadServices();
+
+  renderServices();
+
+  showToast("Service supprimé.");
+
+}
+
+
+function updateOperationPrice(){
+
+  const serviceId =
+    document.getElementById("operationService")
+      .value;
+
+  const service =
+    services.find(s => s.id === serviceId);
+
+  if(service){
+
+    document.getElementById("operationPrice")
+      .value = service.price;
+
+  }
+
+}
+
+
+document
+  .getElementById("operationService")
+  .addEventListener(
+    "change",
+    updateOperationPrice
+  );
+
+
+/* =====================================================
+   SALES
+===================================================== */
+
+async function loadSales(){
+
+  const {data,error} =
+    await db
+      .from("sales")
+      .select("*")
+      .order("sale_date",{ascending:false})
+      .order("sale_time",{ascending:false});
+
+  if(error){
+
+    console.error(error);
+
+    return;
+
+  }
+
+  sales = data || [];
+
+}
+
+
+async function addSale(){
+
+  const serviceId =
+    document.getElementById("operationService")
+      .value;
+
+  const quantity =
+    Number(
+      document.getElementById("operationQuantity")
+        .value
+    );
+
+  const price =
+    Number(
+      document.getElementById("operationPrice")
+        .value
+    );
+
+  const service =
+    services.find(s => s.id === serviceId);
+
+  if(!service){
+
+    showToast("Sélectionnez un service.");
+
+    return;
+
+  }
+
+  if(!quantity || quantity < 1){
+
+    showToast("Quantité invalide.");
+
+    return;
+
+  }
+
+  if(price < 0){
+
+    showToast("Prix invalide.");
+
+    return;
+
+  }
+
+  const total =
+    quantity * price;
+
+  const now = new Date();
+
+  const time =
+    now.toTimeString().slice(0,8);
+
+  const {error} =
+    await db
+      .from("sales")
+      .insert({
+        user_id:currentUser.id,
+        service_id:service.id,
+        service_name:service.name,
+        quantity,
+        unit_price:price,
+        total,
+        sale_date:localDate(),
+        sale_time:time
+      });
+
+  if(error){
+
+    console.error(error);
+
+    showToast("Erreur lors de l'enregistrement.");
+
+    return;
+
+  }
+
+  await loadSales();
+
+  updateDashboard();
+
+  renderHistory();
+
+  document.getElementById("operationQuantity")
+    .value = 1;
+
+  showToast("Opération enregistrée.");
+
+}
+
+
+async function deleteSale(id){
+
+  if(!confirm("Supprimer cette opération ?")) return;
+
+  const {error} =
+    await db
+      .from("sales")
+      .delete()
+      .eq("id",id)
+      .eq("user_id",currentUser.id);
+
+  if(error){
+
+    showToast("Impossible de supprimer.");
+
+    return;
+
+  }
+
+  await loadSales();
+
+  updateDashboard();
+
+  renderHistory();
+
+  showToast("Opération supprimée.");
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+function getTodaySales(){
+
+  const today =
+    localDate();
+
+  return sales.filter(
+    sale => sale.sale_date === today
   );
 
 }
 
 
+function updateDashboard(){
+
+  const todaySales =
+    getTodaySales();
+
+  const revenue =
+    todaySales.reduce(
+      (sum,sale)=>sum + Number(sale.total),
+      0
+    );
+
+  const operations =
+    todaySales.length;
+
+  const items =
+    todaySales.reduce(
+      (sum,sale)=>sum + Number(sale.quantity),
+      0
+    );
+
+  const average =
+    operations
+    ? revenue / operations
+    : 0;
+
+  document.getElementById("todayRevenue")
+    .textContent = formatMoney(revenue);
+
+  document.getElementById("todayOperations")
+    .textContent = operations;
+
+  document.getElementById("averageSale")
+    .textContent = formatMoney(average);
+
+  document.getElementById("itemsSold")
+    .textContent = items;
+
+  document.getElementById("goalCurrent")
+    .textContent = revenue.toLocaleString("fr-FR");
+
+  const percent =
+    Math.min(
+      100,
+      (revenue / DAILY_GOAL) * 100
+    );
+
+  document.getElementById("goalProgress")
+    .style.width = percent + "%";
+
+  document.getElementById("goalPercent")
+    .textContent =
+    Math.round(percent) + "%";
+
+  const remaining =
+    Math.max(
+      0,
+      DAILY_GOAL - revenue
+    );
+
+  document.getElementById("goalRemaining")
+    .textContent =
+    remaining > 0
+    ? `Reste ${formatMoney(remaining)}`
+    : "Objectif atteint";
+
+
+  let performance = "";
+
+  if(revenue === 0){
+
+    performance =
+      "Aucune vente enregistrée aujourd'hui.";
+
+  }else if(revenue < DAILY_GOAL){
+
+    performance =
+      `Vous avez généré ${formatMoney(revenue)} aujourd'hui. ` +
+      `Il vous reste ${formatMoney(remaining)} pour atteindre votre objectif.`;
+
+  }else{
+
+    performance =
+      `Objectif atteint. Vous avez dépassé votre objectif de ` +
+      `${formatMoney(revenue - DAILY_GOAL)}.`;
+
+  }
+
+  document.getElementById("performanceText")
+    .textContent = performance;
+
+
+  updateCharts(todaySales);
+
+  updateBestService(todaySales);
+
+  updateBestHour(todaySales);
+
+  updateAnalysis(todaySales,revenue);
+
+}
+
+
+function updateBestService(todaySales){
+
+  const map = {};
+
+  todaySales.forEach(sale => {
+
+    if(!map[sale.service_name]){
+      map[sale.service_name] = 0;
+    }
+
+    map[sale.service_name] +=
+      Number(sale.total);
+
+  });
+
+  const entries =
+    Object.entries(map)
+      .sort((a,b)=>b[1]-a[1]);
+
+  document.getElementById("bestService")
+    .textContent =
+    entries.length
+    ? `${entries[0][0]} — ${formatMoney(entries[0][1])}`
+    : "—";
+
+}
+
+
+function updateBestHour(todaySales){
+
+  const map = {};
+
+  todaySales.forEach(sale => {
+
+    const hour =
+      String(sale.sale_time || "00:00")
+        .slice(0,2);
+
+    if(!map[hour]){
+      map[hour] = 0;
+    }
+
+    map[hour] += Number(sale.total);
+
+  });
+
+  const entries =
+    Object.entries(map)
+      .sort((a,b)=>b[1]-a[1]);
+
+  document.getElementById("bestHour")
+    .textContent =
+    entries.length
+    ? `${entries[0][0]}h — ${formatMoney(entries[0][1])}`
+    : "—";
+
+}
+
+
 /* =====================================================
-   INITIALISATION
+   CHARTS
 ===================================================== */
 
-loadServices();
+function updateCharts(todaySales){
 
-loadData();
+  const hourData = {};
 
-renderServices();
+  for(let i=0;i<24;i++){
 
-updateDashboard();
+    hourData[
+      String(i).padStart(2,"0")
+    ] = 0;
 
-renderHistory();
+  }
 
-renderAnalysis();
+  todaySales.forEach(sale => {
 
-renderReport();
+    const hour =
+      String(sale.sale_time || "00:00")
+        .slice(0,2);
+
+    hourData[hour] += Number(sale.total);
+
+  });
+
+
+  const serviceData = {};
+
+  todaySales.forEach(sale => {
+
+    if(!serviceData[sale.service_name]){
+      serviceData[sale.service_name] = 0;
+    }
+
+    serviceData[sale.service_name] +=
+      Number(sale.total);
+
+  });
+
+
+  if(hourChart){
+    hourChart.destroy();
+  }
+
+  hourChart =
+    new Chart(
+      document.getElementById("hourChart"),
+      {
+        type:"line",
+        data:{
+          labels:Object.keys(hourData)
+            .map(h=>h+"h"),
+          datasets:[
+            {
+              label:"Revenus",
+              data:Object.values(hourData),
+              borderWidth:3,
+              tension:.35,
+              fill:false
+            }
+          ]
+        },
+        options:{
+          responsive:true,
+          maintainAspectRatio:false,
+          plugins:{
+            legend:{
+              display:false
+            }
+          }
+        }
+      }
+    );
+
+
+  if(serviceChart){
+    serviceChart.destroy();
+  }
+
+  serviceChart =
+    new Chart(
+      document.getElementById("serviceChart"),
+      {
+        type:"doughnut",
+        data:{
+          labels:Object.keys(serviceData),
+          datasets:[
+            {
+              data:Object.values(serviceData)
+            }
+          ]
+        },
+        options:{
+          responsive:true,
+          maintainAspectRatio:false
+        }
+      }
+    );
+
+}
+
+
+/* =====================================================
+   DAILY ANALYSIS
+===================================================== */
+
+function updateAnalysis(todaySales,revenue){
+
+  const box =
+    document.getElementById("dailyAnalysis");
+
+  if(todaySales.length === 0){
+
+    box.innerHTML =
+      "Aucune opération enregistrée pour le moment.";
+
+    return;
+
+  }
+
+  const operations =
+    todaySales.length;
+
+  const average =
+    revenue / operations;
+
+  const remaining =
+    Math.max(0,DAILY_GOAL-revenue);
+
+  let text = "";
+
+  text +=
+    `<p>Vous avez réalisé <strong>${formatMoney(revenue)}</strong> aujourd'hui avec <strong>${operations}</strong> opération(s).</p>`;
+
+  text +=
+    `<p>Votre panier moyen est de <strong>${formatMoney(average)}</strong>.</p>`;
+
+  if(remaining > 0){
+
+    text +=
+      `<p>Il vous manque <strong>${formatMoney(remaining)}</strong> pour atteindre l'objectif journalier de 2 500 HTG.</p>`;
+
+  }else{
+
+    text +=
+      `<p>Votre objectif journalier de <strong>2 500 HTG</strong> est atteint.</p>`;
+
+  }
+
+  box.innerHTML = text;
+
+}
+
+
+/* =====================================================
+   HISTORY
+===================================================== */
+
+function renderHistory(){
+
+  const tbody =
+    document.getElementById("historyTable");
+
+  tbody.innerHTML = "";
+
+  if(!sales.length){
+
+    tbody.innerHTML =
+      `<tr><td colspan="7">Aucune opération.</td></tr>`;
+
+    return;
+
+  }
+
+  sales.forEach(sale => {
+
+    const tr =
+      document.createElement("tr");
+
+    tr.innerHTML = `
+
+      <td>${formatDate(sale.sale_date)}</td>
+
+      <td>${String(sale.sale_time || "").slice(0,5)}</td>
+
+      <td>${escapeHTML(sale.service_name)}</td>
+
+      <td>${sale.quantity}</td>
+
+      <td>${formatMoney(sale.unit_price)}</td>
+
+      <td><strong>${formatMoney(sale.total)}</strong></td>
+
+      <td>
+        <button
+          class="delete-btn"
+          onclick="deleteSale('${sale.id}')"
+        >
+          Supprimer
+        </button>
+      </td>
+
+    `;
+
+    tbody.appendChild(tr);
+
+  });
+
+}
+
+
+/* =====================================================
+   SUBSCRIBERS
+===================================================== */
+
+async function loadSubscribers(){
+
+  const {data,error} =
+    await db
+      .from("subscribers")
+      .select("*")
+      .order("end_date",{ascending:true});
+
+  if(error){
+
+    console.error(error);
+
+    return;
+
+  }
+
+  subscribers = data || [];
+
+}
+
+
+function calculateEndDate(startDate,type){
+
+  const days =
+    parseInt(type);
+
+  const date =
+    new Date(startDate + "T00:00:00");
+
+  date.setDate(
+    date.getDate() + days
+  );
+
+  const y =
+    date.getFullYear();
+
+  const m =
+    String(date.getMonth()+1)
+      .padStart(2,"0");
+
+  const d =
+    String(date.getDate())
+      .padStart(2,"0");
+
+  return `${y}-${m}-${d}`;
+
+}
+
+
+async function addSubscriber(){
+
+  const customerName =
+    document.getElementById("customerName")
+      .value.trim();
+
+  const profileName =
+    document.getElementById("profileName")
+      .value.trim();
+
+  const startDate =
+    document.getElementById("startDate")
+      .value;
+
+  const type =
+    document.getElementById("subscriptionType")
+      .value;
+
+  if(!customerName){
+
+    showToast("Entrez le nom du client.");
+
+    return;
+
+  }
+
+  if(!startDate){
+
+    showToast("Sélectionnez la date de début.");
+
+    return;
+
+  }
+
+  const endDate =
+    calculateEndDate(startDate,type);
+
+  const {error} =
+    await db
+      .from("subscribers")
+      .insert({
+
+        user_id:currentUser.id,
+
+        customer_name:customerName,
+
+        profile_name:profileName,
+
+        subscription_type:type,
+
+        start_date:startDate,
+
+        end_date:endDate
+
+      });
+
+  if(error){
+
+    console.error(error);
+
+    showToast(
+      "Impossible d'ajouter l'abonné."
+    );
+
+    return;
+
+  }
+
+  document.getElementById("customerName")
+    .value = "";
+
+  document.getElementById("profileName")
+    .value = "";
+
+  document.getElementById("startDate")
+    .value = "";
+
+  await loadSubscribers();
+
+  renderSubscribers();
+
+  showToast("Abonné ajouté avec succès.");
+
+}
+
+
+function subscriberStatus(subscriber){
+
+  const today =
+    new Date(
+      localDate() + "T00:00:00"
+    );
+
+  const end =
+    new Date(
+      subscriber.end_date + "T00:00:00"
+    );
+
+  if(end < today){
+
+    return {
+      text:"Expiré",
+      className:"expired"
+    };
+
+  }
+
+  const diff =
+    Math.ceil(
+      (end-today) /
+      (1000*60*60*24)
+    );
+
+  if(diff <= 3){
+
+    return {
+      text:`Expire dans ${diff} jour(s)`,
+      className:"soon"
+    };
+
+  }
+
+  return {
+    text:"Actif",
+    className:"active"
+  };
+
+}
+
+
+function renderSubscribers(){
+
+  const tbody =
+    document.getElementById("subscribersTable");
+
+  tbody.innerHTML = "";
+
+  const search =
+    document.getElementById("subscriberSearch")
+      .value
+      .toLowerCase()
+      .trim();
+
+  const filter =
+    document.getElementById("subscriberFilter")
+      .value;
+
+
+  let list =
+    subscribers.filter(sub => {
+
+      const matchesSearch =
+        !search ||
+        sub.customer_name
+          .toLowerCase()
+          .includes(search) ||
+        (sub.profile_name || "")
+          .toLowerCase()
+          .includes(search);
+
+      if(!matchesSearch) return false;
+
+      const status =
+        subscriberStatus(sub);
+
+      if(filter === "active" &&
+        status.className === "expired")
+        return false;
+
+      if(filter === "expired" &&
+        status.className !== "expired")
+        return false;
+
+      return true;
+
+    });
+
+
+  if(!list.length){
+
+    tbody.innerHTML =
+      `<tr><td colspan="7">Aucun abonné trouvé.</td></tr>`;
+
+  }
+
+
+  list.forEach(sub => {
+
+    const status =
+      subscriberStatus(sub);
+
+    const tr =
+      document.createElement("tr");
+
+    tr.innerHTML = `
+
+      <td>
+        <strong>
+          ${escapeHTML(sub.customer_name)}
+        </strong>
+      </td>
+
+      <td>
+        ${escapeHTML(sub.profile_name || "—")}
+      </td>
+
+      <td>
+        ${formatDate(sub.start_date)}
+      </td>
+
+      <td>
+        ${formatDate(sub.end_date)}
+      </td>
+
+      <td>
+        ${escapeHTML(sub.subscription_type)}
+      </td>
+
+      <td>
+        <span class="status ${status.className}">
+          ${status.text}
+        </span>
+      </td>
+
+      <td>
+
+        <button
+          class="delete-btn"
+          onclick="deleteSubscriber('${sub.id}')"
+        >
+          Supprimer
+        </button>
+
+      </td>
+
+    `;
+
+    tbody.appendChild(tr);
+
+  });
+
+
+  updateSubscriberStats();
+
+}
+
+
+function updateSubscriberStats(){
+
+  let active = 0;
+
+  let expired = 0;
+
+  subscribers.forEach(sub => {
+
+    const status =
+      subscriberStatus(sub);
+
+    if(status.className === "expired")
+      expired++;
+    else
+      active++;
+
+  });
+
+  document.getElementById("totalSubscribers")
+    .textContent = subscribers.length;
+
+  document.getElementById("activeSubscribers")
+    .textContent = active;
+
+  document.getElementById("expiredSubscribers")
+    .textContent = expired;
+
+}
+
+
+async function deleteSubscriber(id){
+
+  if(!confirm(
+    "Voulez-vous supprimer cet abonné ?"
+  )) return;
+
+  const {error} =
+    await db
+      .from("subscribers")
+      .delete()
+      .eq("id",id)
+      .eq("user_id",currentUser.id);
+
+  if(error){
+
+    showToast(
+      "Impossible de supprimer l'abonné."
+    );
+
+    return;
+
+  }
+
+  await loadSubscribers();
+
+  renderSubscribers();
+
+  showToast("Abonné supprimé.");
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function showPage(page,button){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(p=>{
+      p.classList.remove("active");
+    });
+
+  document
+    .getElementById(page)
+    .classList.add("active");
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(b=>{
+      b.classList.remove("active");
+    });
+
+  if(button){
+    button.classList.add("active");
+  }
+
+  document
+    .getElementById("sidebar")
+    .classList.remove("open");
+
+}
+
+
+function toggleSidebar(){
+
+  document
+    .getElementById("sidebar")
+    .classList.toggle("open");
+
+}
+
+
+/* =====================================================
+   SECURITY / HTML
+===================================================== */
+
+function escapeHTML(value){
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =====================================================
+   AUTH SESSION CHECK
+===================================================== */
+
+async function checkSession(){
+
+  const {
+    data
+  } = await db.auth.getSession();
+
+  if(data.session){
+
+    currentUser =
+      data.session.user;
+
+    await startApp();
+
+  }
+
+}
+
+
+/* =====================================================
+   INIT
+===================================================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  ()=>{
+
+    document.getElementById("startDate")
+      .value = localDate();
+
+    checkSession();
+
+  }
+);
+
+
+db.auth.onAuthStateChange(
+  async (event,session)=>{
+
+    if(
+      event === "SIGNED_IN" &&
+      session &&
+      !currentUser
+    ){
+
+      currentUser = session.user;
+
+      await startApp();
+
+    }
+
+  }
+);
 
 </script>
 
