@@ -51,94 +51,6 @@ button{
   display:none!important;
 }
 
-/* LOGIN */
-
-.auth-screen{
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:20px;
-  background:
-    radial-gradient(circle at top left,rgba(254,67,2,.16),transparent 35%),
-    #f7f7f7;
-}
-
-.auth-card{
-  width:100%;
-  max-width:430px;
-  background:white;
-  padding:35px;
-  border-radius:24px;
-  box-shadow:var(--shadow);
-}
-
-.logo{
-  font-size:28px;
-  font-weight:900;
-  margin-bottom:8px;
-}
-
-.logo span{
-  color:var(--orange);
-}
-
-.auth-card p{
-  color:var(--gray2);
-  margin-bottom:25px;
-}
-
-.field{
-  margin-bottom:16px;
-}
-
-.field label{
-  display:block;
-  font-size:13px;
-  font-weight:700;
-  margin-bottom:7px;
-}
-
-.field input,
-.field select,
-.field textarea{
-  width:100%;
-  padding:13px 14px;
-  border:1px solid var(--border);
-  border-radius:12px;
-  outline:none;
-  background:white;
-}
-
-.field input:focus,
-.field select:focus,
-.field textarea:focus{
-  border-color:var(--orange);
-}
-
-.primary-btn{
-  width:100%;
-  border:0;
-  border-radius:12px;
-  padding:14px;
-  color:white;
-  font-weight:800;
-  background:linear-gradient(135deg,var(--orange),var(--orange2));
-}
-
-.auth-switch{
-  text-align:center;
-  margin-top:18px;
-  font-size:14px;
-}
-
-.auth-switch button{
-  border:0;
-  background:none;
-  color:var(--orange);
-  font-weight:800;
-}
-
 /* APP */
 
 .app{
@@ -188,18 +100,6 @@ button{
 .nav button.active{
   color:white;
   background:linear-gradient(135deg,var(--orange),var(--orange2));
-}
-
-.logout{
-  position:absolute;
-  bottom:25px;
-  left:16px;
-  right:16px;
-  border:1px solid #444;
-  background:#292929;
-  color:white;
-  padding:12px;
-  border-radius:12px;
 }
 
 .main{
@@ -337,6 +237,22 @@ button{
   border:1px solid var(--border);
   border-radius:12px;
   outline:none;
+  background:white;
+}
+
+.form-input:focus{
+  border-color:var(--orange);
+}
+
+.field{
+  margin-bottom:0;
+}
+
+.field label{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:7px;
 }
 
 .add-btn{
@@ -540,6 +456,7 @@ th{
 /* RESPONSIVE */
 
 @media(max-width:1100px){
+
   .cards{
     grid-template-columns:repeat(2,1fr);
   }
@@ -615,6 +532,7 @@ th{
 }
 
 @media(max-width:500px){
+
   .cards{
     grid-template-columns:1fr;
   }
@@ -622,59 +540,15 @@ th{
   .page-header h1{
     font-size:23px;
   }
-
-  .auth-card{
-    padding:25px;
-  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- AUTH -->
-
-<div id="authScreen" class="auth-screen">
-
-  <div class="auth-card">
-
-    <div class="logo">
-      Sales<span>Track</span>
-    </div>
-
-    <p id="authDescription">
-      Connectez-vous à votre espace.
-    </p>
-
-    <div class="field">
-      <label>Email</label>
-      <input id="authEmail" type="email" placeholder="Votre email">
-    </div>
-
-    <div class="field">
-      <label>Mot de passe</label>
-      <input id="authPassword" type="password" placeholder="Votre mot de passe">
-    </div>
-
-    <button class="primary-btn" id="authBtn" onclick="handleAuth()">
-      Se connecter
-    </button>
-
-    <div class="auth-switch">
-      <span id="switchText">Vous n'avez pas de compte ?</span>
-      <button onclick="toggleAuthMode()" id="switchBtn">
-        Créer un compte
-      </button>
-    </div>
-
-  </div>
-
-</div>
-
-
 <!-- APP -->
 
-<div id="app" class="app hidden">
+<div id="app" class="app">
 
   <aside class="sidebar" id="sidebar">
 
@@ -706,20 +580,22 @@ th{
 
     </nav>
 
-    <button class="logout" onclick="logout()">
-      Déconnexion
-    </button>
-
   </aside>
 
 
   <main class="main">
 
     <div class="mobile-top">
+
       <strong>SalesTrack</strong>
-      <button class="mobile-menu" onclick="toggleSidebar()">
+
+      <button
+        class="mobile-menu"
+        onclick="toggleSidebar()"
+      >
         Menu
       </button>
+
     </div>
 
 
@@ -728,40 +604,83 @@ th{
     <section id="dashboard" class="page active">
 
       <div class="page-header">
+
         <div>
+
           <h1>Dashboard</h1>
-          <p>Analyse de votre activité du jour.</p>
+
+          <p>
+            Analyse de votre activité du jour.
+          </p>
+
         </div>
+
       </div>
+
 
       <div class="cards">
 
         <div class="card">
-          <div class="card-label">Revenus aujourd'hui</div>
-          <div class="card-value orange-value" id="todayRevenue">
+
+          <div class="card-label">
+            Revenus aujourd'hui
+          </div>
+
+          <div
+            class="card-value orange-value"
+            id="todayRevenue"
+          >
             0 HTG
           </div>
+
         </div>
 
+
         <div class="card">
-          <div class="card-label">Opérations</div>
-          <div class="card-value" id="todayOperations">
+
+          <div class="card-label">
+            Opérations
+          </div>
+
+          <div
+            class="card-value"
+            id="todayOperations"
+          >
             0
           </div>
+
         </div>
 
+
         <div class="card">
-          <div class="card-label">Vente moyenne</div>
-          <div class="card-value" id="averageSale">
+
+          <div class="card-label">
+            Vente moyenne
+          </div>
+
+          <div
+            class="card-value"
+            id="averageSale"
+          >
             0 HTG
           </div>
+
         </div>
 
+
         <div class="card">
-          <div class="card-label">Articles vendus</div>
-          <div class="card-value" id="itemsSold">
+
+          <div class="card-label">
+            Articles vendus
+          </div>
+
+          <div
+            class="card-value"
+            id="itemsSold"
+          >
             0
           </div>
+
         </div>
 
       </div>
@@ -774,19 +693,34 @@ th{
           <h3>Objectif journalier</h3>
 
           <div class="card-value">
-            <span id="goalCurrent">0</span> /
+
+            <span id="goalCurrent">0</span>
+            /
             2 500 HTG
+
           </div>
 
           <div class="progress-wrap">
 
             <div class="progress-bar">
-              <div class="progress-fill" id="goalProgress"></div>
+
+              <div
+                class="progress-fill"
+                id="goalProgress"
+              ></div>
+
             </div>
 
             <div class="progress-info">
-              <span id="goalPercent">0%</span>
-              <span id="goalRemaining">Reste 2 500 HTG</span>
+
+              <span id="goalPercent">
+                0%
+              </span>
+
+              <span id="goalRemaining">
+                Reste 2 500 HTG
+              </span>
+
             </div>
 
           </div>
@@ -814,17 +748,22 @@ th{
           <h3>Revenus par heure</h3>
 
           <div class="chart-box">
+
             <canvas id="hourChart"></canvas>
+
           </div>
 
         </div>
+
 
         <div class="panel">
 
           <h3>Revenus par service</h3>
 
           <div class="chart-box">
+
             <canvas id="serviceChart"></canvas>
+
           </div>
 
         </div>
@@ -838,17 +777,24 @@ th{
 
           <h3>Meilleur service</h3>
 
-          <div class="card-value" id="bestService">
+          <div
+            class="card-value"
+            id="bestService"
+          >
             —
           </div>
 
         </div>
 
+
         <div class="panel">
 
           <h3>Meilleure heure</h3>
 
-          <div class="card-value" id="bestHour">
+          <div
+            class="card-value"
+            id="bestHour"
+          >
             —
           </div>
 
@@ -859,10 +805,15 @@ th{
 
       <div class="panel analysis">
 
-        <h3>Analyse automatique du jour</h3>
+        <h3>
+          Analyse automatique du jour
+        </h3>
 
         <div id="dailyAnalysis">
-          Ajoutez des opérations pour obtenir une analyse.
+
+          Ajoutez des opérations
+          pour obtenir une analyse.
+
         </div>
 
       </div>
@@ -877,8 +828,13 @@ th{
       <div class="page-header">
 
         <div>
+
           <h1>Nouvelle opération</h1>
-          <p>Enregistrez vos revenus et services.</p>
+
+          <p>
+            Enregistrez vos revenus et services.
+          </p>
+
         </div>
 
       </div>
@@ -889,13 +845,19 @@ th{
         <div class="operation-form">
 
           <div class="field">
+
             <label>Service</label>
 
-            <select class="form-input" id="operationService">
-            </select>
+            <select
+              class="form-input"
+              id="operationService"
+            ></select>
+
           </div>
 
+
           <div class="field">
+
             <label>Quantité</label>
 
             <input
@@ -905,9 +867,12 @@ th{
               min="1"
               value="1"
             >
+
           </div>
 
+
           <div class="field">
+
             <label>Prix unitaire</label>
 
             <input
@@ -916,7 +881,9 @@ th{
               type="number"
               min="0"
             >
+
           </div>
+
 
           <button
             class="add-btn"
@@ -939,19 +906,29 @@ th{
       <div class="page-header">
 
         <div>
+
           <h1>Services</h1>
-          <p>Gérez vos services et leurs prix.</p>
+
+          <p>
+            Gérez vos services et leurs prix.
+          </p>
+
         </div>
 
       </div>
 
-      <div class="service-grid" id="servicesList">
-      </div>
+
+      <div
+        class="service-grid"
+        id="servicesList"
+      ></div>
 
 
       <div class="add-service-card">
 
-        <h3>Ajouter mon propre service</h3>
+        <h3>
+          Ajouter mon propre service
+        </h3>
 
         <div class="add-service-form">
 
@@ -990,10 +967,14 @@ th{
       <div class="page-header">
 
         <div>
+
           <h1>Abonnés Netflix</h1>
+
           <p>
-            Gérez vos abonnements indépendamment du chiffre d'affaires.
+            Gérez vos abonnements indépendamment
+            du chiffre d'affaires.
           </p>
+
         </div>
 
       </div>
@@ -1002,18 +983,41 @@ th{
       <div class="subscriber-stats">
 
         <div class="stat-box">
-          <div class="card-label">Total abonnés</div>
-          <strong id="totalSubscribers">0</strong>
+
+          <div class="card-label">
+            Total abonnés
+          </div>
+
+          <strong id="totalSubscribers">
+            0
+          </strong>
+
         </div>
 
-        <div class="stat-box">
-          <div class="card-label">Abonnements actifs</div>
-          <strong id="activeSubscribers">0</strong>
-        </div>
 
         <div class="stat-box">
-          <div class="card-label">Abonnements expirés</div>
-          <strong id="expiredSubscribers">0</strong>
+
+          <div class="card-label">
+            Abonnements actifs
+          </div>
+
+          <strong id="activeSubscribers">
+            0
+          </strong>
+
+        </div>
+
+
+        <div class="stat-box">
+
+          <div class="card-label">
+            Abonnements expirés
+          </div>
+
+          <strong id="expiredSubscribers">
+            0
+          </strong>
+
         </div>
 
       </div>
@@ -1026,45 +1030,80 @@ th{
         <div class="subscriber-form">
 
           <div class="field">
+
             <label>Nom du client</label>
+
             <input
               class="form-input"
               id="customerName"
               placeholder="Ex: Jean Pierre"
             >
+
           </div>
 
+
           <div class="field">
+
             <label>Nom sur le profil</label>
+
             <input
               class="form-input"
               id="profileName"
               placeholder="Ex: Jean"
             >
+
           </div>
 
+
           <div class="field">
+
             <label>Date de début</label>
+
             <input
               class="form-input"
               id="startDate"
               type="date"
             >
+
           </div>
 
+
           <div class="field">
+
             <label>Durée</label>
+
             <select
               class="form-input"
               id="subscriptionType"
             >
-              <option value="7 jours">7 jours</option>
-              <option value="15 jours">15 jours</option>
-              <option value="30 jours" selected>30 jours</option>
-              <option value="60 jours">60 jours</option>
-              <option value="90 jours">90 jours</option>
+
+              <option value="7 jours">
+                7 jours
+              </option>
+
+              <option value="15 jours">
+                15 jours
+              </option>
+
+              <option
+                value="30 jours"
+                selected
+              >
+                30 jours
+              </option>
+
+              <option value="60 jours">
+                60 jours
+              </option>
+
+              <option value="90 jours">
+                90 jours
+              </option>
+
             </select>
+
           </div>
+
 
           <button
             class="add-btn"
@@ -1096,12 +1135,23 @@ th{
             id="subscriberFilter"
             onchange="renderSubscribers()"
           >
-            <option value="all">Tous</option>
-            <option value="active">Actifs</option>
-            <option value="expired">Expirés</option>
+
+            <option value="all">
+              Tous
+            </option>
+
+            <option value="active">
+              Actifs
+            </option>
+
+            <option value="expired">
+              Expirés
+            </option>
+
           </select>
 
         </div>
+
 
         <div class="table-wrap">
 
@@ -1110,6 +1160,7 @@ th{
             <thead>
 
               <tr>
+
                 <th>Client</th>
                 <th>Profil</th>
                 <th>Début</th>
@@ -1117,12 +1168,12 @@ th{
                 <th>Durée</th>
                 <th>Statut</th>
                 <th>Action</th>
+
               </tr>
 
             </thead>
 
-            <tbody id="subscribersTable">
-            </tbody>
+            <tbody id="subscribersTable"></tbody>
 
           </table>
 
@@ -1140,11 +1191,17 @@ th{
       <div class="page-header">
 
         <div>
+
           <h1>Historique</h1>
-          <p>Historique de vos opérations enregistrées.</p>
+
+          <p>
+            Historique de vos opérations enregistrées.
+          </p>
+
         </div>
 
       </div>
+
 
       <div class="panel">
 
@@ -1155,6 +1212,7 @@ th{
             <thead>
 
               <tr>
+
                 <th>Date</th>
                 <th>Heure</th>
                 <th>Service</th>
@@ -1162,12 +1220,12 @@ th{
                 <th>Prix</th>
                 <th>Total</th>
                 <th>Action</th>
+
               </tr>
 
             </thead>
 
-            <tbody id="historyTable">
-            </tbody>
+            <tbody id="historyTable"></tbody>
 
           </table>
 
@@ -1182,17 +1240,23 @@ th{
 </div>
 
 
-<div id="toast" class="toast"></div>
+<div
+  id="toast"
+  class="toast"
+></div>
 
 
 <script>
 
 /* =====================================================
-   SUPABASE CONFIGURATION
+   SUPABASE
 ===================================================== */
 
-const SUPABASE_URL = "https://olayznhimjjjwdrjvryp.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_6NiV3HsDHuouUbaLZClcGw_-cpziTuq";
+const SUPABASE_URL =
+  "https://olayznhimjjjwdrjvryp.supabase.co";
+
+const SUPABASE_ANON_KEY =
+  "sb_publishable_6NiV3HsDHuouUbaLZClcGw_-cpziTuq";
 
 const { createClient } = supabase;
 
@@ -1207,10 +1271,6 @@ const db = createClient(
 ===================================================== */
 
 const DAILY_GOAL = 2500;
-
-let authMode = "login";
-
-let currentUser = null;
 
 let services = [];
 
@@ -1233,19 +1293,24 @@ function localDate(){
 
   const y = d.getFullYear();
 
-  const m = String(d.getMonth()+1).padStart(2,"0");
+  const m =
+    String(d.getMonth()+1)
+      .padStart(2,"0");
 
-  const day = String(d.getDate()).padStart(2,"0");
+  const day =
+    String(d.getDate())
+      .padStart(2,"0");
 
   return `${y}-${m}-${day}`;
+
 }
 
 
 function formatMoney(value){
 
-  return Number(value || 0).toLocaleString(
-    "fr-FR"
-  ) + " HTG";
+  return Number(value || 0)
+    .toLocaleString("fr-FR")
+    + " HTG";
 
 }
 
@@ -1254,8 +1319,9 @@ function formatDate(date){
 
   if(!date) return "—";
 
-  return new Date(date + "T00:00:00")
-    .toLocaleDateString("fr-FR");
+  return new Date(
+    date + "T00:00:00"
+  ).toLocaleDateString("fr-FR");
 
 }
 
@@ -1274,142 +1340,10 @@ function showToast(message){
   toast.classList.add("show");
 
   setTimeout(()=>{
+
     toast.classList.remove("show");
+
   },3000);
-
-}
-
-
-/* =====================================================
-   AUTH
-===================================================== */
-
-function toggleAuthMode(){
-
-  if(authMode === "login"){
-
-    authMode = "signup";
-
-    document.getElementById("authDescription")
-      .textContent =
-      "Créez votre compte SalesTrack.";
-
-    document.getElementById("authBtn")
-      .textContent =
-      "Créer mon compte";
-
-    document.getElementById("switchText")
-      .textContent =
-      "Vous avez déjà un compte ?";
-
-    document.getElementById("switchBtn")
-      .textContent =
-      "Se connecter";
-
-  }else{
-
-    authMode = "login";
-
-    document.getElementById("authDescription")
-      .textContent =
-      "Connectez-vous à votre espace.";
-
-    document.getElementById("authBtn")
-      .textContent =
-      "Se connecter";
-
-    document.getElementById("switchText")
-      .textContent =
-      "Vous n'avez pas de compte ?";
-
-    document.getElementById("switchBtn")
-      .textContent =
-      "Créer un compte";
-
-  }
-
-}
-
-
-async function handleAuth(){
-
-  const email =
-    document.getElementById("authEmail")
-      .value.trim();
-
-  const password =
-    document.getElementById("authPassword")
-      .value;
-
-  if(!email || !password){
-
-    showToast("Veuillez remplir tous les champs.");
-
-    return;
-
-  }
-
-  const btn =
-    document.getElementById("authBtn");
-
-  btn.disabled = true;
-
-  if(authMode === "signup"){
-
-    const {data,error} =
-      await db.auth.signUp({
-        email,
-        password
-      });
-
-    btn.disabled = false;
-
-    if(error){
-
-      showToast(error.message);
-
-      return;
-
-    }
-
-    showToast(
-      "Compte créé. Vérifiez votre email si nécessaire."
-    );
-
-  }else{
-
-    const {data,error} =
-      await db.auth.signInWithPassword({
-        email,
-        password
-      });
-
-    btn.disabled = false;
-
-    if(error){
-
-      showToast(
-        "Email ou mot de passe incorrect."
-      );
-
-      return;
-
-    }
-
-    currentUser = data.user;
-
-    await startApp();
-
-  }
-
-}
-
-
-async function logout(){
-
-  await db.auth.signOut();
-
-  location.reload();
 
 }
 
@@ -1419,14 +1353,6 @@ async function logout(){
 ===================================================== */
 
 async function startApp(){
-
-  document
-    .getElementById("authScreen")
-    .classList.add("hidden");
-
-  document
-    .getElementById("app")
-    .classList.remove("hidden");
 
   await loadServices();
 
@@ -1492,11 +1418,18 @@ async function loadServices(){
     await db
       .from("services")
       .select("*")
-      .order("created_at",{ascending:true});
+      .order(
+        "created_at",
+        {ascending:true}
+      );
 
   if(error){
 
     console.error(error);
+
+    showToast(
+      "Erreur lors du chargement des services."
+    );
 
     return;
 
@@ -1504,28 +1437,40 @@ async function loadServices(){
 
   services = data || [];
 
+
   if(services.length === 0){
 
-    for(const service of DEFAULT_SERVICES){
+    for(
+      const service
+      of DEFAULT_SERVICES
+    ){
 
       await db
         .from("services")
         .insert({
-          user_id:currentUser.id,
+
           name:service.name,
+
           price:service.price,
+
           is_default:true
+
         });
 
     }
+
 
     const result =
       await db
         .from("services")
         .select("*")
-        .order("created_at",{ascending:true});
+        .order(
+          "created_at",
+          {ascending:true}
+        );
 
-    services = result.data || [];
+    services =
+      result.data || [];
 
   }
 
@@ -1535,42 +1480,52 @@ async function loadServices(){
 function renderServices(){
 
   const container =
-    document.getElementById("servicesList");
+    document.getElementById(
+      "servicesList"
+    );
 
   container.innerHTML = "";
 
-  services.forEach(service => {
+
+  services.forEach(service=>{
 
     const card =
       document.createElement("div");
 
-    card.className = "service-card";
+    card.className =
+      "service-card";
 
     card.innerHTML = `
 
       <div class="service-top">
 
         <div class="service-name">
+
           ${escapeHTML(service.name)}
+
         </div>
 
         ${
           service.is_default
           ? ""
           : `
+
           <button
             class="delete-btn"
             onclick="deleteService('${service.id}')"
           >
             Supprimer
           </button>
+
           `
         }
 
       </div>
 
       <div class="service-price">
+
         ${formatMoney(service.price)}
+
       </div>
 
     `;
@@ -1581,16 +1536,20 @@ function renderServices(){
 
 
   const select =
-    document.getElementById("operationService");
+    document.getElementById(
+      "operationService"
+    );
 
   select.innerHTML = "";
 
-  services.forEach(service => {
+
+  services.forEach(service=>{
 
     const option =
       document.createElement("option");
 
-    option.value = service.id;
+    option.value =
+      service.id;
 
     option.textContent =
       `${service.name} — ${formatMoney(service.price)}`;
@@ -1605,73 +1564,114 @@ function renderServices(){
 async function addCustomService(){
 
   const name =
-    document.getElementById("customServiceName")
-      .value.trim();
+    document
+      .getElementById(
+        "customServiceName"
+      )
+      .value
+      .trim();
+
 
   const price =
     Number(
-      document.getElementById("customServicePrice")
+      document
+        .getElementById(
+          "customServicePrice"
+        )
         .value
     );
 
+
   if(!name){
 
-    showToast("Entrez le nom du service.");
+    showToast(
+      "Entrez le nom du service."
+    );
 
     return;
 
   }
+
 
   if(!price || price < 0){
 
-    showToast("Entrez un prix valide.");
+    showToast(
+      "Entrez un prix valide."
+    );
 
     return;
 
   }
+
 
   const exists =
     services.some(
-      s => s.name.toLowerCase() === name.toLowerCase()
+      s =>
+        s.name.toLowerCase()
+        ===
+        name.toLowerCase()
     );
+
 
   if(exists){
 
-    showToast("Ce service existe déjà.");
+    showToast(
+      "Ce service existe déjà."
+    );
 
     return;
 
   }
+
 
   const {error} =
     await db
       .from("services")
       .insert({
-        user_id:currentUser.id,
-        name,
-        price,
+
+        name:name,
+
+        price:price,
+
         is_default:false
+
       });
+
 
   if(error){
 
-    showToast("Impossible d'ajouter le service.");
+    console.error(error);
+
+    showToast(
+      "Impossible d'ajouter le service."
+    );
 
     return;
 
   }
 
-  document.getElementById("customServiceName")
+
+  document
+    .getElementById(
+      "customServiceName"
+    )
     .value = "";
 
-  document.getElementById("customServicePrice")
+
+  document
+    .getElementById(
+      "customServicePrice"
+    )
     .value = "";
+
 
   await loadServices();
 
   renderServices();
 
-  showToast("Service ajouté.");
+  showToast(
+    "Service ajouté."
+  );
 
 }
 
@@ -1679,7 +1679,11 @@ async function addCustomService(){
 async function deleteService(id){
 
   const used =
-    sales.some(s => s.service_id === id);
+    sales.some(
+      s =>
+        s.service_id === id
+    );
+
 
   if(used){
 
@@ -1691,28 +1695,39 @@ async function deleteService(id){
 
   }
 
-  if(!confirm("Supprimer ce service ?")) return;
+
+  if(
+    !confirm(
+      "Supprimer ce service ?"
+    )
+  ) return;
+
 
   const {error} =
     await db
       .from("services")
       .delete()
-      .eq("id",id)
-      .eq("user_id",currentUser.id);
+      .eq("id",id);
+
 
   if(error){
 
-    showToast("Impossible de supprimer le service.");
+    showToast(
+      "Impossible de supprimer le service."
+    );
 
     return;
 
   }
 
+
   await loadServices();
 
   renderServices();
 
-  showToast("Service supprimé.");
+  showToast(
+    "Service supprimé."
+  );
 
 }
 
@@ -1720,16 +1735,28 @@ async function deleteService(id){
 function updateOperationPrice(){
 
   const serviceId =
-    document.getElementById("operationService")
+    document
+      .getElementById(
+        "operationService"
+      )
       .value;
 
+
   const service =
-    services.find(s => s.id === serviceId);
+    services.find(
+      s =>
+        s.id === serviceId
+    );
+
 
   if(service){
 
-    document.getElementById("operationPrice")
-      .value = service.price;
+    document
+      .getElementById(
+        "operationPrice"
+      )
+      .value =
+      service.price;
 
   }
 
@@ -1737,7 +1764,9 @@ function updateOperationPrice(){
 
 
 document
-  .getElementById("operationService")
+  .getElementById(
+    "operationService"
+  )
   .addEventListener(
     "change",
     updateOperationPrice
@@ -1754,16 +1783,28 @@ async function loadSales(){
     await db
       .from("sales")
       .select("*")
-      .order("sale_date",{ascending:false})
-      .order("sale_time",{ascending:false});
+      .order(
+        "sale_date",
+        {ascending:false}
+      )
+      .order(
+        "sale_time",
+        {ascending:false}
+      );
+
 
   if(error){
 
     console.error(error);
 
+    showToast(
+      "Erreur lors du chargement des opérations."
+    );
+
     return;
 
   }
+
 
   sales = data || [];
 
@@ -1773,79 +1814,131 @@ async function loadSales(){
 async function addSale(){
 
   const serviceId =
-    document.getElementById("operationService")
+    document
+      .getElementById(
+        "operationService"
+      )
       .value;
+
 
   const quantity =
     Number(
-      document.getElementById("operationQuantity")
+      document
+        .getElementById(
+          "operationQuantity"
+        )
         .value
     );
+
 
   const price =
     Number(
-      document.getElementById("operationPrice")
+      document
+        .getElementById(
+          "operationPrice"
+        )
         .value
     );
 
+
   const service =
-    services.find(s => s.id === serviceId);
+    services.find(
+      s =>
+        s.id === serviceId
+    );
+
 
   if(!service){
 
-    showToast("Sélectionnez un service.");
+    showToast(
+      "Sélectionnez un service."
+    );
 
     return;
 
   }
 
-  if(!quantity || quantity < 1){
 
-    showToast("Quantité invalide.");
+  if(
+    !quantity ||
+    quantity < 1
+  ){
+
+    showToast(
+      "Quantité invalide."
+    );
 
     return;
 
   }
+
 
   if(price < 0){
 
-    showToast("Prix invalide.");
+    showToast(
+      "Prix invalide."
+    );
 
     return;
 
   }
+
 
   const total =
     quantity * price;
 
-  const now = new Date();
+
+  const now =
+    new Date();
+
 
   const time =
-    now.toTimeString().slice(0,8);
+    now
+      .toTimeString()
+      .slice(0,8);
+
 
   const {error} =
     await db
       .from("sales")
       .insert({
-        user_id:currentUser.id,
-        service_id:service.id,
-        service_name:service.name,
-        quantity,
-        unit_price:price,
-        total,
-        sale_date:localDate(),
-        sale_time:time
+
+        service_id:
+          service.id,
+
+        service_name:
+          service.name,
+
+        quantity:
+          quantity,
+
+        unit_price:
+          price,
+
+        total:
+          total,
+
+        sale_date:
+          localDate(),
+
+        sale_time:
+          time
+
       });
+
 
   if(error){
 
     console.error(error);
 
-    showToast("Erreur lors de l'enregistrement.");
+    showToast(
+      "Erreur lors de l'enregistrement."
+    );
 
     return;
 
   }
+
 
   await loadSales();
 
@@ -1853,32 +1946,47 @@ async function addSale(){
 
   renderHistory();
 
-  document.getElementById("operationQuantity")
+
+  document
+    .getElementById(
+      "operationQuantity"
+    )
     .value = 1;
 
-  showToast("Opération enregistrée.");
+
+  showToast(
+    "Opération enregistrée."
+  );
 
 }
 
 
 async function deleteSale(id){
 
-  if(!confirm("Supprimer cette opération ?")) return;
+  if(
+    !confirm(
+      "Supprimer cette opération ?"
+    )
+  ) return;
+
 
   const {error} =
     await db
       .from("sales")
       .delete()
-      .eq("id",id)
-      .eq("user_id",currentUser.id);
+      .eq("id",id);
+
 
   if(error){
 
-    showToast("Impossible de supprimer.");
+    showToast(
+      "Impossible de supprimer."
+    );
 
     return;
 
   }
+
 
   await loadSales();
 
@@ -1886,7 +1994,9 @@ async function deleteSale(id){
 
   renderHistory();
 
-  showToast("Opération supprimée.");
+  showToast(
+    "Opération supprimée."
+  );
 
 }
 
@@ -1901,7 +2011,8 @@ function getTodaySales(){
     localDate();
 
   return sales.filter(
-    sale => sale.sale_date === today
+    sale =>
+      sale.sale_date === today
   );
 
 }
@@ -1912,53 +2023,101 @@ function updateDashboard(){
   const todaySales =
     getTodaySales();
 
+
   const revenue =
     todaySales.reduce(
-      (sum,sale)=>sum + Number(sale.total),
+      (sum,sale)=>
+        sum +
+        Number(sale.total),
       0
     );
+
 
   const operations =
     todaySales.length;
 
+
   const items =
     todaySales.reduce(
-      (sum,sale)=>sum + Number(sale.quantity),
+      (sum,sale)=>
+        sum +
+        Number(sale.quantity),
       0
     );
+
 
   const average =
     operations
     ? revenue / operations
     : 0;
 
-  document.getElementById("todayRevenue")
-    .textContent = formatMoney(revenue);
 
-  document.getElementById("todayOperations")
-    .textContent = operations;
+  document
+    .getElementById(
+      "todayRevenue"
+    )
+    .textContent =
+    formatMoney(revenue);
 
-  document.getElementById("averageSale")
-    .textContent = formatMoney(average);
 
-  document.getElementById("itemsSold")
-    .textContent = items;
+  document
+    .getElementById(
+      "todayOperations"
+    )
+    .textContent =
+    operations;
 
-  document.getElementById("goalCurrent")
-    .textContent = revenue.toLocaleString("fr-FR");
+
+  document
+    .getElementById(
+      "averageSale"
+    )
+    .textContent =
+    formatMoney(average);
+
+
+  document
+    .getElementById(
+      "itemsSold"
+    )
+    .textContent =
+    items;
+
+
+  document
+    .getElementById(
+      "goalCurrent"
+    )
+    .textContent =
+    revenue.toLocaleString(
+      "fr-FR"
+    );
+
 
   const percent =
     Math.min(
       100,
-      (revenue / DAILY_GOAL) * 100
+      (revenue / DAILY_GOAL)
+      * 100
     );
 
-  document.getElementById("goalProgress")
-    .style.width = percent + "%";
 
-  document.getElementById("goalPercent")
+  document
+    .getElementById(
+      "goalProgress"
+    )
+    .style.width =
+    percent + "%";
+
+
+  document
+    .getElementById(
+      "goalPercent"
+    )
     .textContent =
-    Math.round(percent) + "%";
+    Math.round(percent)
+    + "%";
+
 
   const remaining =
     Math.max(
@@ -1966,7 +2125,11 @@ function updateDashboard(){
       DAILY_GOAL - revenue
     );
 
-  document.getElementById("goalRemaining")
+
+  document
+    .getElementById(
+      "goalRemaining"
+    )
     .textContent =
     remaining > 0
     ? `Reste ${formatMoney(remaining)}`
@@ -1975,18 +2138,25 @@ function updateDashboard(){
 
   let performance = "";
 
+
   if(revenue === 0){
 
     performance =
       "Aucune vente enregistrée aujourd'hui.";
 
-  }else if(revenue < DAILY_GOAL){
+  }
+
+  else if(
+    revenue < DAILY_GOAL
+  ){
 
     performance =
       `Vous avez généré ${formatMoney(revenue)} aujourd'hui. ` +
       `Il vous reste ${formatMoney(remaining)} pour atteindre votre objectif.`;
 
-  }else{
+  }
+
+  else{
 
     performance =
       `Objectif atteint. Vous avez dépassé votre objectif de ` +
@@ -1994,8 +2164,13 @@ function updateDashboard(){
 
   }
 
-  document.getElementById("performanceText")
-    .textContent = performance;
+
+  document
+    .getElementById(
+      "performanceText"
+    )
+    .textContent =
+    performance;
 
 
   updateCharts(todaySales);
@@ -2004,7 +2179,10 @@ function updateDashboard(){
 
   updateBestHour(todaySales);
 
-  updateAnalysis(todaySales,revenue);
+  updateAnalysis(
+    todaySales,
+    revenue
+  );
 
 }
 
@@ -2013,22 +2191,34 @@ function updateBestService(todaySales){
 
   const map = {};
 
-  todaySales.forEach(sale => {
+
+  todaySales.forEach(sale=>{
 
     if(!map[sale.service_name]){
+
       map[sale.service_name] = 0;
+
     }
+
 
     map[sale.service_name] +=
       Number(sale.total);
 
   });
 
+
   const entries =
     Object.entries(map)
-      .sort((a,b)=>b[1]-a[1]);
+      .sort(
+        (a,b)=>
+          b[1]-a[1]
+      );
 
-  document.getElementById("bestService")
+
+  document
+    .getElementById(
+      "bestService"
+    )
     .textContent =
     entries.length
     ? `${entries[0][0]} — ${formatMoney(entries[0][1])}`
@@ -2041,25 +2231,41 @@ function updateBestHour(todaySales){
 
   const map = {};
 
-  todaySales.forEach(sale => {
+
+  todaySales.forEach(sale=>{
 
     const hour =
-      String(sale.sale_time || "00:00")
-        .slice(0,2);
+      String(
+        sale.sale_time ||
+        "00:00"
+      ).slice(0,2);
+
 
     if(!map[hour]){
+
       map[hour] = 0;
+
     }
 
-    map[hour] += Number(sale.total);
+
+    map[hour] +=
+      Number(sale.total);
 
   });
 
+
   const entries =
     Object.entries(map)
-      .sort((a,b)=>b[1]-a[1]);
+      .sort(
+        (a,b)=>
+          b[1]-a[1]
+      );
 
-  document.getElementById("bestHour")
+
+  document
+    .getElementById(
+      "bestHour"
+    )
     .textContent =
     entries.length
     ? `${entries[0][0]}h — ${formatMoney(entries[0][1])}`
@@ -2076,95 +2282,170 @@ function updateCharts(todaySales){
 
   const hourData = {};
 
-  for(let i=0;i<24;i++){
+
+  for(
+    let i=0;
+    i<24;
+    i++
+  ){
 
     hourData[
-      String(i).padStart(2,"0")
+      String(i)
+        .padStart(2,"0")
     ] = 0;
 
   }
 
-  todaySales.forEach(sale => {
+
+  todaySales.forEach(sale=>{
 
     const hour =
-      String(sale.sale_time || "00:00")
-        .slice(0,2);
+      String(
+        sale.sale_time ||
+        "00:00"
+      ).slice(0,2);
 
-    hourData[hour] += Number(sale.total);
+
+    hourData[hour] +=
+      Number(sale.total);
 
   });
 
 
   const serviceData = {};
 
-  todaySales.forEach(sale => {
 
-    if(!serviceData[sale.service_name]){
-      serviceData[sale.service_name] = 0;
+  todaySales.forEach(sale=>{
+
+    if(
+      !serviceData[
+        sale.service_name
+      ]
+    ){
+
+      serviceData[
+        sale.service_name
+      ] = 0;
+
     }
 
-    serviceData[sale.service_name] +=
+
+    serviceData[
+      sale.service_name
+    ] +=
       Number(sale.total);
 
   });
 
 
   if(hourChart){
+
     hourChart.destroy();
+
   }
+
 
   hourChart =
     new Chart(
-      document.getElementById("hourChart"),
+      document.getElementById(
+        "hourChart"
+      ),
       {
+
         type:"line",
+
         data:{
-          labels:Object.keys(hourData)
-            .map(h=>h+"h"),
-          datasets:[
-            {
-              label:"Revenus",
-              data:Object.values(hourData),
-              borderWidth:3,
-              tension:.35,
-              fill:false
-            }
-          ]
+
+          labels:
+            Object.keys(hourData)
+              .map(
+                h =>
+                  h + "h"
+              ),
+
+          datasets:[{
+
+            label:"Revenus",
+
+            data:
+              Object.values(
+                hourData
+              ),
+
+            borderWidth:3,
+
+            tension:.35,
+
+            fill:false
+
+          }]
+
         },
+
         options:{
+
           responsive:true,
+
           maintainAspectRatio:false,
+
           plugins:{
+
             legend:{
+
               display:false
+
             }
+
           }
+
         }
+
       }
     );
 
 
   if(serviceChart){
+
     serviceChart.destroy();
+
   }
+
 
   serviceChart =
     new Chart(
-      document.getElementById("serviceChart"),
+      document.getElementById(
+        "serviceChart"
+      ),
       {
+
         type:"doughnut",
+
         data:{
-          labels:Object.keys(serviceData),
-          datasets:[
-            {
-              data:Object.values(serviceData)
-            }
-          ]
+
+          labels:
+            Object.keys(
+              serviceData
+            ),
+
+          datasets:[{
+
+            data:
+              Object.values(
+                serviceData
+              )
+
+          }]
+
         },
+
         options:{
+
           responsive:true,
+
           maintainAspectRatio:false
+
         }
+
       }
     );
 
@@ -2175,12 +2456,20 @@ function updateCharts(todaySales){
    DAILY ANALYSIS
 ===================================================== */
 
-function updateAnalysis(todaySales,revenue){
+function updateAnalysis(
+  todaySales,
+  revenue
+){
 
   const box =
-    document.getElementById("dailyAnalysis");
+    document.getElementById(
+      "dailyAnalysis"
+    );
 
-  if(todaySales.length === 0){
+
+  if(
+    todaySales.length === 0
+  ){
 
     box.innerHTML =
       "Aucune opération enregistrée pour le moment.";
@@ -2189,36 +2478,52 @@ function updateAnalysis(todaySales,revenue){
 
   }
 
+
   const operations =
     todaySales.length;
+
 
   const average =
     revenue / operations;
 
+
   const remaining =
-    Math.max(0,DAILY_GOAL-revenue);
+    Math.max(
+      0,
+      DAILY_GOAL - revenue
+    );
+
 
   let text = "";
+
 
   text +=
     `<p>Vous avez réalisé <strong>${formatMoney(revenue)}</strong> aujourd'hui avec <strong>${operations}</strong> opération(s).</p>`;
 
+
   text +=
     `<p>Votre panier moyen est de <strong>${formatMoney(average)}</strong>.</p>`;
 
-  if(remaining > 0){
+
+  if(
+    remaining > 0
+  ){
 
     text +=
       `<p>Il vous manque <strong>${formatMoney(remaining)}</strong> pour atteindre l'objectif journalier de 2 500 HTG.</p>`;
 
-  }else{
+  }
+
+  else{
 
     text +=
       `<p>Votre objectif journalier de <strong>2 500 HTG</strong> est atteint.</p>`;
 
   }
 
-  box.innerHTML = text;
+
+  box.innerHTML =
+    text;
 
 }
 
@@ -2230,48 +2535,85 @@ function updateAnalysis(todaySales,revenue){
 function renderHistory(){
 
   const tbody =
-    document.getElementById("historyTable");
+    document.getElementById(
+      "historyTable"
+    );
+
 
   tbody.innerHTML = "";
+
 
   if(!sales.length){
 
     tbody.innerHTML =
-      `<tr><td colspan="7">Aucune opération.</td></tr>`;
+      `<tr>
+        <td colspan="7">
+          Aucune opération.
+        </td>
+      </tr>`;
 
     return;
 
   }
 
-  sales.forEach(sale => {
+
+  sales.forEach(sale=>{
 
     const tr =
       document.createElement("tr");
 
+
     tr.innerHTML = `
 
-      <td>${formatDate(sale.sale_date)}</td>
-
-      <td>${String(sale.sale_time || "").slice(0,5)}</td>
-
-      <td>${escapeHTML(sale.service_name)}</td>
-
-      <td>${sale.quantity}</td>
-
-      <td>${formatMoney(sale.unit_price)}</td>
-
-      <td><strong>${formatMoney(sale.total)}</strong></td>
+      <td>
+        ${formatDate(
+          sale.sale_date
+        )}
+      </td>
 
       <td>
+        ${String(
+          sale.sale_time || ""
+        ).slice(0,5)}
+      </td>
+
+      <td>
+        ${escapeHTML(
+          sale.service_name
+        )}
+      </td>
+
+      <td>
+        ${sale.quantity}
+      </td>
+
+      <td>
+        ${formatMoney(
+          sale.unit_price
+        )}
+      </td>
+
+      <td>
+        <strong>
+          ${formatMoney(
+            sale.total
+          )}
+        </strong>
+      </td>
+
+      <td>
+
         <button
           class="delete-btn"
           onclick="deleteSale('${sale.id}')"
         >
           Supprimer
         </button>
+
       </td>
 
     `;
+
 
     tbody.appendChild(tr);
 
@@ -2290,43 +2632,68 @@ async function loadSubscribers(){
     await db
       .from("subscribers")
       .select("*")
-      .order("end_date",{ascending:true});
+      .order(
+        "end_date",
+        {ascending:true}
+      );
+
 
   if(error){
 
     console.error(error);
 
+    showToast(
+      "Erreur lors du chargement des abonnés."
+    );
+
     return;
 
   }
 
-  subscribers = data || [];
+
+  subscribers =
+    data || [];
 
 }
 
 
-function calculateEndDate(startDate,type){
+function calculateEndDate(
+  startDate,
+  type
+){
 
   const days =
     parseInt(type);
 
+
   const date =
-    new Date(startDate + "T00:00:00");
+    new Date(
+      startDate +
+      "T00:00:00"
+    );
+
 
   date.setDate(
-    date.getDate() + days
+    date.getDate() +
+    days
   );
+
 
   const y =
     date.getFullYear();
 
+
   const m =
-    String(date.getMonth()+1)
-      .padStart(2,"0");
+    String(
+      date.getMonth()+1
+    ).padStart(2,"0");
+
 
   const d =
-    String(date.getDate())
-      .padStart(2,"0");
+    String(
+      date.getDate()
+    ).padStart(2,"0");
+
 
   return `${y}-${m}-${d}`;
 
@@ -2336,58 +2703,90 @@ function calculateEndDate(startDate,type){
 async function addSubscriber(){
 
   const customerName =
-    document.getElementById("customerName")
-      .value.trim();
+    document
+      .getElementById(
+        "customerName"
+      )
+      .value
+      .trim();
+
 
   const profileName =
-    document.getElementById("profileName")
-      .value.trim();
+    document
+      .getElementById(
+        "profileName"
+      )
+      .value
+      .trim();
+
 
   const startDate =
-    document.getElementById("startDate")
+    document
+      .getElementById(
+        "startDate"
+      )
       .value;
 
+
   const type =
-    document.getElementById("subscriptionType")
+    document
+      .getElementById(
+        "subscriptionType"
+      )
       .value;
+
 
   if(!customerName){
 
-    showToast("Entrez le nom du client.");
+    showToast(
+      "Entrez le nom du client."
+    );
 
     return;
 
   }
+
 
   if(!startDate){
 
-    showToast("Sélectionnez la date de début.");
+    showToast(
+      "Sélectionnez la date de début."
+    );
 
     return;
 
   }
 
+
   const endDate =
-    calculateEndDate(startDate,type);
+    calculateEndDate(
+      startDate,
+      type
+    );
+
 
   const {error} =
     await db
       .from("subscribers")
       .insert({
 
-        user_id:currentUser.id,
+        customer_name:
+          customerName,
 
-        customer_name:customerName,
+        profile_name:
+          profileName,
 
-        profile_name:profileName,
+        subscription_type:
+          type,
 
-        subscription_type:type,
+        start_date:
+          startDate,
 
-        start_date:startDate,
-
-        end_date:endDate
+        end_date:
+          endDate
 
       });
+
 
   if(error){
 
@@ -2401,63 +2800,97 @@ async function addSubscriber(){
 
   }
 
-  document.getElementById("customerName")
+
+  document
+    .getElementById(
+      "customerName"
+    )
     .value = "";
 
-  document.getElementById("profileName")
+
+  document
+    .getElementById(
+      "profileName"
+    )
     .value = "";
 
-  document.getElementById("startDate")
-    .value = "";
+
+  document
+    .getElementById(
+      "startDate"
+    )
+    .value = localDate();
+
 
   await loadSubscribers();
 
   renderSubscribers();
 
-  showToast("Abonné ajouté avec succès.");
+  showToast(
+    "Abonné ajouté avec succès."
+  );
 
 }
 
 
-function subscriberStatus(subscriber){
+function subscriberStatus(
+  subscriber
+){
 
   const today =
     new Date(
-      localDate() + "T00:00:00"
+      localDate() +
+      "T00:00:00"
     );
+
 
   const end =
     new Date(
-      subscriber.end_date + "T00:00:00"
+      subscriber.end_date +
+      "T00:00:00"
     );
+
 
   if(end < today){
 
     return {
+
       text:"Expiré",
+
       className:"expired"
+
     };
 
   }
 
+
   const diff =
     Math.ceil(
-      (end-today) /
+      (end - today) /
       (1000*60*60*24)
     );
+
 
   if(diff <= 3){
 
     return {
-      text:`Expire dans ${diff} jour(s)`,
+
+      text:
+        `Expire dans ${diff} jour(s)`,
+
       className:"soon"
+
     };
 
   }
 
+
   return {
+
     text:"Actif",
+
     className:"active"
+
   };
 
 }
@@ -2466,95 +2899,154 @@ function subscriberStatus(subscriber){
 function renderSubscribers(){
 
   const tbody =
-    document.getElementById("subscribersTable");
+    document.getElementById(
+      "subscribersTable"
+    );
+
 
   tbody.innerHTML = "";
 
+
   const search =
-    document.getElementById("subscriberSearch")
+    document
+      .getElementById(
+        "subscriberSearch"
+      )
       .value
       .toLowerCase()
       .trim();
 
+
   const filter =
-    document.getElementById("subscriberFilter")
+    document
+      .getElementById(
+        "subscriberFilter"
+      )
       .value;
 
 
-  let list =
-    subscribers.filter(sub => {
+  const list =
+    subscribers.filter(
+      sub=>{
 
-      const matchesSearch =
-        !search ||
-        sub.customer_name
-          .toLowerCase()
-          .includes(search) ||
-        (sub.profile_name || "")
-          .toLowerCase()
-          .includes(search);
+        const customer =
+          (
+            sub.customer_name ||
+            ""
+          ).toLowerCase();
 
-      if(!matchesSearch) return false;
 
-      const status =
-        subscriberStatus(sub);
+        const profile =
+          (
+            sub.profile_name ||
+            ""
+          ).toLowerCase();
 
-      if(filter === "active" &&
-        status.className === "expired")
-        return false;
 
-      if(filter === "expired" &&
-        status.className !== "expired")
-        return false;
+        const matchesSearch =
+          !search ||
+          customer.includes(search) ||
+          profile.includes(search);
 
-      return true;
 
-    });
+        if(!matchesSearch)
+          return false;
+
+
+        const status =
+          subscriberStatus(sub);
+
+
+        if(
+          filter === "active" &&
+          status.className === "expired"
+        ){
+
+          return false;
+
+        }
+
+
+        if(
+          filter === "expired" &&
+          status.className !== "expired"
+        ){
+
+          return false;
+
+        }
+
+
+        return true;
+
+      }
+    );
 
 
   if(!list.length){
 
     tbody.innerHTML =
-      `<tr><td colspan="7">Aucun abonné trouvé.</td></tr>`;
+      `<tr>
+        <td colspan="7">
+          Aucun abonné trouvé.
+        </td>
+      </tr>`;
 
   }
 
 
-  list.forEach(sub => {
+  list.forEach(sub=>{
 
     const status =
       subscriberStatus(sub);
 
+
     const tr =
       document.createElement("tr");
+
 
     tr.innerHTML = `
 
       <td>
         <strong>
-          ${escapeHTML(sub.customer_name)}
+          ${escapeHTML(
+            sub.customer_name
+          )}
         </strong>
       </td>
 
       <td>
-        ${escapeHTML(sub.profile_name || "—")}
+        ${escapeHTML(
+          sub.profile_name || "—"
+        )}
       </td>
 
       <td>
-        ${formatDate(sub.start_date)}
+        ${formatDate(
+          sub.start_date
+        )}
       </td>
 
       <td>
-        ${formatDate(sub.end_date)}
+        ${formatDate(
+          sub.end_date
+        )}
       </td>
 
       <td>
-        ${escapeHTML(sub.subscription_type)}
+        ${escapeHTML(
+          sub.subscription_type
+        )}
       </td>
 
       <td>
-        <span class="status ${status.className}">
+
+        <span
+          class="status ${status.className}"
+        >
           ${status.text}
         </span>
+
       </td>
 
       <td>
@@ -2569,6 +3061,7 @@ function renderSubscribers(){
       </td>
 
     `;
+
 
     tbody.appendChild(tr);
 
@@ -2586,42 +3079,72 @@ function updateSubscriberStats(){
 
   let expired = 0;
 
-  subscribers.forEach(sub => {
+
+  subscribers.forEach(sub=>{
 
     const status =
       subscriberStatus(sub);
 
-    if(status.className === "expired")
+
+    if(
+      status.className ===
+      "expired"
+    ){
+
       expired++;
-    else
+
+    }
+
+    else{
+
       active++;
+
+    }
 
   });
 
-  document.getElementById("totalSubscribers")
-    .textContent = subscribers.length;
 
-  document.getElementById("activeSubscribers")
-    .textContent = active;
+  document
+    .getElementById(
+      "totalSubscribers"
+    )
+    .textContent =
+    subscribers.length;
 
-  document.getElementById("expiredSubscribers")
-    .textContent = expired;
+
+  document
+    .getElementById(
+      "activeSubscribers"
+    )
+    .textContent =
+    active;
+
+
+  document
+    .getElementById(
+      "expiredSubscribers"
+    )
+    .textContent =
+    expired;
 
 }
 
 
 async function deleteSubscriber(id){
 
-  if(!confirm(
-    "Voulez-vous supprimer cet abonné ?"
-  )) return;
+  if(
+    !confirm(
+      "Voulez-vous supprimer cet abonné ?"
+    )
+  ) return;
+
 
   const {error} =
     await db
       .from("subscribers")
       .delete()
-      .eq("id",id)
-      .eq("user_id",currentUser.id);
+      .eq("id",id);
+
 
   if(error){
 
@@ -2633,11 +3156,14 @@ async function deleteSubscriber(id){
 
   }
 
+
   await loadSubscribers();
 
   renderSubscribers();
 
-  showToast("Abonné supprimé.");
+  showToast(
+    "Abonné supprimé."
+  );
 
 }
 
@@ -2646,31 +3172,56 @@ async function deleteSubscriber(id){
    NAVIGATION
 ===================================================== */
 
-function showPage(page,button){
+function showPage(
+  page,
+  button
+){
 
   document
     .querySelectorAll(".page")
     .forEach(p=>{
-      p.classList.remove("active");
+
+      p.classList.remove(
+        "active"
+      );
+
     });
+
 
   document
     .getElementById(page)
     .classList.add("active");
 
+
   document
-    .querySelectorAll(".nav button")
+    .querySelectorAll(
+      ".nav button"
+    )
     .forEach(b=>{
-      b.classList.remove("active");
+
+      b.classList.remove(
+        "active"
+      );
+
     });
 
+
   if(button){
-    button.classList.add("active");
+
+    button.classList.add(
+      "active"
+    );
+
   }
 
+
   document
-    .getElementById("sidebar")
-    .classList.remove("open");
+    .getElementById(
+      "sidebar"
+    )
+    .classList.remove(
+      "open"
+    );
 
 }
 
@@ -2678,8 +3229,12 @@ function showPage(page,button){
 function toggleSidebar(){
 
   document
-    .getElementById("sidebar")
-    .classList.toggle("open");
+    .getElementById(
+      "sidebar"
+    )
+    .classList.toggle(
+      "open"
+    );
 
 }
 
@@ -2691,33 +3246,26 @@ function toggleSidebar(){
 function escapeHTML(value){
 
   return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
-
-}
-
-
-/* =====================================================
-   AUTH SESSION CHECK
-===================================================== */
-
-async function checkSession(){
-
-  const {
-    data
-  } = await db.auth.getSession();
-
-  if(data.session){
-
-    currentUser =
-      data.session.user;
-
-    await startApp();
-
-  }
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
 
@@ -2728,31 +3276,17 @@ async function checkSession(){
 
 document.addEventListener(
   "DOMContentLoaded",
-  ()=>{
+  async ()=>{
 
-    document.getElementById("startDate")
-      .value = localDate();
+    document
+      .getElementById(
+        "startDate"
+      )
+      .value =
+      localDate();
 
-    checkSession();
 
-  }
-);
-
-
-db.auth.onAuthStateChange(
-  async (event,session)=>{
-
-    if(
-      event === "SIGNED_IN" &&
-      session &&
-      !currentUser
-    ){
-
-      currentUser = session.user;
-
-      await startApp();
-
-    }
+    await startApp();
 
   }
 );
