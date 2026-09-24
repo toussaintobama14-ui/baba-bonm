@@ -7,6 +7,7 @@
 <title>SalesTrack — Analyse Journalière</title>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 *{
@@ -620,10 +621,42 @@ th{
     align-items:flex-start;
   }
 }
+
+/* SUPABASE ADMIN EXTENSIONS */
+.login-overlay{
+  position:fixed; inset:0; z-index:9999; background:rgba(34,34,33,.96);
+  display:flex; align-items:center; justify-content:center; padding:20px;
+}
+.login-card{
+  width:min(420px,100%); background:#fff; border-radius:20px; padding:30px;
+  box-shadow:0 25px 70px rgba(0,0,0,.25);
+}
+.login-brand{font-size:25px;font-weight:900;margin-bottom:18px}
+.login-brand span{color:var(--orange)}
+.login-card h2{margin-bottom:7px}.login-card p{color:var(--muted);font-size:13px;line-height:1.5;margin-bottom:18px}
+.login-card input{width:100%;padding:13px;border:1px solid var(--border);border-radius:10px;outline:none}
+.login-card input:focus{border-color:var(--orange)}
+.login-status{font-size:13px;margin-top:12px;color:var(--muted);line-height:1.4}
+.section-note{color:var(--muted);font-size:13px;margin:-8px 0 18px}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:15px}
+.mini-total{font-size:16px;font-weight:900;color:var(--orange)}
+
 </style>
 </head>
 
 <body>
+
+<!-- SUPABASE LOGIN -->
+<div id="loginOverlay" class="login-overlay">
+  <div class="login-card">
+    <div class="login-brand">Sales<span>Track</span></div>
+    <h2>Accès administrateur</h2>
+    <p>Connectez-vous avec l’adresse autorisée pour accéder au dashboard.</p>
+    <input id="loginEmail" type="email" value="enlignecours109@gmail.com" placeholder="Votre email">
+    <button class="btn btn-primary btn-full" onclick="sendLoginLink()">Recevoir le lien de connexion</button>
+    <div id="loginStatus" class="login-status"></div>
+  </div>
+</div>
 
 <div class="app">
 
@@ -665,6 +698,22 @@ th{
     <button
       onclick="showSection('report',this)">
       Rapport
+    </button>
+
+    <button onclick="showSection('revenues',this)">
+      Revenus
+    </button>
+
+    <button onclick="showSection('netflix',this)">
+      Netflix
+    </button>
+
+    <button onclick="showSection('debts',this)">
+      Personnes qui me doivent
+    </button>
+
+    <button onclick="logoutAdmin()">
+      Déconnexion
     </button>
 
   </nav>
@@ -3197,26 +3246,255 @@ function escapeHtml(value){
 }
 
 
+
 /* =====================================================
-   INITIALISATION
+   SUPABASE + ADMIN DATA
 ===================================================== */
 
-loadServices();
+const SUPABASE_URL = "https://zykcoxlqlhtxucwtglqy.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_8td81G-vuv28Ug--cFrQRA_FK-A3XHc";
+const ADMIN_EMAIL = "enlignecours109@gmail.com";
+const { createClient } = window.supabase;
+const db = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
-loadData();
+let dailyRevenues = [];
+let netflixSubscriptions = [];
+let debts = [];
 
-renderServices();
+function localDateString(date=new Date()){
+  const d = new Date(date);
+  const y=d.getFullYear();
+  const m=String(d.getMonth()+1).padStart(2,"0");
+  const day=String(d.getDate()).padStart(2,"0");
+  return `${y}-${m}-${day}`;
+}
 
-updateDashboard();
+function setLoginStatus(msg, error=false){
+  const el=document.getElementById("loginStatus");
+  if(el){ el.textContent=msg; el.style.color=error ? "var(--red)" : "var(--muted)"; }
+}
 
-renderHistory();
+async function sendLoginLink(){
+  const email=document.getElementById("loginEmail").value.trim().toLowerCase();
+  if(email!==ADMIN_EMAIL){ setLoginStatus("Cette adresse n’est pas autorisée.",true); return; }
+  setLoginStatus("Envoi du lien de connexion…");
+  const {error}=await db.auth.signInWithOtp({
+    email,
+    options:{emailRedirectTo:window.location.href}
+  });
+  setLoginStatus(error ? error.message : "Lien envoyé. Vérifiez votre boîte email puis ouvrez le lien.");
+}
 
-renderAnalysis();
+async function logoutAdmin(){
+  await db.auth.signOut();
+  location.reload();
+}
 
-renderReport();
+async function guardAdmin(){
+  const {data:{session}}=await db.auth.getSession();
+  if(!session || session.user?.email?.toLowerCase()!==ADMIN_EMAIL){
+    document.getElementById("loginOverlay").style.display="flex";
+    return false;
+  }
+  document.getElementById("loginOverlay").style.display="none";
+  return true;
+}
 
+function addDays(dateStr, amount){
+  const d=new Date(dateStr+"T00:00:00");
+  d.setDate(d.getDate()+amount);
+  return localDateString(d);
+}
+function addMonths(dateStr, amount){
+  const d=new Date(dateStr+"T00:00:00");
+  d.setMonth(d.getMonth()+amount);
+  return localDateString(d);
+}
+function expirationDate(start, duration, unit){
+  const n=Number(duration);
+  if(unit==="weeks") return addDays(start,n*7);
+  if(unit==="months") return addMonths(start,n);
+  return addDays(start,n);
+}
+function statusFor(exp){
+  const today=localDateString();
+  if(exp<today) return {label:"Expiré",cls:"red"};
+  if(exp===today) return {label:"Expire aujourd’hui",cls:"red"};
+  const diff=Math.ceil((new Date(exp)-new Date(today))/86400000);
+  return {label:`Actif — ${diff} j`,cls:"green"};
+}
+
+async function loadAdminData(){
+  const [r,n,d]=await Promise.all([
+    db.from("daily_revenues").select("*").order("revenue_date",{ascending:false}).order("created_at",{ascending:false}),
+    db.from("netflix_subscriptions").select("*").order("expires_at",{ascending:true}),
+    db.from("debts").select("*").order("created_at",{ascending:false})
+  ]);
+  if(r.error) throw r.error;
+  if(n.error) throw n.error;
+  if(d.error) throw d.error;
+  dailyRevenues=r.data||[];
+  netflixSubscriptions=n.data||[];
+  debts=d.data||[];
+  renderAdminTables();
+  updateStoredDashboard();
+}
+
+async function addRevenue(){
+  const revenue_date=document.getElementById("revenueDate").value;
+  const amount=Number(document.getElementById("revenueAmount").value);
+  const note=document.getElementById("revenueNote").value.trim();
+  if(!revenue_date || amount<0 || !Number.isFinite(amount)){showToast("Entrez une date et un montant valide.");return;}
+  const {error}=await db.from("daily_revenues").insert({revenue_date,amount,note});
+  if(error){showToast(error.message);return;}
+  document.getElementById("revenueAmount").value="";
+  document.getElementById("revenueNote").value="";
+  await loadAdminData();
+  showToast("Revenu enregistré dans Supabase.");
+}
+
+async function deleteRevenue(id){
+  if(!confirm("Supprimer ce revenu ?")) return;
+  const {error}=await db.from("daily_revenues").delete().eq("id",id);
+  if(error){showToast(error.message);return;}
+  await loadAdminData(); showToast("Revenu supprimé.");
+}
+
+async function addNetflixSubscription(){
+  const customer_name=document.getElementById("nfCustomer").value.trim();
+  const profile_name=document.getElementById("nfProfile").value.trim();
+  const start_date=document.getElementById("nfStart").value;
+  const duration_value=Number(document.getElementById("nfDuration").value);
+  const duration_unit=document.getElementById("nfUnit").value;
+  if(!customer_name||!profile_name||!start_date||duration_value<1){showToast("Complétez les informations Netflix.");return;}
+  const expires_at=expirationDate(start_date,duration_value,duration_unit);
+  const {error}=await db.from("netflix_subscriptions").insert({
+    customer_name,profile_name,start_date,duration_value,duration_unit,expires_at
+  });
+  if(error){showToast(error.message);return;}
+  document.getElementById("nfCustomer").value="";
+  document.getElementById("nfProfile").value="";
+  document.getElementById("nfDuration").value="30";
+  await loadAdminData(); showToast("Abonnement Netflix enregistré.");
+}
+
+async function deleteNetflix(id){
+  if(!confirm("Supprimer cet abonnement Netflix ?")) return;
+  const {error}=await db.from("netflix_subscriptions").delete().eq("id",id);
+  if(error){showToast(error.message);return;}
+  await loadAdminData(); showToast("Abonnement supprimé.");
+}
+
+async function addDebt(){
+  const name=document.getElementById("debtName").value.trim();
+  const phone=document.getElementById("debtPhone").value.trim();
+  const amount=Number(document.getElementById("debtAmount").value);
+  const note=document.getElementById("debtNote").value.trim();
+  if(!name||!phone||amount<0||!Number.isFinite(amount)){showToast("Complétez les informations de la dette.");return;}
+  const {error}=await db.from("debts").insert({name,phone,amount,note});
+  if(error){showToast(error.message);return;}
+  ["debtName","debtPhone","debtAmount","debtNote"].forEach(id=>document.getElementById(id).value="");
+  await loadAdminData(); showToast("Dette enregistrée.");
+}
+
+async function deleteDebt(id){
+  if(!confirm("Supprimer cette dette ?")) return;
+  const {error}=await db.from("debts").delete().eq("id",id);
+  if(error){showToast(error.message);return;}
+  await loadAdminData(); showToast("Dette supprimée.");
+}
+
+function renderAdminTables(){
+  const rt=document.getElementById("revenuesTable");
+  if(rt){
+    rt.innerHTML=dailyRevenues.length ? dailyRevenues.map(x=>`
+      <tr><td>${escapeHtml(x.revenue_date)}</td>
+      <td><strong>${money(x.amount)}</strong></td>
+      <td>${escapeHtml(x.note||"—")}</td>
+      <td>${new Date(x.created_at).toLocaleString("fr-FR")}</td>
+      <td><button class="btn btn-danger" onclick="deleteRevenue('${x.id}')">Supprimer</button></td></tr>`).join("") :
+      `<tr><td colspan="5" class="empty">Aucun revenu enregistré.</td></tr>`;
+  }
+
+  const nt=document.getElementById("netflixTable");
+  if(nt){
+    nt.innerHTML=netflixSubscriptions.length ? netflixSubscriptions.map(x=>{
+      const s=statusFor(x.expires_at);
+      return `<tr>
+        <td><strong>${escapeHtml(x.customer_name)}</strong></td>
+        <td>${escapeHtml(x.profile_name)}</td>
+        <td>${escapeHtml(x.start_date)}</td>
+        <td>${x.duration_value} ${x.duration_unit==="months"?"mois":x.duration_unit==="weeks"?"sem.":"jours"}</td>
+        <td>${escapeHtml(x.expires_at)}</td>
+        <td class="${s.cls}"><strong>${s.label}</strong></td>
+        <td><button class="btn btn-danger" onclick="deleteNetflix('${x.id}')">Supprimer</button></td>
+      </tr>`;
+    }).join("") : `<tr><td colspan="7" class="empty">Aucun abonnement enregistré.</td></tr>`;
+  }
+
+  const dt=document.getElementById("debtsTable");
+  if(dt){
+    dt.innerHTML=debts.length ? debts.map(x=>`
+      <tr><td><strong>${escapeHtml(x.name)}</strong></td>
+      <td>${escapeHtml(x.phone)}</td>
+      <td><strong class="red">${money(x.amount)}</strong></td>
+      <td>${escapeHtml(x.note||"—")}</td>
+      <td><button class="btn btn-danger" onclick="deleteDebt('${x.id}')">Supprimer</button></td></tr>`).join("") :
+      `<tr><td colspan="5" class="empty">Aucune dette enregistrée.</td></tr>`;
+  }
+
+  const total=dailyRevenues.reduce((s,x)=>s+Number(x.amount||0),0);
+  const debtTotal=debts.reduce((s,x)=>s+Number(x.amount||0),0);
+  const active=netflixSubscriptions.filter(x=>x.expires_at>=localDateString()).length;
+  document.getElementById("revenueAllTotal").textContent=money(total);
+  document.getElementById("debtAllTotal").textContent=money(debtTotal);
+  document.getElementById("nfActiveTotal").textContent=`${active} actif${active>1?"s":""}`;
+}
+
+function updateStoredDashboard(){
+  const today=localDateString();
+  const todayRevenue=dailyRevenues.filter(x=>x.revenue_date===today)
+    .reduce((s,x)=>s+Number(x.amount||0),0);
+  const el=document.getElementById("todayRevenue");
+  if(el) el.textContent=money(todayRevenue);
+}
+
+function refreshDateInputs(){
+  const today=localDateString();
+  ["revenueDate","nfStart"].forEach(id=>{
+    const el=document.getElementById(id); if(el && !el.value) el.value=today;
+  });
+}
+
+async function initSupabaseApp(){
+  refreshDateInputs();
+  const ok=await guardAdmin();
+  if(!ok) return;
+  try{
+    await loadAdminData();
+    loadServices();
+    loadData();
+    renderServices();
+    updateDashboard();
+    renderHistory();
+    renderAnalysis();
+    renderReport();
+    updateStoredDashboard();
+  }catch(err){
+    console.error(err);
+    showToast("Erreur de chargement Supabase : "+err.message);
+  }
+}
+
+db.auth.onAuthStateChange((_event,session)=>{
+  if(session?.user?.email?.toLowerCase()===ADMIN_EMAIL){
+    document.getElementById("loginOverlay").style.display="none";
+    loadAdminData().catch(console.error);
+  }
+});
+
+initSupabaseApp();
 </script>
 
 </body>
 </html>
-```
