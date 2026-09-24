@@ -651,9 +651,10 @@ th{
   <div class="login-card">
     <div class="login-brand">Sales<span>Track</span></div>
     <h2>Accès administrateur</h2>
-    <p>Connectez-vous avec l’adresse autorisée pour accéder au dashboard.</p>
+    <p>Connectez-vous avec votre adresse email et votre mot de passe administrateur.</p>
     <input id="loginEmail" type="email" value="enlignecours109@gmail.com" placeholder="Votre email">
-    <button class="btn btn-primary btn-full" onclick="sendLoginLink()">Recevoir le lien de connexion</button>
+    <input id="loginPassword" type="password" placeholder="Votre mot de passe" autocomplete="current-password" style="margin-top:10px;">
+    <button class="btn btn-primary btn-full" onclick="loginAdmin()">Se connecter</button>
     <div id="loginStatus" class="login-status"></div>
   </div>
 </div>
@@ -3274,15 +3275,41 @@ function setLoginStatus(msg, error=false){
   if(el){ el.textContent=msg; el.style.color=error ? "var(--red)" : "var(--muted)"; }
 }
 
-async function sendLoginLink(){
+async function loginAdmin(){
   const email=document.getElementById("loginEmail").value.trim().toLowerCase();
-  if(email!==ADMIN_EMAIL){ setLoginStatus("Cette adresse n’est pas autorisée.",true); return; }
-  setLoginStatus("Envoi du lien de connexion…");
-  const {error}=await db.auth.signInWithOtp({
+  const password=document.getElementById("loginPassword").value;
+
+  if(email!==ADMIN_EMAIL){
+    setLoginStatus("Cette adresse n’est pas autorisée.",true);
+    return;
+  }
+
+  if(!password){
+    setLoginStatus("Entrez votre mot de passe.",true);
+    return;
+  }
+
+  setLoginStatus("Connexion en cours…");
+
+  const {data,error}=await db.auth.signInWithPassword({
     email,
-    options:{emailRedirectTo:window.location.href}
+    password
   });
-  setLoginStatus(error ? error.message : "Lien envoyé. Vérifiez votre boîte email puis ouvrez le lien.");
+
+  if(error){
+    setLoginStatus(error.message,true);
+    return;
+  }
+
+  if(data?.user?.email?.toLowerCase()!==ADMIN_EMAIL){
+    await db.auth.signOut();
+    setLoginStatus("Compte non autorisé.",true);
+    return;
+  }
+
+  document.getElementById("loginOverlay").style.display="none";
+  setLoginStatus("");
+  await loadAdminData();
 }
 
 async function logoutAdmin(){
