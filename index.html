@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -641,6 +640,26 @@ th{
 .section-head{display:flex;align-items:center;justify-content:space-between;gap:15px}
 .mini-total{font-size:16px;font-weight:900;color:var(--orange)}
 
+
+/* ===== Supabase admin modules ===== */
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin:15px 0 18px}
+.form-grid .full{grid-column:1/-1}
+.form-grid label{display:block;font-size:12px;font-weight:800;margin-bottom:7px}
+.form-grid input,.form-grid select{width:100%;box-sizing:border-box}
+.table-wrap{width:100%;overflow:auto;margin-top:14px}
+.table-wrap table{width:100%;border-collapse:collapse;min-width:760px}
+.table-wrap th,.table-wrap td{padding:12px 10px;text-align:left;border-bottom:1px solid rgba(0,0,0,.08);font-size:13px;vertical-align:middle}
+.table-wrap th{font-weight:900}
+.muted{color:var(--muted)}
+.green{color:#16a34a}
+.red{color:var(--red)}
+.btn-danger{background:#fee2e2;color:#b91c1c;border:1px solid #fecaca}
+.btn-danger:hover{filter:brightness(.97)}
+@media(max-width:700px){
+  .form-grid{grid-template-columns:1fr}
+  .form-grid .full{grid-column:auto}
+}
+
 </style>
 </head>
 
@@ -1217,6 +1236,164 @@ th{
   </section>
 
 
+
+  <!-- REVENUS -->
+  <section id="revenues" class="section">
+    <div class="section-head">
+      <div>
+        <h2>Revenus quotidiens</h2>
+        <p class="muted">Enregistrez vos revenus par date et gardez tout l’historique dans Supabase.</p>
+      </div>
+      <div class="mini-total" id="revenueGrandTotal">0 HTG</div>
+    </div>
+
+    <div class="card" style="margin-top:18px;">
+      <h3>Ajouter un revenu</h3>
+      <div class="form-grid">
+        <div>
+          <label>Date</label>
+          <input id="revenueDate" type="date">
+        </div>
+        <div>
+          <label>Montant (HTG)</label>
+          <input id="revenueAmount" type="number" min="0" step="0.01" placeholder="1000">
+        </div>
+        <div class="full">
+          <label>Note</label>
+          <input id="revenueNote" type="text" placeholder="Ex. ventes du jour">
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="addRevenue()">Enregistrer le revenu</button>
+    </div>
+
+    <div class="card" style="margin-top:18px;">
+      <div class="section-head">
+        <h3>Historique des revenus</h3>
+        <span class="muted" id="revenueCount">0 entrée</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th><th>Montant</th><th>Note</th><th>Enregistré le</th><th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="revenuesTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- NETFLIX -->
+  <section id="netflix" class="section">
+    <div class="section-head">
+      <div>
+        <h2>Abonnements Netflix</h2>
+        <p class="muted">Suivez les profils, durées et dates d’expiration.</p>
+      </div>
+      <div class="mini-total" id="netflixActiveCount">0 actif</div>
+    </div>
+
+    <div class="card" style="margin-top:18px;">
+      <h3>Ajouter un abonnement</h3>
+      <div class="form-grid">
+        <div>
+          <label>Nom du client</label>
+          <input id="nfCustomer" type="text" placeholder="Nom du client">
+        </div>
+        <div>
+          <label>Nom du profil</label>
+          <input id="nfProfile" type="text" placeholder="Profil Netflix">
+        </div>
+        <div>
+          <label>Date de début</label>
+          <input id="nfStart" type="date">
+        </div>
+        <div>
+          <label>Durée</label>
+          <input id="nfDuration" type="number" min="1" value="30">
+        </div>
+        <div>
+          <label>Unité</label>
+          <select id="nfUnit">
+            <option value="days">Jours</option>
+            <option value="weeks">Semaines</option>
+            <option value="months">Mois</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="addNetflixSubscription()">Enregistrer l’abonnement</button>
+    </div>
+
+    <div class="card" style="margin-top:18px;">
+      <div class="section-head">
+        <h3>Liste des abonnements</h3>
+        <span class="muted">Les expirations sont calculées automatiquement.</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Client</th><th>Profil</th><th>Début</th><th>Durée</th><th>Expiration</th><th>Statut</th><th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="netflixTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEBTS -->
+  <section id="debts" class="section">
+    <div class="section-head">
+      <div>
+        <h2>Personnes qui me doivent</h2>
+        <p class="muted">Enregistrez les dettes, numéros et notes, puis supprimez-les quand nécessaire.</p>
+      </div>
+      <div class="mini-total" id="debtGrandTotal">0 HTG</div>
+    </div>
+
+    <div class="card" style="margin-top:18px;">
+      <h3>Ajouter une dette</h3>
+      <div class="form-grid">
+        <div>
+          <label>Nom</label>
+          <input id="debtName" type="text" placeholder="Nom de la personne">
+        </div>
+        <div>
+          <label>Téléphone</label>
+          <input id="debtPhone" type="tel" placeholder="Numéro de téléphone">
+        </div>
+        <div>
+          <label>Montant dû (HTG)</label>
+          <input id="debtAmount" type="number" min="0" step="0.01" placeholder="2500">
+        </div>
+        <div>
+          <label>Note</label>
+          <input id="debtNote" type="text" placeholder="Ex. paiement vendredi">
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="addDebt()">Enregistrer la dette</button>
+    </div>
+
+    <div class="card" style="margin-top:18px;">
+      <div class="section-head">
+        <h3>Liste des dettes</h3>
+        <span class="muted" id="debtCount">0 personne</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Nom</th><th>Téléphone</th><th>Montant</th><th>Note</th><th>Créé le</th><th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="debtsTable"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
   <!-- REPORT -->
 
   <section
@@ -1538,6 +1715,15 @@ function showSection(id,button){
   if(id==="report"){
 
     renderReport();
+
+  }
+
+  if(id==="revenues" || id==="netflix" || id==="debts"){
+
+    loadAdminData().catch(err=>{
+      console.error(err);
+      showToast("Erreur de chargement : " + err.message);
+    });
 
   }
 
@@ -3435,47 +3621,63 @@ function renderAdminTables(){
   const rt=document.getElementById("revenuesTable");
   if(rt){
     rt.innerHTML=dailyRevenues.length ? dailyRevenues.map(x=>`
-      <tr><td>${escapeHtml(x.revenue_date)}</td>
-      <td><strong>${money(x.amount)}</strong></td>
-      <td>${escapeHtml(x.note||"—")}</td>
-      <td>${new Date(x.created_at).toLocaleString("fr-FR")}</td>
-      <td><button class="btn btn-danger" onclick="deleteRevenue('${x.id}')">Supprimer</button></td></tr>`).join("") :
+      <tr>
+        <td>${escapeHtml(x.revenue_date)}</td>
+        <td><strong>${money(x.amount)}</strong></td>
+        <td>${escapeHtml(x.note||"—")}</td>
+        <td>${x.created_at ? new Date(x.created_at).toLocaleString("fr-FR") : "—"}</td>
+        <td><button class="btn btn-danger" onclick="deleteRevenue('${x.id}')">Supprimer</button></td>
+      </tr>`).join("") :
       `<tr><td colspan="5" class="empty">Aucun revenu enregistré.</td></tr>`;
   }
+
+  const revenueTotal=dailyRevenues.reduce((sum,x)=>sum+Number(x.amount||0),0);
+  const revenueTotalEl=document.getElementById("revenueGrandTotal");
+  if(revenueTotalEl) revenueTotalEl.textContent=money(revenueTotal);
+  const revenueCountEl=document.getElementById("revenueCount");
+  if(revenueCountEl) revenueCountEl.textContent=`${dailyRevenues.length} entrée${dailyRevenues.length>1?"s":""}`;
 
   const nt=document.getElementById("netflixTable");
   if(nt){
     nt.innerHTML=netflixSubscriptions.length ? netflixSubscriptions.map(x=>{
-      const s=statusFor(x.expires_at);
+      const st=statusFor(x.expires_at);
       return `<tr>
         <td><strong>${escapeHtml(x.customer_name)}</strong></td>
         <td>${escapeHtml(x.profile_name)}</td>
         <td>${escapeHtml(x.start_date)}</td>
         <td>${x.duration_value} ${x.duration_unit==="months"?"mois":x.duration_unit==="weeks"?"sem.":"jours"}</td>
         <td>${escapeHtml(x.expires_at)}</td>
-        <td class="${s.cls}"><strong>${s.label}</strong></td>
+        <td class="${st.cls}"><strong>${st.label}</strong></td>
         <td><button class="btn btn-danger" onclick="deleteNetflix('${x.id}')">Supprimer</button></td>
       </tr>`;
-    }).join("") : `<tr><td colspan="7" class="empty">Aucun abonnement enregistré.</td></tr>`;
+    }).join("") :
+    `<tr><td colspan="7" class="empty">Aucun abonnement enregistré.</td></tr>`;
   }
+
+  const today=localDateString();
+  const activeNetflix=netflixSubscriptions.filter(x=>x.expires_at>=today).length;
+  const nfCountEl=document.getElementById("netflixActiveCount");
+  if(nfCountEl) nfCountEl.textContent=`${activeNetflix} actif${activeNetflix>1?"s":""}`;
 
   const dt=document.getElementById("debtsTable");
   if(dt){
     dt.innerHTML=debts.length ? debts.map(x=>`
-      <tr><td><strong>${escapeHtml(x.name)}</strong></td>
-      <td>${escapeHtml(x.phone)}</td>
-      <td><strong class="red">${money(x.amount)}</strong></td>
-      <td>${escapeHtml(x.note||"—")}</td>
-      <td><button class="btn btn-danger" onclick="deleteDebt('${x.id}')">Supprimer</button></td></tr>`).join("") :
-      `<tr><td colspan="5" class="empty">Aucune dette enregistrée.</td></tr>`;
+      <tr>
+        <td><strong>${escapeHtml(x.name)}</strong></td>
+        <td>${escapeHtml(x.phone)}</td>
+        <td><strong class="red">${money(x.amount)}</strong></td>
+        <td>${escapeHtml(x.note||"—")}</td>
+        <td>${x.created_at ? new Date(x.created_at).toLocaleString("fr-FR") : "—"}</td>
+        <td><button class="btn btn-danger" onclick="deleteDebt('${x.id}')">Supprimer</button></td>
+      </tr>`).join("") :
+    `<tr><td colspan="6" class="empty">Aucune dette enregistrée.</td></tr>`;
   }
 
-  const total=dailyRevenues.reduce((s,x)=>s+Number(x.amount||0),0);
-  const debtTotal=debts.reduce((s,x)=>s+Number(x.amount||0),0);
-  const active=netflixSubscriptions.filter(x=>x.expires_at>=localDateString()).length;
-  document.getElementById("revenueAllTotal").textContent=money(total);
-  document.getElementById("debtAllTotal").textContent=money(debtTotal);
-  document.getElementById("nfActiveTotal").textContent=`${active} actif${active>1?"s":""}`;
+  const debtTotal=debts.reduce((sum,x)=>sum+Number(x.amount||0),0);
+  const debtTotalEl=document.getElementById("debtGrandTotal");
+  if(debtTotalEl) debtTotalEl.textContent=money(debtTotal);
+  const debtCountEl=document.getElementById("debtCount");
+  if(debtCountEl) debtCountEl.textContent=`${debts.length} personne${debts.length>1?"s":""}`;
 }
 
 function updateStoredDashboard(){
@@ -3498,7 +3700,6 @@ async function initSupabaseApp(){
   const ok=await guardAdmin();
   if(!ok) return;
   try{
-    await loadAdminData();
     loadServices();
     loadData();
     renderServices();
@@ -3506,6 +3707,7 @@ async function initSupabaseApp(){
     renderHistory();
     renderAnalysis();
     renderReport();
+    await loadAdminData();
     updateStoredDashboard();
   }catch(err){
     console.error(err);
